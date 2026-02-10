@@ -28,6 +28,13 @@ const clients = [
   { name: "АН «Морозов»", desc: "Агентство по продаже недвижимости в Крыму" },
   { name: "РККР", desc: "Агентство кадастровых услуг в Крыму" },
   { name: "ООО «Агрокомплекс»", desc: "Продажа сельхоз техники и комплектующих" },
+  { name: "ООО «МАПП»", desc: "Академия по обучению психологии и психотерапии" },
+  { name: "ООО «Альфакар»", desc: "Аренда авто с правом выкупа" },
+  { name: "Технадзор", desc: "Технический надзор и экспертизы в Москве" },
+  { name: "АНО «Академия популярного искусства»", desc: "Онлайн-школа в сфере искусства" },
+  { name: "Пегас-Турист", desc: "Турагентство и онлайн-школа для турагентов" },
+  { name: "ООО «Автоконструктор»", desc: "Продажа авто из Кореи, Японии, Китая" },
+  { name: "ООО «Город Дорог»", desc: "Автошкола в Москве" },
 ];
 
 export const TestimonialsSection = () => {
@@ -88,7 +95,7 @@ export const TestimonialsSection = () => {
           </h3>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {clients.map((client, i) => (
             <motion.div
               key={client.name}
