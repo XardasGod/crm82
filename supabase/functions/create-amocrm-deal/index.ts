@@ -30,7 +30,9 @@ serve(async (req) => {
       });
     }
 
-    const baseUrl = `https://${AMOCRM_SUBDOMAIN}.amocrm.ru/api/v4`;
+    // Support both "crm82" and "crm82.amocrm.ru" formats
+    const domain = AMOCRM_SUBDOMAIN.includes('.') ? AMOCRM_SUBDOMAIN : `${AMOCRM_SUBDOMAIN}.amocrm.ru`;
+    const baseUrl = `https://${domain}/api/v4`;
     const headers = {
       'Authorization': `Bearer ${AMOCRM_ACCESS_TOKEN}`,
       'Content-Type': 'application/json',
