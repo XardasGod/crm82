@@ -64,6 +64,7 @@ serve(async (req) => {
     // 2. Create lead (deal)
     const leadBody: any[] = [{
       name: `Заявка с сайта: ${company || name}`,
+      status_id: 21249469,
       _embedded: {
         contacts: contactId ? [{ id: contactId }] : [],
       },
