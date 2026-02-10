@@ -38,28 +38,45 @@ serve(async (req) => {
       'Content-Type': 'application/json',
     };
 
-    // 1. Create contact
-    const contactRes = await fetch(`${baseUrl}/contacts`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify([{
-        name,
-        custom_fields_values: [
-          {
-            field_code: "PHONE",
-            values: [{ value: phone }],
-          },
-        ],
-      }]),
-    });
+    // 1. Search for existing contact by phone
+    let contactId: number | undefined;
 
-    const contactData = await contactRes.json();
-    if (!contactRes.ok) {
-      console.error('amoCRM contact error:', JSON.stringify(contactData));
-      throw new Error(`Contact creation failed [${contactRes.status}]`);
+    const searchParams = new URLSearchParams({ query: phone });
+    const searchRes = await fetch(`${baseUrl}/contacts?${searchParams}`, { headers });
+    
+    if (searchRes.ok) {
+      const searchData = await searchRes.json();
+      contactId = searchData?._embedded?.contacts?.[0]?.id;
+      if (contactId) {
+        console.log(`Found existing contact ${contactId} for phone ${phone}`);
+      }
     }
 
-    const contactId = contactData?._embedded?.contacts?.[0]?.id;
+    // 2. Create contact only if not found
+    if (!contactId) {
+      const contactRes = await fetch(`${baseUrl}/contacts`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify([{
+          name,
+          custom_fields_values: [
+            {
+              field_code: "PHONE",
+              values: [{ value: phone }],
+            },
+          ],
+        }]),
+      });
+
+      const contactData = await contactRes.json();
+      if (!contactRes.ok) {
+        console.error('amoCRM contact error:', JSON.stringify(contactData));
+        throw new Error(`Contact creation failed [${contactRes.status}]`);
+      }
+
+      contactId = contactData?._embedded?.contacts?.[0]?.id;
+      console.log(`Created new contact ${contactId}`);
+    }
 
     // 2. Create lead (deal)
     const leadBody: any[] = [{
