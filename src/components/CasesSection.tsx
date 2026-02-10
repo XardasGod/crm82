@@ -33,8 +33,17 @@ export const CasesSection = () => {
             >
               <Link
                 to={`/cases/${c.slug}`}
-                className="group block bg-card rounded-xl p-6 card-shadow hover:shadow-lg transition-all duration-300 h-full"
+                className="group block bg-card rounded-xl overflow-hidden card-shadow hover:shadow-lg transition-all duration-300 h-full"
               >
+                <div className="h-44 overflow-hidden">
+                  <img
+                    src={c.image}
+                    alt={c.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6">
                 <span className="inline-block bg-primary/10 text-primary text-xs font-semibold px-3 py-1 rounded-full mb-4">
                   {c.industry}
                 </span>
@@ -52,6 +61,7 @@ export const CasesSection = () => {
                   <span className="text-primary group-hover:translate-x-1 transition-transform">
                     <ArrowRight className="w-5 h-5" />
                   </span>
+                </div>
                 </div>
               </Link>
             </motion.div>

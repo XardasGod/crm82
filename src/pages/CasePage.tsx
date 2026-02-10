@@ -18,7 +18,19 @@ const CasePage = () => {
       <Header />
 
       {/* Hero */}
-      <section className="pt-28 pb-16 bg-gradient-to-b from-primary/10 to-background">
+      {/* Hero Image */}
+      <section className="pt-24 pb-0">
+        <div className="w-full h-64 md:h-80 overflow-hidden">
+          <img
+            src={caseData.image}
+            alt={caseData.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </section>
+
+      {/* Hero Content */}
+      <section className="py-12 bg-gradient-to-b from-primary/10 to-background">
         <div className="container mx-auto px-4">
           <Link
             to="/#cases"
