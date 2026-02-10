@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { ArrowLeft, CheckCircle2, AlertTriangle, Wrench, Trophy } from "lucide-react";
 import { caseStudies } from "@/data/cases";
@@ -15,6 +16,14 @@ const CasePage = () => {
 
   return (
     <main>
+      <Helmet>
+        <title>{`${caseData.subtitle} — ${caseData.title} | CRM82`}</title>
+        <meta name="description" content={`Кейс: ${caseData.subtitle}. ${caseData.result}. Клиент: ${caseData.title}, сфера: ${caseData.industry}.`} />
+        <meta property="og:title" content={`${caseData.subtitle} — ${caseData.title}`} />
+        <meta property="og:description" content={`${caseData.result}. Узнайте, как мы помогли компании ${caseData.title} в сфере «${caseData.industry}».`} />
+        <meta property="og:type" content="article" />
+        <link rel="canonical" href={`https://crm82.ru/cases/${caseData.slug}`} />
+      </Helmet>
       <Header />
 
       {/* Hero */}
