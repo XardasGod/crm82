@@ -1,5 +1,5 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { ArrowLeft, CheckCircle2, AlertTriangle, Wrench, Trophy } from "lucide-react";
 import { caseStudies } from "@/data/cases";
@@ -12,18 +12,28 @@ const CasePage = () => {
   const { slug } = useParams();
   const caseData = caseStudies.find((c) => c.slug === slug);
 
+  useEffect(() => {
+    if (!caseData) return;
+    document.title = `${caseData.subtitle} — ${caseData.title} | CRM82`;
+    const setMeta = (attr: string, key: string, content: string) => {
+      let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement;
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", content);
+    };
+    setMeta("name", "description", `Кейс: ${caseData.subtitle}. ${caseData.result}. Клиент: ${caseData.title}, сфера: ${caseData.industry}.`);
+    setMeta("property", "og:title", `${caseData.subtitle} — ${caseData.title}`);
+    setMeta("property", "og:description", `${caseData.result}. Узнайте, как мы помогли компании ${caseData.title} в сфере «${caseData.industry}».`);
+    setMeta("property", "og:type", "article");
+  }, [caseData]);
+
   if (!caseData) return <NotFound />;
 
   return (
     <main>
-      <Helmet>
-        <title>{`${caseData.subtitle} — ${caseData.title} | CRM82`}</title>
-        <meta name="description" content={`Кейс: ${caseData.subtitle}. ${caseData.result}. Клиент: ${caseData.title}, сфера: ${caseData.industry}.`} />
-        <meta property="og:title" content={`${caseData.subtitle} — ${caseData.title}`} />
-        <meta property="og:description" content={`${caseData.result}. Узнайте, как мы помогли компании ${caseData.title} в сфере «${caseData.industry}».`} />
-        <meta property="og:type" content="article" />
-        <link rel="canonical" href={`https://crm82.ru/cases/${caseData.slug}`} />
-      </Helmet>
       <Header />
 
       {/* Hero */}
