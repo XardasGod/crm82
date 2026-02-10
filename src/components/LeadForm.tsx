@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
 export const LeadForm = () => {
   const [formData, setFormData] = useState({ name: "", phone: "", email: "", company: "" });
+  const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -14,6 +17,10 @@ export const LeadForm = () => {
     const phone = formData.phone.trim();
     if (!name || !phone) {
       toast.error("Пожалуйста, заполните имя и телефон");
+      return;
+    }
+    if (!agreed) {
+      toast.error("Необходимо согласие с политикой конфиденциальности");
       return;
     }
     setLoading(true);
@@ -86,16 +93,27 @@ export const LeadForm = () => {
           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
           className="h-12 bg-muted border-0 text-foreground placeholder:text-muted-foreground"
         />
+        <div className="flex items-start gap-2">
+          <Checkbox
+            id="policy-agree"
+            checked={agreed}
+            onCheckedChange={(v) => setAgreed(v === true)}
+            className="mt-0.5"
+          />
+          <label htmlFor="policy-agree" className="text-xs text-muted-foreground leading-tight cursor-pointer">
+            Я соглашаюсь с{" "}
+            <Link to="/policy" target="_blank" className="text-primary underline hover:text-primary/80">
+              политикой конфиденциальности
+            </Link>
+          </label>
+        </div>
         <Button
           type="submit"
-          disabled={loading}
+          disabled={loading || !agreed}
           className="w-full h-12 text-base font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-all glow-primary"
         >
           {loading ? "Отправляем..." : "Получить аудит бесплатно"}
         </Button>
-        <p className="text-xs text-muted-foreground text-center">
-          Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
-        </p>
       </form>
     </div>
   );
