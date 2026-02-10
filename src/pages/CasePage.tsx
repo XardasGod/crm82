@@ -76,9 +76,17 @@ const CasePage = () => {
                 <span className="ml-4 text-sm">Срок реализации: {caseData.duration}</span>
               )}
             </p>
-            <div className="inline-flex items-center gap-2 bg-accent/20 text-accent-foreground px-5 py-3 rounded-xl">
-              <Trophy className="w-5 h-5 text-accent" />
-              <span className="font-bold text-lg">{caseData.result}</span>
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="inline-flex items-center gap-2 bg-accent/20 text-accent-foreground px-5 py-3 rounded-xl">
+                <Trophy className="w-5 h-5 text-accent" />
+                <span className="font-bold text-lg">{caseData.result}</span>
+              </div>
+              <button
+                onClick={() => document.getElementById("case-lead-form")?.scrollIntoView({ behavior: "smooth" })}
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-bold text-sm hover:bg-primary/90 transition-colors"
+              >
+                Оставить заявку
+              </button>
             </div>
           </motion.div>
         </div>
@@ -188,7 +196,7 @@ const CasePage = () => {
       </section>
 
       {/* CTA with Lead Form */}
-      <section className="py-20 bg-gradient-to-b from-primary/5 to-background">
+      <section id="case-lead-form" className="py-20 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 flex flex-col items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
