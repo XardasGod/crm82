@@ -1,9 +1,17 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
+
+const leadSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100, "Name too long"),
+  phone: z.string().trim().regex(/^\+?[0-9\s\-\(\)]+$/, "Invalid phone format").min(7, "Phone too short").max(20, "Phone too long"),
+  email: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().email("Invalid email").max(255).optional()),
+  company: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().max(200, "Company name too long").optional()),
+});
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -21,14 +29,17 @@ serve(async (req) => {
   }
 
   try {
-    const { name, phone, email, company } = await req.json();
+    const rawBody = await req.json();
+    const parseResult = leadSchema.safeParse(rawBody);
 
-    if (!name || !phone) {
-      return new Response(JSON.stringify({ error: 'Name and phone are required' }), {
+    if (!parseResult.success) {
+      return new Response(JSON.stringify({ error: 'Invalid input' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
+
+    const { name, phone, email, company } = parseResult.data;
 
     // Support both "crm82" and "crm82.amocrm.ru" formats
     const domain = AMOCRM_SUBDOMAIN.includes('.') ? AMOCRM_SUBDOMAIN : `${AMOCRM_SUBDOMAIN}.amocrm.ru`;
