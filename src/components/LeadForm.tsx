@@ -17,18 +17,37 @@ export const LeadForm = () => {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.from("leads").insert({
+
+    // Save to database
+    const { error: dbError } = await supabase.from("leads").insert({
       name,
       phone,
       company: formData.company.trim() || null,
     });
-    setLoading(false);
-    if (error) {
-      toast.error("Ошибка при отправке. Попробуйте ещё раз.");
-      return;
+
+    if (dbError) {
+      console.error("DB error:", dbError);
     }
-    toast.success("Заявка отправлена! Мы свяжемся с вами в течение 15 минут.");
+
+    // Create deal in amoCRM
+    try {
+      const { data, error } = await supabase.functions.invoke("create-amocrm-deal", {
+        body: { name, phone, company: formData.company.trim() || null },
+      });
+
+      if (error) {
+        console.error("amoCRM error:", error);
+        toast.error("Заявка сохранена, но ошибка при отправке в CRM. Мы свяжемся с вами.");
+      } else {
+        toast.success("Заявка отправлена! Мы свяжемся с вами в течение 15 минут.");
+      }
+    } catch (err) {
+      console.error("amoCRM call error:", err);
+      toast.success("Заявка сохранена! Мы свяжемся с вами в течение 15 минут.");
+    }
+
     setFormData({ name: "", phone: "", company: "" });
+    setLoading(false);
   };
 
   return (
