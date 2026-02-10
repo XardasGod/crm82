@@ -2,23 +2,33 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 export const LeadForm = () => {
   const [formData, setFormData] = useState({ name: "", phone: "", company: "" });
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.phone.trim()) {
+    const name = formData.name.trim();
+    const phone = formData.phone.trim();
+    if (!name || !phone) {
       toast.error("Пожалуйста, заполните имя и телефон");
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Заявка отправлена! Мы свяжемся с вами в течение 15 минут.");
-      setFormData({ name: "", phone: "", company: "" });
-    }, 1000);
+    const { error } = await supabase.from("leads").insert({
+      name,
+      phone,
+      company: formData.company.trim() || null,
+    });
+    setLoading(false);
+    if (error) {
+      toast.error("Ошибка при отправке. Попробуйте ещё раз.");
+      return;
+    }
+    toast.success("Заявка отправлена! Мы свяжемся с вами в течение 15 минут.");
+    setFormData({ name: "", phone: "", company: "" });
   };
 
   return (
