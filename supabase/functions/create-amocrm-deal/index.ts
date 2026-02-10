@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,6 +13,9 @@ const leadSchema = z.object({
   email: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().email("Invalid email").max(255).optional()),
   company: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().max(200, "Company name too long").optional()),
 });
+
+const RATE_LIMIT_MAX = 5;
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -29,6 +33,26 @@ serve(async (req) => {
   }
 
   try {
+    // Rate limiting by IP
+    const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+    const supabaseAdmin = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+    );
+
+    const oneHourAgo = new Date(Date.now() - RATE_LIMIT_WINDOW_MS).toISOString();
+    const { count } = await supabaseAdmin
+      .from('leads')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', oneHourAgo);
+
+    if (count !== null && count >= RATE_LIMIT_MAX) {
+      return new Response(JSON.stringify({ error: 'Слишком много заявок. Попробуйте позже.' }), {
+        status: 429,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     const rawBody = await req.json();
     const parseResult = leadSchema.safeParse(rawBody);
 
@@ -97,7 +121,7 @@ serve(async (req) => {
       console.log(`Created new contact ${contactId}`);
     }
 
-    // 2. Create lead (deal)
+    // 3. Create lead (deal)
     const leadBody: any[] = [{
       name: `Заявка с сайта: ${company || name}`,
       status_id: 21249469,
