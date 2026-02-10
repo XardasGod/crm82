@@ -1,8 +1,15 @@
+import caseUg1 from "@/assets/case-ug1.jpg";
+import caseImperial from "@/assets/case-imperialexpert.jpg";
+import caseRkkr from "@/assets/case-rkkr.jpg";
+import caseKonsalting from "@/assets/case-konsalting.jpg";
+import caseStrakhovaniye from "@/assets/case-strakhovaniye.jpg";
+
 export interface CaseStudy {
   slug: string;
   title: string;
   subtitle: string;
   industry: string;
+  image: string;
   result: string;
   resultPercent: number;
   duration?: string;
@@ -17,6 +24,7 @@ export const caseStudies: CaseStudy[] = [
     title: "ЖСК ЮГ-1",
     subtitle: "Внедрение amoCRM для застройщика",
     industry: "Строительство и недвижимость",
+    image: caseUg1,
     result: "Увеличили продажи на 20%",
     resultPercent: 20,
     problems: [
@@ -49,6 +57,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Империал Эксперт",
     subtitle: "amoCRM для центра экспертиз",
     industry: "Экспертизы и оценка",
+    image: caseImperial,
     result: "Сэкономили 30 минут на каждой сделке",
     resultPercent: 30,
     problems: [
@@ -79,6 +88,7 @@ export const caseStudies: CaseStudy[] = [
     title: "РККР",
     subtitle: "amoCRM для кадастровой компании",
     industry: "Кадастровые услуги",
+    image: caseRkkr,
     result: "Повысили продуктивность на 30%",
     resultPercent: 30,
     problems: [
@@ -107,6 +117,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Консалтинг",
     subtitle: "amoCRM для консалтинга и продажи вакансий",
     industry: "Консалтинг и HR",
+    image: caseKonsalting,
     result: "Увеличили продажи на 30%",
     resultPercent: 30,
     duration: "от 5 дней",
@@ -137,6 +148,7 @@ export const caseStudies: CaseStudy[] = [
     title: "Страхование ОСАГО/КАСКО",
     subtitle: "amoCRM для страховой компании",
     industry: "Страхование",
+    image: caseStrakhovaniye,
     result: "Увеличили продажи на 30%",
     resultPercent: 30,
     duration: "от 7 дней",
