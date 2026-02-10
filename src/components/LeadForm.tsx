@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
 export const LeadForm = () => {
-  const [formData, setFormData] = useState({ name: "", phone: "", company: "" });
+  const [formData, setFormData] = useState({ name: "", phone: "", email: "", company: "" });
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -22,6 +22,7 @@ export const LeadForm = () => {
     const { error: dbError } = await supabase.from("leads").insert({
       name,
       phone,
+      email: formData.email.trim() || null,
       company: formData.company.trim() || null,
     });
 
@@ -32,7 +33,7 @@ export const LeadForm = () => {
     // Create deal in amoCRM
     try {
       const { data, error } = await supabase.functions.invoke("create-amocrm-deal", {
-        body: { name, phone, company: formData.company.trim() || null },
+        body: { name, phone, email: formData.email.trim() || null, company: formData.company.trim() || null },
       });
 
       if (error) {
@@ -46,7 +47,7 @@ export const LeadForm = () => {
       toast.success("Заявка сохранена! Мы свяжемся с вами в течение 15 минут.");
     }
 
-    setFormData({ name: "", phone: "", company: "" });
+    setFormData({ name: "", phone: "", email: "", company: "" });
     setLoading(false);
   };
 
@@ -70,6 +71,13 @@ export const LeadForm = () => {
           type="tel"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          className="h-12 bg-muted border-0 text-foreground placeholder:text-muted-foreground"
+        />
+        <Input
+          placeholder="Email"
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           className="h-12 bg-muted border-0 text-foreground placeholder:text-muted-foreground"
         />
         <Input

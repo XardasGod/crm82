@@ -21,7 +21,7 @@ serve(async (req) => {
   }
 
   try {
-    const { name, phone, company } = await req.json();
+    const { name, phone, email, company } = await req.json();
 
     if (!name || !phone) {
       return new Response(JSON.stringify({ error: 'Name and phone are required' }), {
@@ -54,17 +54,25 @@ serve(async (req) => {
 
     // 2. Create contact only if not found
     if (!contactId) {
+      const customFields: any[] = [
+        {
+          field_code: "PHONE",
+          values: [{ value: phone }],
+        },
+      ];
+      if (email) {
+        customFields.push({
+          field_code: "EMAIL",
+          values: [{ value: email }],
+        });
+      }
+
       const contactRes = await fetch(`${baseUrl}/contacts`, {
         method: 'POST',
         headers,
         body: JSON.stringify([{
           name,
-          custom_fields_values: [
-            {
-              field_code: "PHONE",
-              values: [{ value: phone }],
-            },
-          ],
+          custom_fields_values: customFields,
         }]),
       });
 
