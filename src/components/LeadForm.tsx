@@ -4,6 +4,14 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const leadSchema = z.object({
+  name: z.string().trim().min(1, "Пожалуйста, введите имя").max(100, "Имя слишком длинное"),
+  phone: z.string().trim().regex(/^\+?[0-9\s\-\(\)]+$/, "Некорректный формат телефона").min(7, "Телефон слишком короткий").max(20, "Телефон слишком длинный"),
+  email: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().email("Некорректный email").max(255).optional()),
+  company: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().max(200, "Название компании слишком длинное").optional()),
+});
 
 export const LeadForm = () => {
   const [formData, setFormData] = useState({ name: "", phone: "", email: "", company: "" });
@@ -12,24 +20,26 @@ export const LeadForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const name = formData.name.trim();
-    const phone = formData.phone.trim();
-    if (!name || !phone) {
-      toast.error("Пожалуйста, заполните имя и телефон");
-      return;
-    }
     if (!agreed) {
       toast.error("Необходимо согласие с политикой конфиденциальности");
       return;
     }
+
+    const parseResult = leadSchema.safeParse(formData);
+    if (!parseResult.success) {
+      toast.error(parseResult.error.errors[0].message);
+      return;
+    }
+    const { name, phone, email, company } = parseResult.data;
+
     setLoading(true);
 
     // Save to database
     const { error: dbError } = await supabase.from("leads").insert({
       name,
       phone,
-      email: formData.email.trim() || null,
-      company: formData.company.trim() || null,
+      email: email || null,
+      company: company || null,
     });
 
     if (dbError) {
@@ -39,7 +49,7 @@ export const LeadForm = () => {
     // Create deal in amoCRM
     try {
       const { data, error } = await supabase.functions.invoke("create-amocrm-deal", {
-        body: { name, phone, email: formData.email.trim() || null, company: formData.company.trim() || null },
+        body: { name, phone, email: email || null, company: company || null },
       });
 
       if (error) {
