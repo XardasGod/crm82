@@ -4,7 +4,7 @@ export const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} CRM Solutions. Все права защищены.
+            © {new Date().getFullYear()} CRM82. Все права защищены.
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <a href="#benefits" className="hover:text-foreground transition-colors">Преимущества</a>

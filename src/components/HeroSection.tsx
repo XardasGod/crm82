@@ -19,7 +19,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.7 }}
           >
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary-foreground/80 text-sm font-medium mb-6 border border-primary/20">
-              Сертифицированный партнёр amoCRM
+              CRM82 — сертифицированный партнёр amoCRM
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary-foreground leading-tight mb-6">
               Внедрим <span className="text-gradient">amoCRM</span> и увеличим ваши продажи
