@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -102,9 +101,9 @@ export const LeadForm = () => {
           />
           <label htmlFor="policy-agree" className="text-xs text-muted-foreground leading-tight cursor-pointer">
             Я соглашаюсь с{" "}
-            <Link to="/policy" target="_blank" className="text-primary underline hover:text-primary/80">
+            <a href="/policy" target="_blank" rel="noopener noreferrer" className="text-primary underline hover:text-primary/80">
               политикой конфиденциальности
-            </Link>
+            </a>
           </label>
         </div>
         <Button
