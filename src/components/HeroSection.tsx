@@ -39,7 +39,7 @@ export const HeroSection = () => {
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-accent" />
-                <span>5 лет на рынке</span>
+                <span>На рынке с 2019 года</span>
               </div>
             </div>
 
