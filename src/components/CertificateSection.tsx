@@ -10,16 +10,19 @@ const certificates = [
     src: certificateAmo,
     alt: "Сертификат официального партнёра amoCRM — CRM82",
     title: "amoCRM",
+    rotation: "",
   },
   {
     src: certificateSipuni,
-    alt: "Сертификат партнёра Сипуни — CRM82",
-    title: "Сипуни",
+    alt: "Сертификат партнёра Sipuni — CRM82",
+    title: "Sipuni",
+    rotation: "rotate(-90deg) scale(0.75)",
   },
   {
     src: certificateWazzup,
     alt: "Сертификат партнёра Wazzup — CRM82",
     title: "Wazzup",
+    rotation: "rotate(180deg)",
   },
 ];
 
@@ -61,6 +64,7 @@ export const CertificateSection = () => {
                     src={cert.src}
                     alt={cert.alt}
                     className="w-full h-full object-contain p-2 transition-transform duration-300 group-hover:scale-[1.03]"
+                    style={cert.rotation ? { transform: cert.rotation } : undefined}
                   />
                 </div>
                 <span className="mt-3 text-sm font-medium text-muted-foreground text-center">
