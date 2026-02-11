@@ -3,46 +3,54 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
-import { CreditCard, Percent, Receipt, ArrowRight, CheckCircle2 } from "lucide-react";
+import { CreditCard, Percent, Receipt, ArrowRight, CheckCircle2, Wallet, SplitSquareHorizontal, Landmark, Banknote, Mail, Repeat, Building2, type LucideIcon } from "lucide-react";
 
-const paymentSystems = [
+const paymentSystems: { name: string; icon: LucideIcon; description: string; features: string[] }[] = [
   {
     name: "ЮKassa",
+    icon: Wallet,
     description: "Универсальная платёжная система для приёма онлайн-платежей картами, электронными кошельками и через СБП.",
     features: ["Карты РФ и зарубежные", "СБП", "Электронные кошельки"],
   },
   {
     name: "Долями",
+    icon: SplitSquareHorizontal,
     description: "Сервис оплаты частями от Тинькофф — клиент платит 25% сразу, остальное в 3 платежа без переплат.",
     features: ["Без переплаты для клиента", "4 равных платежа", "Моментальное подтверждение"],
   },
   {
     name: "Яндекс Сплит",
+    icon: SplitSquareHorizontal,
     description: "Оплата частями от Яндекса — разбивает покупку на 2–6 платежей без процентов для покупателя.",
     features: ["До 6 платежей", "Без процентов", "Яндекс экосистема"],
   },
   {
     name: "Сбербанк «В рассрочку»",
+    icon: Landmark,
     description: "Рассрочка от Сбербанка для ваших клиентов — оплата покупки частями через Сбербанк Онлайн.",
     features: ["Рассрочка до 12 месяцев", "Широкая аудитория", "Без переплаты"],
   },
   {
     name: "Подели",
+    icon: Banknote,
     description: "Сервис от Почта Банка — оплата покупки 4 равными платежами раз в 2 недели.",
     features: ["4 платежа", "Раз в 2 недели", "Без процентов"],
   },
   {
     name: "Продамус",
+    icon: Repeat,
     description: "Платёжная система для инфобизнеса с поддержкой рассрочек, подписок и рекуррентных платежей.",
     features: ["Подписки", "Рассрочки", "Рекуррентные платежи"],
   },
   {
     name: "Тинькофф",
+    icon: CreditCard,
     description: "Интернет-эквайринг и рассрочка от Тинькофф Банка с минимальными комиссиями.",
     features: ["Эквайринг", "Рассрочка", "Низкие комиссии"],
   },
   {
     name: "ОТП Банк",
+    icon: Building2,
     description: "Кредитование и рассрочка от ОТП Банка для увеличения среднего чека.",
     features: ["Рассрочка", "Кредит", "Высокое одобрение"],
   },
@@ -196,6 +204,9 @@ const PaymentsPage = () => {
                 transition={{ duration: 0.4, delay: i * 0.05 }}
                 className="bg-card rounded-xl p-5 card-shadow hover:shadow-lg transition-shadow"
               >
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                  <ps.icon className="w-5 h-5 text-primary" />
+                </div>
                 <h3 className="font-bold text-card-foreground mb-2">{ps.name}</h3>
                 <p className="text-muted-foreground text-xs leading-relaxed mb-3">{ps.description}</p>
                 <div className="flex flex-wrap gap-1.5">
