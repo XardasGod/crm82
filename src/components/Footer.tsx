@@ -1,6 +1,14 @@
+import { motion } from "framer-motion";
+
 export const Footer = () => {
   return (
-    <footer className="bg-foreground/[0.03] border-t border-border py-10 pb-24 md:pb-10">
+    <motion.footer
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className="bg-foreground/[0.03] border-t border-border py-10 pb-24 md:pb-10"
+    >
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-sm text-muted-foreground">
@@ -15,6 +23,6 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
