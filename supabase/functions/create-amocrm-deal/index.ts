@@ -73,33 +73,56 @@ serve(async (req) => {
       'Content-Type': 'application/json',
     };
 
-    // 1. Search for existing contact by phone
+    // 1. Search for existing contact by phone, then by email
     let contactId: number | undefined;
 
-    const searchParams = new URLSearchParams({ query: phone });
-    const searchRes = await fetch(`${baseUrl}/contacts?${searchParams}`, { headers });
-    
-    if (searchRes.ok) {
-      const searchData = await searchRes.json();
-      contactId = searchData?._embedded?.contacts?.[0]?.id;
-      if (contactId) {
-        console.log(`Found existing contact ${contactId} for phone ${phone}`);
+    // Search by phone
+    const phoneSearch = new URLSearchParams({ query: phone });
+    const phoneSearchRes = await fetch(`${baseUrl}/contacts?${phoneSearch}`, { headers });
+    if (phoneSearchRes.ok) {
+      const data = await phoneSearchRes.json();
+      contactId = data?._embedded?.contacts?.[0]?.id;
+      if (contactId) console.log(`Found existing contact ${contactId} by phone`);
+    }
+
+    // Search by email if not found by phone
+    if (!contactId && email) {
+      const emailSearch = new URLSearchParams({ query: email });
+      const emailSearchRes = await fetch(`${baseUrl}/contacts?${emailSearch}`, { headers });
+      if (emailSearchRes.ok) {
+        const data = await emailSearchRes.json();
+        contactId = data?._embedded?.contacts?.[0]?.id;
+        if (contactId) console.log(`Found existing contact ${contactId} by email`);
       }
     }
 
-    // 2. Create contact only if not found
-    if (!contactId) {
-      const customFields: any[] = [
-        {
-          field_code: "PHONE",
-          values: [{ value: phone }],
-        },
+    // 2. If contact found, update it with latest data; otherwise create new
+    if (contactId) {
+      const updateFields: any[] = [
+        { field_code: "PHONE", values: [{ value: phone }] },
       ];
       if (email) {
-        customFields.push({
-          field_code: "EMAIL",
-          values: [{ value: email }],
-        });
+        updateFields.push({ field_code: "EMAIL", values: [{ value: email }] });
+      }
+      const updateRes = await fetch(`${baseUrl}/contacts/${contactId}`, {
+        method: 'PATCH',
+        headers,
+        body: JSON.stringify({
+          name,
+          custom_fields_values: updateFields,
+        }),
+      });
+      if (!updateRes.ok) {
+        console.error('amoCRM contact update error:', await updateRes.text());
+      } else {
+        console.log(`Updated contact ${contactId}`);
+      }
+    } else {
+      const customFields: any[] = [
+        { field_code: "PHONE", values: [{ value: phone }] },
+      ];
+      if (email) {
+        customFields.push({ field_code: "EMAIL", values: [{ value: email }] });
       }
 
       const contactRes = await fetch(`${baseUrl}/contacts`, {
