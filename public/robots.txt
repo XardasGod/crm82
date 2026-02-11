@@ -13,4 +13,5 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://crm82.ru/sitemap.xml
+Sitemap: https://crm82.tech/sitemap.xml
+Host: crm82.tech
