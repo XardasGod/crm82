@@ -21,6 +21,8 @@ export const Footer = () => {
               <a href="#cases" className="hover:text-foreground transition-colors">Кейсы</a>
               <a href="#reviews" className="hover:text-foreground transition-colors">Отзывы</a>
               <a href="#faq" className="hover:text-foreground transition-colors">FAQ</a>
+              <a href="/payments" className="hover:text-foreground transition-colors">Платёжные системы</a>
+              <a href="/widgets" className="hover:text-foreground transition-colors">Виджеты amoCRM</a>
               <a href="/policy" className="hover:text-foreground transition-colors">Политика конфиденциальности</a>
             </div>
           </div>
