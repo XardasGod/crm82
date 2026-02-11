@@ -1,7 +1,13 @@
+import { useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
 const PolicyPage = () => {
+  useEffect(() => {
+    document.title = "Политика конфиденциальности | CRM82 — внедрение amoCRM";
+    const desc = document.querySelector('meta[name="description"]') as HTMLMetaElement;
+    if (desc) desc.content = "Политика обработки персональных данных CRM82. Внедрение и настройка amoCRM для бизнеса.";
+  }, []);
   return (
     <main>
       <Header />

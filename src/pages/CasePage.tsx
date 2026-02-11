@@ -14,7 +14,7 @@ const CasePage = () => {
 
   useEffect(() => {
     if (!caseData) return;
-    document.title = `${caseData.subtitle} — ${caseData.title} | CRM82`;
+    document.title = `${caseData.subtitle} — кейс внедрения amoCRM | CRM82`;
     const setMeta = (attr: string, key: string, content: string) => {
       let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement;
       if (!el) {
@@ -24,9 +24,9 @@ const CasePage = () => {
       }
       el.setAttribute("content", content);
     };
-    setMeta("name", "description", `Кейс: ${caseData.subtitle}. ${caseData.result}. Клиент: ${caseData.title}, сфера: ${caseData.industry}.`);
-    setMeta("property", "og:title", `${caseData.subtitle} — ${caseData.title}`);
-    setMeta("property", "og:description", `${caseData.result}. Узнайте, как мы помогли компании ${caseData.title} в сфере «${caseData.industry}».`);
+    setMeta("name", "description", `Кейс внедрения amoCRM: ${caseData.subtitle}. ${caseData.result}. Настройка CRM и автоматизация продаж для «${caseData.title}», сфера: ${caseData.industry}.`);
+    setMeta("property", "og:title", `${caseData.subtitle} — кейс внедрения amoCRM | CRM82`);
+    setMeta("property", "og:description", `${caseData.result}. Внедрение и настройка amoCRM для компании «${caseData.title}» в сфере «${caseData.industry}».`);
     setMeta("property", "og:type", "article");
   }, [caseData]);
 
