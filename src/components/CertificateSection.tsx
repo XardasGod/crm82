@@ -45,7 +45,7 @@ export const CertificateSection = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-start">
             {certificates.map((cert, index) => (
               <motion.div
                 key={cert.title}
@@ -56,12 +56,14 @@ export const CertificateSection = () => {
                 className="flex flex-col items-center cursor-pointer group"
                 onClick={() => setSelected(cert)}
               >
-                <img
-                  src={cert.src}
-                  alt={cert.alt}
-                  className="rounded-xl card-shadow w-full transition-transform duration-300 group-hover:scale-[1.03]"
-                />
-                <span className="mt-3 text-sm font-medium text-muted-foreground">
+                <div className="w-full aspect-[4/3] rounded-xl card-shadow overflow-hidden bg-white">
+                  <img
+                    src={cert.src}
+                    alt={cert.alt}
+                    className="w-full h-full object-contain p-2 transition-transform duration-300 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <span className="mt-3 text-sm font-medium text-muted-foreground text-center">
                   {cert.title}
                 </span>
               </motion.div>
