@@ -51,8 +51,11 @@ export const HeroSection = () => {
             >
               <img
                 src={heroCrm}
-                alt="Интерфейс CRM-системы с аналитикой продаж"
+                alt="Интерфейс amoCRM с воронкой продаж, аналитикой и автоматизацией для бизнеса"
                 className="rounded-xl border border-primary-foreground/10 shadow-2xl max-w-full"
+                loading="lazy"
+                width="600"
+                height="400"
               />
             </motion.div>
           </motion.div>

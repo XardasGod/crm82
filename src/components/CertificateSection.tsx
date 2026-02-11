@@ -61,6 +61,7 @@ export const CertificateSection = () => {
                     src={cert.src}
                     alt={cert.alt}
                     className="w-full h-full object-contain p-2 transition-transform duration-300 group-hover:scale-[1.03]"
+                    loading="lazy"
                   />
                 </div>
                 <span className="mt-3 text-sm font-medium text-muted-foreground text-center">
