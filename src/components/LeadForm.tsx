@@ -57,6 +57,14 @@ export const LeadForm = () => {
         toast.error("Заявка сохранена, но ошибка при отправке в CRM. Мы свяжемся с вами.");
       } else {
         toast.success("Заявка отправлена! Мы свяжемся с вами в течение 15 минут.");
+        // Yandex.Metrika goal
+        if (typeof window !== "undefined" && (window as any).ym) {
+          (window as any).ym(106777831, "reachGoal", "lead_form_submit");
+        }
+        // Google Analytics event
+        if (typeof window !== "undefined" && (window as any).gtag) {
+          (window as any).gtag("event", "generate_lead", { event_category: "form", event_label: "lead_form" });
+        }
       }
     } catch (err) {
       console.error("amoCRM call error:", err);
