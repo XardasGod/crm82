@@ -44,9 +44,9 @@ const CasePage = () => {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://crm82.ru/" },
-        { "@type": "ListItem", "position": 2, "name": "Кейсы", "item": "https://crm82.ru/#cases" },
-        { "@type": "ListItem", "position": 3, "name": caseData.title, "item": `https://crm82.ru/cases/${caseData.slug}` },
+        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://crm82.tech/" },
+        { "@type": "ListItem", "position": 2, "name": "Кейсы", "item": "https://crm82.tech/#cases" },
+        { "@type": "ListItem", "position": 3, "name": caseData.title, "item": `https://crm82.tech/cases/${caseData.slug}` },
       ],
     });
 
@@ -55,9 +55,9 @@ const CasePage = () => {
       "@type": "Article",
       "headline": `${caseData.subtitle} — кейс внедрения amoCRM`,
       "description": `${caseData.result}. Внедрение amoCRM для «${caseData.title}» в сфере «${caseData.industry}».`,
-      "author": { "@type": "Organization", "name": "CRM82", "url": "https://crm82.ru" },
-      "publisher": { "@type": "Organization", "name": "CRM82", "url": "https://crm82.ru" },
-      "mainEntityOfPage": `https://crm82.ru/cases/${caseData.slug}`,
+      "author": { "@type": "Organization", "name": "CRM82", "url": "https://crm82.tech" },
+      "publisher": { "@type": "Organization", "name": "CRM82", "url": "https://crm82.tech" },
+      "mainEntityOfPage": `https://crm82.tech/cases/${caseData.slug}`,
     });
 
     return () => {

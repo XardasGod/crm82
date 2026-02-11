@@ -8,6 +8,7 @@ import { CertificateSection } from "@/components/CertificateSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { FaqSection } from "@/components/FaqSection";
 import { CtaSection } from "@/components/CtaSection";
+import { SeoTextSection } from "@/components/SeoTextSection";
 import { Footer } from "@/components/Footer";
 
 const localBusinessSchema = {
@@ -15,7 +16,7 @@ const localBusinessSchema = {
   "@type": "LocalBusiness",
   "name": "CRM82",
   "description": "Профессиональное внедрение amoCRM: настройка воронок продаж, интеграции, автоматизация бизнес-процессов. Сертифицированный партнёр amoCRM.",
-  "url": "https://crm82.ru",
+  "url": "https://crm82.tech",
   "image": "https://crm82.lovable.app/og-image.png",
   "telephone": "+7 (999) 999-99-99",
   "address": {
@@ -96,6 +97,14 @@ const faqSchema = {
   ]
 };
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://crm82.tech/" },
+  ],
+};
+
 const Index = () => {
   useEffect(() => {
     const addJsonLd = (id: string, data: object) => {
@@ -109,9 +118,11 @@ const Index = () => {
     };
     addJsonLd("ld-local-business", localBusinessSchema);
     addJsonLd("ld-faq", faqSchema);
+    addJsonLd("ld-breadcrumb", breadcrumbSchema);
     return () => {
       document.getElementById("ld-local-business")?.remove();
       document.getElementById("ld-faq")?.remove();
+      document.getElementById("ld-breadcrumb")?.remove();
     };
   }, []);
 
@@ -126,6 +137,7 @@ const Index = () => {
       <TestimonialsSection />
       <FaqSection />
       <CtaSection />
+      <SeoTextSection />
       <Footer />
     </main>
   );
