@@ -12,6 +12,7 @@ const leadSchema = z.object({
   phone: z.string().trim().regex(/^\+?[0-9\s\-\(\)]+$/, "Invalid phone format").min(7, "Phone too short").max(20, "Phone too long"),
   email: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().email("Invalid email").max(255).optional()),
   company: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().max(200, "Company name too long").optional()),
+  source: z.string().trim().max(50).default("main"),
 });
 
 const RATE_LIMIT_MAX = 5;
@@ -63,7 +64,7 @@ serve(async (req) => {
       });
     }
 
-    const { name, phone, email, company } = parseResult.data;
+    const { name, phone, email, company, source } = parseResult.data;
 
     // Support both "crm82" and "crm82.amocrm.ru" formats
     const domain = AMOCRM_SUBDOMAIN.includes('.') ? AMOCRM_SUBDOMAIN : `${AMOCRM_SUBDOMAIN}.amocrm.ru`;
@@ -145,8 +146,15 @@ serve(async (req) => {
     }
 
     // 3. Create lead (deal)
+    const sourceLabels: Record<string, string> = {
+      main: "Главная",
+      payments: "Платёжные системы",
+      widgets: "Виджеты",
+    };
+    const sourceLabel = sourceLabels[source] || source;
+
     const leadBody: any[] = [{
-      name: `Заявка с сайта: ${company || name}`,
+      name: `Заявка с сайта (${sourceLabel}): ${company || name}`,
       status_id: 21249469,
       _embedded: {
         contacts: contactId ? [{ id: contactId }] : [],

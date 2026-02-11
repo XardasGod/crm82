@@ -13,7 +13,17 @@ const leadSchema = z.object({
   company: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().max(200, "Название компании слишком длинное").optional()),
 });
 
-export const LeadForm = () => {
+interface LeadFormProps {
+  title?: string;
+  subtitle?: string;
+  source?: string;
+}
+
+export const LeadForm = ({ 
+  title = "Получите бесплатный аудит", 
+  subtitle = "Разберём вашу воронку продаж и покажем точки роста",
+  source = "main"
+}: LeadFormProps) => {
   const [formData, setFormData] = useState({ name: "", phone: "", email: "", company: "" });
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -40,6 +50,7 @@ export const LeadForm = () => {
       phone,
       email: email || null,
       company: company || null,
+      source,
     });
 
     if (dbError) {
@@ -57,7 +68,7 @@ export const LeadForm = () => {
 
     try {
       const { data, error } = await supabase.functions.invoke("create-amocrm-deal", {
-        body: { name, phone, email: email || null, company: company || null },
+        body: { name, phone, email: email || null, company: company || null, source },
       });
 
       if (error) {
@@ -78,10 +89,10 @@ export const LeadForm = () => {
   return (
     <div className="bg-card rounded-2xl p-8 card-shadow w-full max-w-md">
       <h2 className="text-2xl font-bold text-card-foreground mb-2 font-display">
-        Получите бесплатный аудит
+        {title}
       </h2>
       <p className="text-muted-foreground text-sm mb-6">
-        Разберём вашу воронку продаж и покажем точки роста
+        {subtitle}
       </p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
