@@ -1,0 +1,303 @@
+import { useEffect } from "react";
+import { motion } from "framer-motion";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { LeadForm } from "@/components/LeadForm";
+import { Puzzle, ArrowRight, Play, Crown, Gift } from "lucide-react";
+
+interface Widget {
+  name: string;
+  description: string;
+  features: string[];
+  price: string;
+  installUrl: string;
+  videoUrl?: string;
+  free?: boolean;
+}
+
+const paidWidgets: Widget[] = [
+  {
+    name: "Распределение сделок",
+    description: "Распределяет сделки по менеджерам в процентном соотношении с учётом графика работы каждого менеджера.",
+    features: ["Процентное распределение", "График работы менеджеров", "Простые настройки", "14 дней бесплатно"],
+    price: "от 1 000 ₽/мес",
+    installUrl: "https://www.amocrm.ru/oauth?mode=popup&client_id=bcc479f1-fd01-4726-a160-7094bb2f5b6d&state=%7B%22redirect%22:%20true,%22widgetCode%22:%22amodistribution%22%7D",
+    videoUrl: "https://clck.ru/3LsoQW",
+  },
+  {
+    name: "Антидубль контактов",
+    description: "Работает 24/7 — сканирует всю базу и автоматически склеивает дубли контактов в фоновом режиме.",
+    features: ["Работает 24/7", "Склеивает дубли автоматически", "Сканирование всей базы", "14 дней бесплатно"],
+    price: "от 8 000 ₽ / 6 мес",
+    installUrl: "https://www.amocrm.ru/oauth?mode=popup&client_id=9591c71c-3516-4b42-96d7-37687f499b4e&state=%7B%22redirect%22:%20true,%22widgetCode%22:%22amodistribution%22%7D",
+    videoUrl: "https://clck.ru/3LsoRA",
+  },
+  {
+    name: "Цветные сделки",
+    description: "Присваивает сделке цветовую раскраску в воронке в зависимости от значений полей. Визуально упрощает группировку.",
+    features: ["Цвета по значениям полей", "Визуальная группировка", "14 дней бесплатно"],
+    price: "499 ₽/мес",
+    installUrl: "https://www.amocrm.ru/oauth?mode=popup&client_id=3011d1b0-65e8-4175-8a96-97cdd8e15fe9&state=%7B%22redirect%22:%20true,%22widgetCode%22:%22amodistribution%22%7D",
+    videoUrl: "https://clck.ru/3LsoRQ",
+  },
+  {
+    name: "Вебхук из карточки сделки",
+    description: "Добавляет неограниченное количество кнопок в сделку. При нажатии отправляет webhook на произвольный URL.",
+    features: ["Неограниченные кнопки", "Webhook на любой URL", "Интеграция с любыми системами", "14 дней бесплатно"],
+    price: "от 1 000 ₽/мес",
+    installUrl: "https://www.amocrm.ru/oauth?mode=popup&client_id=3011d1b0-65e8-4175-8a96-97cdd8e15fe9&state=%7B%22redirect%22:%20true,%22widgetCode%22:%22amodistribution%22%7D",
+    videoUrl: "https://clck.ru/3LsoRd",
+  },
+  {
+    name: "Скрытие полей",
+    description: "Гибкая настройка видимости полей для различных менеджеров и воронок. Управление доступом к конфиденциальным данным.",
+    features: ["Скрытие по менеджерам", "Скрытие по воронкам", "Безопасность данных", "Интуитивная настройка"],
+    price: "от 1 000 ₽/мес",
+    installUrl: "https://www.amocrm.ru/oauth?mode=popup&client_id=b4db99d6-9623-4026-8772-dae7ed76982a&state=%7B%22redirect%22:%20true,%22widgetCode%22:%22amodistribution%22%7D",
+    videoUrl: "https://clck.ru/3LsoS8",
+  },
+];
+
+const freeWidgets: Widget[] = [
+  {
+    name: "Написать в WhatsApp",
+    description: "При нажатии на телефон клиента появляется возможность перейти в диалог с ним в WhatsApp.",
+    features: ["Переход в WA в один клик"],
+    price: "Бесплатно",
+    installUrl: "https://www.amocrm.ru/oauth?mode=popup&client_id=b1c94ed5-5402-43fd-9ec9-549e0a387a46&state=%7B%22redirect%22:%20true,%22widgetCode%22:%22amodistribution%22%7D",
+    free: true,
+  },
+  {
+    name: "Кодировка полей",
+    description: "Возможность сделать любое поле в amoCRM кликабельным или цветным для удобной навигации.",
+    features: ["Кликабельные поля", "Цветовая кодировка"],
+    price: "Бесплатно",
+    installUrl: "https://www.amocrm.ru/oauth?mode=popup&client_id=a8fee3bc-f775-455c-b7ce-edaffa56bce7&state=%7B%22redirect%22:%20true,%22widgetCode%22:%22amodistribution%22%7D",
+    free: true,
+  },
+  {
+    name: "Время клиента",
+    description: "Проверяет номер телефона клиента и визуально отображает его текущее время — удобно для звонков в разные часовые пояса.",
+    features: ["Определение часового пояса", "Визуальное отображение"],
+    price: "Бесплатно",
+    installUrl: "https://www.amocrm.ru/oauth?mode=popup&client_id=5747b857-4cb4-4c49-8f57-84cd46d01889&state=%7B%22redirect%22:%20true,%22widgetCode%22:%22amodistribution%22%7D",
+    free: true,
+  },
+];
+
+const WidgetCard = ({ widget }: { widget: Widget }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.4 }}
+    className="bg-card rounded-xl p-6 card-shadow hover:shadow-lg transition-shadow flex flex-col h-full"
+  >
+    <div className="flex items-start justify-between mb-3">
+      <h3 className="font-bold text-card-foreground text-lg">{widget.name}</h3>
+      {widget.free ? (
+        <span className="inline-flex items-center gap-1 bg-accent/20 text-accent-foreground text-xs font-semibold px-2.5 py-1 rounded-full">
+          <Gift className="w-3 h-3" />
+          Free
+        </span>
+      ) : (
+        <span className="inline-flex items-center gap-1 bg-primary/10 text-primary text-xs font-semibold px-2.5 py-1 rounded-full">
+          <Crown className="w-3 h-3" />
+          PRO
+        </span>
+      )}
+    </div>
+    <p className="text-muted-foreground text-sm leading-relaxed mb-4">{widget.description}</p>
+    <ul className="space-y-1.5 mb-4 flex-1">
+      {widget.features.map((f) => (
+        <li key={f} className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+          {f}
+        </li>
+      ))}
+    </ul>
+    <div className="pt-3 border-t border-border">
+      <p className="font-bold text-foreground text-sm mb-3">{widget.price}</p>
+      <div className="flex gap-2">
+        <a
+          href={widget.installUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground px-4 py-2 rounded-lg text-xs font-semibold hover:bg-primary/90 transition-colors"
+        >
+          <Puzzle className="w-3.5 h-3.5" />
+          Установить
+        </a>
+        {widget.videoUrl && (
+          <a
+            href={widget.videoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 bg-muted text-foreground px-4 py-2 rounded-lg text-xs font-semibold hover:bg-muted/80 transition-colors"
+          >
+            <Play className="w-3.5 h-3.5" />
+            Видео
+          </a>
+        )}
+      </div>
+    </div>
+  </motion.div>
+);
+
+const WidgetsPage = () => {
+  useEffect(() => {
+    document.title = "Виджеты для amoCRM — автоматизация процессов | CRM82";
+    const setMeta = (attr: string, key: string, content: string) => {
+      let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement;
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", content);
+    };
+    setMeta("name", "description", "Виджеты для amoCRM от CRM82: распределение сделок, антидубль контактов, цветные сделки, скрытие полей. Платные и бесплатные решения.");
+    setMeta("property", "og:title", "Виджеты для amoCRM — автоматизация процессов | CRM82");
+    setMeta("property", "og:description", "Готовые виджеты для amoCRM: распределение сделок, антидубль, цветные сделки и другие. Бесплатный тестовый период 14 дней.");
+    setMeta("property", "og:type", "website");
+
+    const addJsonLd = (id: string, data: object) => {
+      const existing = document.getElementById(id);
+      if (existing) existing.remove();
+      const script = document.createElement("script");
+      script.id = id;
+      script.type = "application/ld+json";
+      script.textContent = JSON.stringify(data);
+      document.head.appendChild(script);
+    };
+
+    addJsonLd("ld-breadcrumb-widgets", {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Главная", item: "https://crm82.tech/" },
+        { "@type": "ListItem", position: 2, name: "Виджеты", item: "https://crm82.tech/widgets" },
+      ],
+    });
+
+    return () => {
+      document.getElementById("ld-breadcrumb-widgets")?.remove();
+    };
+  }, []);
+
+  return (
+    <main>
+      <Header />
+
+      {/* Hero */}
+      <section className="hero-gradient relative overflow-hidden pt-32 pb-20">
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)",
+          backgroundSize: "60px 60px"
+        }} />
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="max-w-3xl"
+          >
+            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary-foreground/80 text-sm font-medium mb-6 border border-primary/20">
+              Виджеты от CRM82
+            </span>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-primary-foreground leading-tight mb-6">
+              Виджеты для <span className="text-gradient">amoCRM</span>
+            </h1>
+            <p className="text-lg text-primary-foreground/70 mb-8 max-w-xl">
+              Автоматизируйте ваши процессы с нашими готовыми решениями. Платные и бесплатные виджеты с тестовым периодом.
+            </p>
+            <a
+              href="#paid-widgets"
+              className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-xl font-bold text-sm hover:bg-accent/90 transition-colors"
+            >
+              Выбрать виджет
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Paid Widgets */}
+      <section className="py-20 bg-background" id="paid-widgets">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4 font-display">
+              Платные виджеты
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Готовые решения, которые упростят вашу работу
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {paidWidgets.map((w) => (
+              <WidgetCard key={w.name} widget={w} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Free Widgets */}
+      <section className="py-20 bg-muted/30" id="free-widgets">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4 font-display">
+              Бесплатные виджеты
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Полезные инструменты без ограничений — устанавливайте бесплатно
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {freeWidgets.map((w) => (
+              <WidgetCard key={w.name} widget={w} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-gradient-to-b from-primary/5 to-background">
+        <div className="container mx-auto px-4 flex flex-col items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-4 font-display">
+              Нужна доработка виджета?
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Оставьте заявку — подберём решение или разработаем виджет под ваши задачи
+            </p>
+          </motion.div>
+          <LeadForm />
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  );
+};
+
+export default WidgetsPage;

@@ -7,6 +7,8 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import Index from "./pages/Index";
 import CasePage from "./pages/CasePage";
 import PolicyPage from "./pages/PolicyPage";
+import PaymentsPage from "./pages/PaymentsPage";
+import WidgetsPage from "./pages/WidgetsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +24,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/cases/:slug" element={<CasePage />} />
           <Route path="/policy" element={<PolicyPage />} />
+          <Route path="/payments" element={<PaymentsPage />} />
+          <Route path="/widgets" element={<WidgetsPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
