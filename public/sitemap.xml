@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://crm82.ru/</loc>
+    <loc>https://crm82.tech/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://crm82.ru/cases/ug1</loc>
+    <loc>https://crm82.tech/cases/ug1</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://crm82.ru/cases/imperialexpert</loc>
+    <loc>https://crm82.tech/cases/imperialexpert</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://crm82.ru/cases/rkkr</loc>
+    <loc>https://crm82.tech/cases/rkkr</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://crm82.ru/cases/konsalting</loc>
+    <loc>https://crm82.tech/cases/konsalting</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://crm82.ru/cases/strakhovaniye</loc>
+    <loc>https://crm82.tech/cases/strakhovaniye</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://crm82.ru/policy</loc>
+    <loc>https://crm82.tech/policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
