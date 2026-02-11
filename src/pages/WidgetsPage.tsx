@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
-import { Puzzle, ArrowRight, Play, Crown, Gift } from "lucide-react";
+import { Puzzle, ArrowRight, Play, Crown, Gift, Shuffle, Users, Palette, Webhook, EyeOff, MessageCircle, Code2, Clock, type LucideIcon } from "lucide-react";
 
 interface Widget {
   name: string;
+  icon: LucideIcon;
   description: string;
   features: string[];
   price: string;
@@ -18,6 +19,7 @@ interface Widget {
 const paidWidgets: Widget[] = [
   {
     name: "Распределение сделок",
+    icon: Shuffle,
     description: "Распределяет сделки по менеджерам в процентном соотношении с учётом графика работы каждого менеджера.",
     features: ["Процентное распределение", "График работы менеджеров", "Простые настройки", "14 дней бесплатно"],
     price: "от 1 000 ₽/мес",
@@ -26,6 +28,7 @@ const paidWidgets: Widget[] = [
   },
   {
     name: "Антидубль контактов",
+    icon: Users,
     description: "Работает 24/7 — сканирует всю базу и автоматически склеивает дубли контактов в фоновом режиме.",
     features: ["Работает 24/7", "Склеивает дубли автоматически", "Сканирование всей базы", "14 дней бесплатно"],
     price: "от 8 000 ₽ / 6 мес",
@@ -34,6 +37,7 @@ const paidWidgets: Widget[] = [
   },
   {
     name: "Цветные сделки",
+    icon: Palette,
     description: "Присваивает сделке цветовую раскраску в воронке в зависимости от значений полей. Визуально упрощает группировку.",
     features: ["Цвета по значениям полей", "Визуальная группировка", "14 дней бесплатно"],
     price: "499 ₽/мес",
@@ -42,6 +46,7 @@ const paidWidgets: Widget[] = [
   },
   {
     name: "Вебхук из карточки сделки",
+    icon: Webhook,
     description: "Добавляет неограниченное количество кнопок в сделку. При нажатии отправляет webhook на произвольный URL.",
     features: ["Неограниченные кнопки", "Webhook на любой URL", "Интеграция с любыми системами", "14 дней бесплатно"],
     price: "от 1 000 ₽/мес",
@@ -50,6 +55,7 @@ const paidWidgets: Widget[] = [
   },
   {
     name: "Скрытие полей",
+    icon: EyeOff,
     description: "Гибкая настройка видимости полей для различных менеджеров и воронок. Управление доступом к конфиденциальным данным.",
     features: ["Скрытие по менеджерам", "Скрытие по воронкам", "Безопасность данных", "Интуитивная настройка"],
     price: "от 1 000 ₽/мес",
@@ -61,6 +67,7 @@ const paidWidgets: Widget[] = [
 const freeWidgets: Widget[] = [
   {
     name: "Написать в WhatsApp",
+    icon: MessageCircle,
     description: "При нажатии на телефон клиента появляется возможность перейти в диалог с ним в WhatsApp.",
     features: ["Переход в WA в один клик"],
     price: "Бесплатно",
@@ -69,6 +76,7 @@ const freeWidgets: Widget[] = [
   },
   {
     name: "Кодировка полей",
+    icon: Code2,
     description: "Возможность сделать любое поле в amoCRM кликабельным или цветным для удобной навигации.",
     features: ["Кликабельные поля", "Цветовая кодировка"],
     price: "Бесплатно",
@@ -77,6 +85,7 @@ const freeWidgets: Widget[] = [
   },
   {
     name: "Время клиента",
+    icon: Clock,
     description: "Проверяет номер телефона клиента и визуально отображает его текущее время — удобно для звонков в разные часовые пояса.",
     features: ["Определение часового пояса", "Визуальное отображение"],
     price: "Бесплатно",
@@ -93,6 +102,9 @@ const WidgetCard = ({ widget }: { widget: Widget }) => (
     transition={{ duration: 0.4 }}
     className="bg-card rounded-xl p-6 card-shadow hover:shadow-lg transition-shadow flex flex-col h-full"
   >
+    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+      <widget.icon className="w-5 h-5 text-primary" />
+    </div>
     <div className="flex items-start justify-between mb-3">
       <h3 className="font-bold text-card-foreground text-lg">{widget.name}</h3>
       {widget.free ? (
