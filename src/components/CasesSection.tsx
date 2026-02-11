@@ -38,7 +38,7 @@ export const CasesSection = () => {
                 <div className="h-44 overflow-hidden">
                   <img
                     src={c.image}
-                    alt={c.title}
+                    alt={`Кейс внедрения amoCRM — ${c.title}, ${c.industry}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />

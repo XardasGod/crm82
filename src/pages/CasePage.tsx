@@ -28,6 +28,42 @@ const CasePage = () => {
     setMeta("property", "og:title", `${caseData.subtitle} — кейс внедрения amoCRM | CRM82`);
     setMeta("property", "og:description", `${caseData.result}. Внедрение и настройка amoCRM для компании «${caseData.title}» в сфере «${caseData.industry}».`);
     setMeta("property", "og:type", "article");
+
+    // JSON-LD: BreadcrumbList + Article
+    const addJsonLd = (id: string, data: object) => {
+      const existing = document.getElementById(id);
+      if (existing) existing.remove();
+      const script = document.createElement("script");
+      script.id = id;
+      script.type = "application/ld+json";
+      script.textContent = JSON.stringify(data);
+      document.head.appendChild(script);
+    };
+
+    addJsonLd("ld-breadcrumb", {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://crm82.ru/" },
+        { "@type": "ListItem", "position": 2, "name": "Кейсы", "item": "https://crm82.ru/#cases" },
+        { "@type": "ListItem", "position": 3, "name": caseData.title, "item": `https://crm82.ru/cases/${caseData.slug}` },
+      ],
+    });
+
+    addJsonLd("ld-article", {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": `${caseData.subtitle} — кейс внедрения amoCRM`,
+      "description": `${caseData.result}. Внедрение amoCRM для «${caseData.title}» в сфере «${caseData.industry}».`,
+      "author": { "@type": "Organization", "name": "CRM82", "url": "https://crm82.ru" },
+      "publisher": { "@type": "Organization", "name": "CRM82", "url": "https://crm82.ru" },
+      "mainEntityOfPage": `https://crm82.ru/cases/${caseData.slug}`,
+    });
+
+    return () => {
+      document.getElementById("ld-breadcrumb")?.remove();
+      document.getElementById("ld-article")?.remove();
+    };
   }, [caseData]);
 
   if (!caseData) return <NotFound />;
@@ -42,7 +78,7 @@ const CasePage = () => {
         <div className="w-full h-64 md:h-80 overflow-hidden">
           <img
             src={caseData.image}
-            alt={caseData.title}
+            alt={`Кейс внедрения amoCRM для ${caseData.title} — ${caseData.industry}`}
             className="w-full h-full object-cover"
           />
         </div>
