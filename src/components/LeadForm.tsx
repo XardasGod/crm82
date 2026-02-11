@@ -17,12 +17,14 @@ interface LeadFormProps {
   title?: string;
   subtitle?: string;
   source?: string;
+  buttonText?: string;
 }
 
 export const LeadForm = ({ 
   title = "Получите бесплатный аудит", 
   subtitle = "Разберём вашу воронку продаж и покажем точки роста",
-  source = "main"
+  source = "main",
+  buttonText = "Получить аудит бесплатно"
 }: LeadFormProps) => {
   const [formData, setFormData] = useState({ name: "", phone: "", email: "", company: "" });
   const [agreed, setAgreed] = useState(false);
@@ -140,7 +142,7 @@ export const LeadForm = ({
           disabled={loading || !agreed}
           className="w-full h-12 text-base font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-all glow-primary"
         >
-          {loading ? "Отправляем..." : "Получить аудит бесплатно"}
+          {loading ? "Отправляем..." : buttonText}
         </Button>
       </form>
     </div>
