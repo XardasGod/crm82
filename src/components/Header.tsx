@@ -39,9 +39,8 @@ export const Header = () => {
       }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
-        <a href="#" onClick={scrollToTop} className="flex items-center gap-2">
+        <a href="#" onClick={scrollToTop} className="flex items-center">
           <img src={logo} alt="CRM82 — внедрение и настройка amoCRM" className={`h-8 transition-all duration-300 ${scrolled ? "" : "brightness-0 invert"}`} />
-          <span className={`text-lg font-bold font-display transition-colors duration-300 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}>CRM82</span>
         </a>
 
         {/* Desktop nav */}
