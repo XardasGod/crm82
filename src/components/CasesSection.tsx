@@ -33,7 +33,7 @@ export const CasesSection = () => {
             >
               <Link
                 to={`/cases/${c.slug}`}
-                className="group block bg-card rounded-xl overflow-hidden card-shadow hover:shadow-lg transition-all duration-300 h-full"
+                className="group block bg-card rounded-xl overflow-hidden card-shadow hover:shadow-lg hover:scale-[1.03] transition-all duration-300 h-full"
               >
                 <div className="h-44 overflow-hidden">
                   <img
