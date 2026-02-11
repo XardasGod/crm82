@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
-import { CreditCard, Percent, Receipt, ArrowRight, CheckCircle2, Wallet, SplitSquareHorizontal, Landmark, Banknote, Mail, Repeat, Building2, type LucideIcon } from "lucide-react";
+import { CreditCard, Percent, Receipt, ArrowRight, CheckCircle2, Wallet, SplitSquareHorizontal, Landmark, Banknote, Mail, Repeat, Building2, ArrowLeft, type LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const paymentSystems: { name: string; icon: LucideIcon; description: string; features: string[] }[] = [
   {
@@ -132,6 +133,13 @@ const PaymentsPage = () => {
             transition={{ duration: 0.7 }}
             className="max-w-3xl"
           >
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 text-primary-foreground/60 hover:text-primary-foreground/90 text-sm font-medium transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Назад на главную
+            </Link>
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary-foreground/80 text-sm font-medium mb-6 border border-primary/20">
               Интеграции для GetCourse
             </span>
