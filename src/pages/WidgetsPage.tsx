@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
-import { Puzzle, ArrowRight, Play, Crown, Gift, Shuffle, Users, Palette, Webhook, EyeOff, MessageCircle, Code2, Clock, type LucideIcon } from "lucide-react";
+import { Puzzle, ArrowRight, Play, Crown, Gift, Shuffle, Users, Palette, Webhook, EyeOff, MessageCircle, Code2, Clock, ArrowLeft, type LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface Widget {
   name: string;
@@ -214,6 +215,13 @@ const WidgetsPage = () => {
             transition={{ duration: 0.7 }}
             className="max-w-3xl"
           >
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 text-primary-foreground/60 hover:text-primary-foreground/90 text-sm font-medium transition-colors mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Назад на главную
+            </Link>
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary-foreground/80 text-sm font-medium mb-6 border border-primary/20">
               Виджеты от CRM82
             </span>
