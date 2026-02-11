@@ -10,6 +10,8 @@ const navLinks = [
   { href: "#certificate", label: "Сертификат" },
   { href: "#reviews", label: "Отзывы" },
   { href: "#faq", label: "FAQ" },
+  { href: "/payments", label: "Платежи" },
+  { href: "/widgets", label: "Виджеты" },
 ];
 
 export const Header = () => {
