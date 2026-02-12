@@ -1,9 +1,9 @@
 import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, TrendingUp, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { caseStudies } from "@/data/cases";
 import { OptimizedImage } from "./OptimizedImage";
+import { InView } from "./InView";
 
 const VISIBLE_COUNT = 6;
 
@@ -18,29 +18,21 @@ export const CasesSection = () => {
   return (
     <section className="py-24 bg-muted/30" id="cases">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <InView animation="anim-hidden-up" className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4 font-display">
             Кейсы наших клиентов
           </h2>
           <p className="text-muted-foreground text-lg">
             Реальные результаты внедрения amoCRM в разных нишах
           </p>
-        </motion.div>
+        </InView>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {visibleCases.map((c, i) => (
-            <motion.div
+            <InView
               key={c.slug}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              animation="anim-hidden"
+              className={`anim-delay-${i + 1}`}
             >
               <Link
                 to={`/cases/${c.slug}`}
@@ -78,16 +70,12 @@ export const CasesSection = () => {
                 </div>
                 </div>
               </Link>
-            </motion.div>
+            </InView>
           ))}
         </div>
 
         {hasMore && !showAll && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center mt-10"
-          >
+          <div className="text-center mt-10">
             <button
               onClick={() => setShowAll(true)}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary/10 text-primary font-semibold hover:bg-primary/20 transition-colors"
@@ -95,7 +83,7 @@ export const CasesSection = () => {
               Показать все кейсы
               <ChevronDown className="w-4 h-4" />
             </button>
-          </motion.div>
+          </div>
         )}
       </div>
     </section>

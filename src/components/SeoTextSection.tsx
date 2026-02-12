@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 export const SeoTextSection = () => {
@@ -17,12 +16,7 @@ export const SeoTextSection = () => {
             <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${expanded ? "rotate-180" : ""}`} />
           </button>
 
-          <motion.div
-            initial={false}
-            animate={{ height: expanded ? "auto" : 0, opacity: expanded ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-          >
+          <div className={`anim-collapse ${expanded ? "anim-expanded" : ""}`}>
             <div className="pt-6 space-y-4 text-muted-foreground text-sm leading-relaxed">
               <h2 className="text-xl font-bold text-foreground font-display">
                 Внедрение amoCRM — профессиональная настройка CRM для вашего бизнеса
@@ -52,7 +46,7 @@ export const SeoTextSection = () => {
                 продаж и покажем точки роста.
               </p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

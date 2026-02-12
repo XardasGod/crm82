@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { TrendingUp, Zap, Users, BarChart3, PhoneCall, Settings } from "lucide-react";
+import { InView } from "./InView";
 
 const benefits = [
   {
@@ -34,58 +34,34 @@ const benefits = [
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
-
 export const BenefitsSection = () => {
   return (
     <section className="py-24 bg-background" id="benefits">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <InView animation="anim-hidden-up" className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4 font-display">
             Почему выбирают нас
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Комплексное внедрение amoCRM с гарантией результата
           </p>
-        </motion.div>
+        </InView>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {benefits.map((benefit) => (
-            <motion.div
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {benefits.map((benefit, i) => (
+            <InView
               key={benefit.title}
-              variants={itemVariants}
-              className="bg-card rounded-xl p-6 card-shadow hover:card-shadow-hover transition-shadow duration-300 group"
+              animation="anim-hidden"
+              className={`bg-card rounded-xl p-6 card-shadow hover:card-shadow-hover transition-shadow duration-300 group anim-delay-${i + 1}`}
             >
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                 <benefit.icon className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-lg font-bold text-card-foreground mb-2">{benefit.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">{benefit.description}</p>
-            </motion.div>
+            </InView>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

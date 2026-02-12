@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { InView } from "./InView";
 
 export const CtaSection = () => {
   const scrollToTop = () => {
@@ -13,12 +13,7 @@ export const CtaSection = () => {
         backgroundSize: "60px 60px"
       }} />
       <div className="container mx-auto px-4 relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <InView animation="anim-hidden-up">
           <h2 className="text-3xl md:text-4xl font-extrabold text-primary-foreground mb-4 font-display">
             Готовы увеличить продажи?
           </h2>
@@ -32,7 +27,7 @@ export const CtaSection = () => {
           >
             Оставить заявку
           </Button>
-        </motion.div>
+        </InView>
       </div>
     </section>
   );

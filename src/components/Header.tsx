@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -44,11 +43,8 @@ export const Header = () => {
   };
 
   return (
-    <motion.header
-      initial={{ y: -80 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 anim-header-enter ${
         scrolled
           ? "bg-background/80 backdrop-blur-lg border-b border-border shadow-sm"
           : "bg-transparent"
@@ -128,11 +124,7 @@ export const Header = () => {
 
        {/* Mobile menu */}
        {mobileOpen && (
-         <motion.div
-           initial={{ opacity: 0, y: -10 }}
-           animate={{ opacity: 1, y: 0 }}
-           className="md:hidden bg-background/95 backdrop-blur-lg border-b border-border"
-         >
+         <div className="md:hidden bg-background/95 backdrop-blur-lg border-b border-border anim-mobile-menu">
            <nav className="container mx-auto px-4 py-4 flex flex-col gap-3">
              {navLinks.map((link) => (
                <a
@@ -173,8 +165,8 @@ export const Header = () => {
                Оставить заявку
              </Button>
            </nav>
-         </motion.div>
+         </div>
        )}
-    </motion.header>
+    </header>
   );
 };

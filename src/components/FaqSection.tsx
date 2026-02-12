@@ -1,10 +1,10 @@
-import { motion } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { InView } from "./InView";
 
 const faqs = [
   {
@@ -33,24 +33,13 @@ export const FaqSection = () => {
   return (
     <section className="py-24 bg-muted/50" id="faq">
       <div className="container mx-auto px-4 max-w-3xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
+        <InView animation="anim-hidden-up" className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4 font-display">
             Частые вопросы
           </h2>
-        </motion.div>
+        </InView>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
+        <InView animation="anim-hidden-up" className="anim-delay-1">
           <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, i) => (
               <AccordionItem
@@ -67,7 +56,7 @@ export const FaqSection = () => {
               </AccordionItem>
             ))}
           </Accordion>
-        </motion.div>
+        </InView>
       </div>
     </section>
   );

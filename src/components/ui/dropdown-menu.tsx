@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { Check, ChevronRight, Circle } from "lucide-react";
-import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
@@ -23,7 +22,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
     inset?: boolean;
   }
 >(({ className, inset, children, ...props }, ref) => (
-  <motion.div whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
+  <div className="transition-transform duration-200 hover:translate-x-1">
     <DropdownMenuPrimitive.SubTrigger
       ref={ref}
       className={cn(
@@ -36,7 +35,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
       {children}
       <ChevronRight className="ml-auto h-4 w-4" />
     </DropdownMenuPrimitive.SubTrigger>
-  </motion.div>
+  </div>
 ));
 DropdownMenuSubTrigger.displayName = DropdownMenuPrimitive.SubTrigger.displayName;
 
@@ -79,7 +78,7 @@ const DropdownMenuItem = React.forwardRef<
     inset?: boolean;
   }
 >(({ className, inset, ...props }, ref) => (
-  <motion.div whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
+  <div className="transition-transform duration-200 hover:translate-x-1">
     <DropdownMenuPrimitive.Item
       ref={ref}
       className={cn(
@@ -89,7 +88,7 @@ const DropdownMenuItem = React.forwardRef<
       )}
       {...props}
     />
-  </motion.div>
+  </div>
 ));
 DropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName;
 
