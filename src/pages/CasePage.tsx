@@ -7,6 +7,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { OptimizedImage } from "@/components/OptimizedImage";
+import { CaseNavigation } from "@/components/CaseNavigation";
 import NotFound from "./NotFound";
 
 const CasePage = () => {
@@ -256,6 +257,9 @@ const CasePage = () => {
           <LeadForm />
         </div>
       </section>
+
+      {/* Case Navigation */}
+      <CaseNavigation currentSlug={slug} allCases={caseStudies} />
 
       <Footer />
     </main>
