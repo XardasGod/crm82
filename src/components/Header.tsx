@@ -12,8 +12,11 @@ const navLinks = [
   { href: "#certificate", label: "Сертификат" },
   { href: "#reviews", label: "Отзывы" },
   { href: "#faq", label: "FAQ" },
-  { href: "/payments", label: "Интеграция платежных систем" },
-  { href: "/widgets", label: "Виджеты для amoCRM" },
+  { href: "/setup-amocrm", label: "Настройка amoCRM" },
+  { href: "/telephony", label: "Телефония" },
+  { href: "/automation", label: "Автоматизация" },
+  { href: "/payments", label: "Платёжные системы" },
+  { href: "/widgets", label: "Виджеты amoCRM" },
 ];
 
 export const Header = () => {
