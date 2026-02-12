@@ -13,6 +13,7 @@ const leadSchema = z.object({
   email: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().email("Invalid email").max(255).optional()),
   company: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().max(200, "Company name too long").optional()),
   source: z.string().trim().max(50).default("main"),
+  website: z.string().max(0, "Bot detected").optional(), // honeypot field
 });
 
 const RATE_LIMIT_MAX = 5;
@@ -58,6 +59,14 @@ serve(async (req) => {
     const parseResult = leadSchema.safeParse(rawBody);
 
     if (!parseResult.success) {
+      // If honeypot was filled, silently return success to not tip off bots
+      const honeypotError = parseResult.error.errors.find(e => e.path.includes('website'));
+      if (honeypotError) {
+        return new Response(JSON.stringify({ success: true }), {
+          status: 200,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
       return new Response(JSON.stringify({ error: 'Invalid input' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
