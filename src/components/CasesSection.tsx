@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { caseStudies } from "@/data/cases";
 import { OptimizedImage } from "./OptimizedImage";
 
+const VISIBLE_COUNT = 6;
+
 export const CasesSection = () => {
+  const visibleCases = caseStudies.slice(0, VISIBLE_COUNT);
+
   return (
     <section className="py-24 bg-muted/30" id="cases">
       <div className="container mx-auto px-4">
@@ -24,7 +28,7 @@ export const CasesSection = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {caseStudies.map((c, i) => (
+          {visibleCases.map((c, i) => (
             <motion.div
               key={c.slug}
               initial={{ opacity: 0, y: 24 }}
