@@ -6,6 +6,7 @@ import { caseStudies } from "@/data/cases";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
+import { OptimizedImage } from "@/components/OptimizedImage";
 import NotFound from "./NotFound";
 
 const CasePage = () => {
@@ -76,8 +77,9 @@ const CasePage = () => {
       {/* Hero Image */}
       <section className="pt-24 pb-0">
         <div className="w-full h-64 md:h-80 overflow-hidden">
-          <img
+          <OptimizedImage
             src={caseData.image}
+            webpSrc={caseData.imageWebp}
             alt={`Кейс внедрения amoCRM для ${caseData.title} — ${caseData.industry}`}
             className="w-full h-full object-cover"
           />

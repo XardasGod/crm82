@@ -2,29 +2,43 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import certificateAmo from "@/assets/certificate-amocrm.jpg";
+import certificateAmoWebp from "@/assets/certificate-amocrm.jpg?format=webp";
 import certificateSipuni from "@/assets/certificate-sipuni-fixed.jpg";
+import certificateSipuniWebp from "@/assets/certificate-sipuni-fixed.jpg?format=webp";
 import certificateWazzup from "@/assets/certificate-wazzup-fixed.jpg";
+import certificateWazzupWebp from "@/assets/certificate-wazzup-fixed.jpg?format=webp";
+import { OptimizedImage } from "./OptimizedImage";
 
-const certificates = [
+interface Certificate {
+  src: string;
+  webpSrc: string;
+  alt: string;
+  title: string;
+}
+
+const certificates: Certificate[] = [
   {
     src: certificateAmo,
+    webpSrc: certificateAmoWebp,
     alt: "Сертификат официального партнёра amoCRM — CRM82",
     title: "amoCRM",
   },
   {
     src: certificateSipuni,
+    webpSrc: certificateSipuniWebp,
     alt: "Сертификат партнёра Sipuni — CRM82",
     title: "Sipuni",
   },
   {
     src: certificateWazzup,
+    webpSrc: certificateWazzupWebp,
     alt: "Сертификат партнёра Wazzup — CRM82",
     title: "Wazzup",
   },
 ];
 
 export const CertificateSection = () => {
-  const [selected, setSelected] = useState<typeof certificates[number] | null>(null);
+  const [selected, setSelected] = useState<Certificate | null>(null);
 
   return (
     <>
@@ -57,8 +71,9 @@ export const CertificateSection = () => {
                 onClick={() => setSelected(cert)}
               >
                 <div className="w-full aspect-[4/3] rounded-xl card-shadow overflow-hidden bg-white">
-                  <img
+                  <OptimizedImage
                     src={cert.src}
+                    webpSrc={cert.webpSrc}
                     alt={cert.alt}
                     className="w-full h-full object-contain p-2 transition-transform duration-300 group-hover:scale-[1.03]"
                     loading="lazy"
@@ -97,8 +112,9 @@ export const CertificateSection = () => {
               >
                 <X className="h-5 w-5 text-foreground" />
               </button>
-              <img
+              <OptimizedImage
                 src={selected.src}
+                webpSrc={selected.webpSrc}
                 alt={selected.alt}
                 className="w-full rounded-xl card-shadow"
               />

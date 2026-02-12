@@ -1,8 +1,13 @@
 import caseUg1 from "@/assets/case-ug1.jpg";
+import caseUg1Webp from "@/assets/case-ug1.jpg?format=webp";
 import caseImperial from "@/assets/case-imperialexpert.jpg";
+import caseImperialWebp from "@/assets/case-imperialexpert.jpg?format=webp";
 import caseRkkr from "@/assets/case-rkkr.jpg";
+import caseRkkrWebp from "@/assets/case-rkkr.jpg?format=webp";
 import caseKonsalting from "@/assets/case-konsalting.jpg";
+import caseKonsaltingWebp from "@/assets/case-konsalting.jpg?format=webp";
 import caseStrakhovaniye from "@/assets/case-strakhovaniye.jpg";
+import caseStrakhovaniyeWebp from "@/assets/case-strakhovaniye.jpg?format=webp";
 
 export interface CaseStudy {
   slug: string;
@@ -10,6 +15,7 @@ export interface CaseStudy {
   subtitle: string;
   industry: string;
   image: string;
+  imageWebp: string;
   result: string;
   resultPercent: number;
   duration?: string;
@@ -25,6 +31,7 @@ export const caseStudies: CaseStudy[] = [
     subtitle: "Внедрение amoCRM для застройщика",
     industry: "Строительство и недвижимость",
     image: caseUg1,
+    imageWebp: caseUg1Webp,
     result: "Увеличили продажи на 20%",
     resultPercent: 20,
     problems: [
@@ -58,6 +65,7 @@ export const caseStudies: CaseStudy[] = [
     subtitle: "amoCRM для центра экспертиз",
     industry: "Экспертизы и оценка",
     image: caseImperial,
+    imageWebp: caseImperialWebp,
     result: "Сэкономили 30 минут на каждой сделке",
     resultPercent: 30,
     problems: [
@@ -89,6 +97,7 @@ export const caseStudies: CaseStudy[] = [
     subtitle: "amoCRM для кадастровой компании",
     industry: "Кадастровые услуги",
     image: caseRkkr,
+    imageWebp: caseRkkrWebp,
     result: "Повысили продуктивность на 30%",
     resultPercent: 30,
     problems: [
@@ -118,6 +127,7 @@ export const caseStudies: CaseStudy[] = [
     subtitle: "amoCRM для консалтинга и продажи вакансий",
     industry: "Консалтинг и HR",
     image: caseKonsalting,
+    imageWebp: caseKonsaltingWebp,
     result: "Увеличили продажи на 30%",
     resultPercent: 30,
     duration: "от 5 дней",
@@ -149,6 +159,7 @@ export const caseStudies: CaseStudy[] = [
     subtitle: "amoCRM для страховой компании",
     industry: "Страхование",
     image: caseStrakhovaniye,
+    imageWebp: caseStrakhovaniyeWebp,
     result: "Увеличили продажи на 30%",
     resultPercent: 30,
     duration: "от 7 дней",
