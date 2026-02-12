@@ -89,7 +89,7 @@ export const LeadForm = ({
   };
 
   return (
-    <div className="bg-card rounded-2xl p-8 card-shadow w-full max-w-md">
+    <div id="lead-form" className="bg-card rounded-2xl p-8 card-shadow w-full max-w-md">
       <h2 className="text-2xl font-bold text-card-foreground mb-2 font-display">
         {title}
       </h2>

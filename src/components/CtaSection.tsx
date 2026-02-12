@@ -2,8 +2,13 @@ import { Button } from "@/components/ui/button";
 import { InView } from "./InView";
 
 export const CtaSection = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollToForm = () => {
+    const form = document.getElementById("lead-form");
+    if (form) {
+      form.scrollIntoView({ behavior: "smooth", block: "center" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (
@@ -21,7 +26,7 @@ export const CtaSection = () => {
             Оставьте заявку прямо сейчас и получите бесплатный аудит вашего отдела продаж
           </p>
           <Button
-            onClick={scrollToTop}
+            onClick={scrollToForm}
             size="lg"
             className="h-14 px-10 text-base font-semibold bg-accent text-accent-foreground hover:bg-accent/90 transition-all rounded-xl"
           >
