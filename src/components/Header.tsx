@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import logo from "@/assets/logo-crm82.png";
 import logoWebp from "@/assets/logo-crm82.png?format=webp";
 import { OptimizedImage } from "./OptimizedImage";
@@ -12,6 +18,9 @@ const navLinks = [
   { href: "#certificate", label: "Сертификат" },
   { href: "#reviews", label: "Отзывы" },
   { href: "#faq", label: "FAQ" },
+];
+
+const serviceLinks = [
   { href: "/setup-amocrm", label: "Настройка amoCRM" },
   { href: "/telephony", label: "Телефония" },
   { href: "/automation", label: "Автоматизация" },
@@ -65,6 +74,35 @@ export const Header = () => {
               {link.label}
             </a>
           ))}
+          
+          {/* Services Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                className={`text-sm font-medium transition-colors flex items-center gap-1 ${
+                  scrolled
+                    ? "text-foreground/70 hover:text-foreground"
+                    : "text-primary-foreground/70 hover:text-primary-foreground"
+                }`}
+              >
+                Услуги
+                <ChevronDown className="w-4 h-4" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56 bg-background border border-border">
+              {serviceLinks.map((link) => (
+                <DropdownMenuItem key={link.href} asChild>
+                  <a
+                    href={link.href}
+                    className="text-sm text-foreground/70 hover:text-foreground cursor-pointer px-2 py-1.5 w-full"
+                  >
+                    {link.label}
+                  </a>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          
           <Button
             onClick={scrollToTop}
             size="sm"
@@ -88,34 +126,55 @@ export const Header = () => {
         </button>
       </div>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="md:hidden bg-background/95 backdrop-blur-lg border-b border-border"
-        >
-          <nav className="container mx-auto px-4 py-4 flex flex-col gap-3">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="text-sm font-medium text-foreground/70 hover:text-foreground py-2"
-              >
-                {link.label}
-              </a>
-            ))}
-            <Button
-              onClick={scrollToTop}
-              size="sm"
-              className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-lg mt-2"
-            >
-              Оставить заявку
-            </Button>
-          </nav>
-        </motion.div>
-      )}
+       {/* Mobile menu */}
+       {mobileOpen && (
+         <motion.div
+           initial={{ opacity: 0, y: -10 }}
+           animate={{ opacity: 1, y: 0 }}
+           className="md:hidden bg-background/95 backdrop-blur-lg border-b border-border"
+         >
+           <nav className="container mx-auto px-4 py-4 flex flex-col gap-3">
+             {navLinks.map((link) => (
+               <a
+                 key={link.href}
+                 href={link.href}
+                 onClick={() => setMobileOpen(false)}
+                 className="text-sm font-medium text-foreground/70 hover:text-foreground py-2"
+               >
+                 {link.label}
+               </a>
+             ))}
+             
+             {/* Mobile Services Menu */}
+             <details className="text-sm font-medium text-foreground/70 hover:text-foreground py-2 cursor-pointer">
+               <summary className="flex items-center gap-2">
+                 Услуги
+                 <ChevronDown className="w-4 h-4" />
+               </summary>
+               <div className="flex flex-col gap-2 mt-2 ml-4 pl-2 border-l border-border">
+                 {serviceLinks.map((link) => (
+                   <a
+                     key={link.href}
+                     href={link.href}
+                     onClick={() => setMobileOpen(false)}
+                     className="text-sm text-foreground/70 hover:text-foreground py-1"
+                   >
+                     {link.label}
+                   </a>
+                 ))}
+               </div>
+             </details>
+             
+             <Button
+               onClick={scrollToTop}
+               size="sm"
+               className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-lg mt-2"
+             >
+               Оставить заявку
+             </Button>
+           </nav>
+         </motion.div>
+       )}
     </motion.header>
   );
 };
