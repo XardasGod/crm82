@@ -29,6 +29,7 @@ export const LeadForm = ({
   const [formData, setFormData] = useState({ name: "", phone: "", email: "", company: "" });
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,7 +71,7 @@ export const LeadForm = ({
 
     try {
       const { data, error } = await supabase.functions.invoke("create-amocrm-deal", {
-        body: { name, phone, email: email || null, company: company || null, source },
+        body: { name, phone, email: email || null, company: company || null, source, website: honeypot },
       });
 
       if (error) {
@@ -123,6 +124,17 @@ export const LeadForm = ({
           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
           className="h-12 bg-muted border-0 text-foreground placeholder:text-muted-foreground"
         />
+        {/* Honeypot field - hidden from real users, bots will fill it */}
+        <div className="absolute opacity-0 -z-10 h-0 overflow-hidden" aria-hidden="true" tabIndex={-1}>
+          <Input
+            placeholder="Website"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            name="website"
+          />
+        </div>
         <div className="flex items-start gap-2">
           <Checkbox
             id="policy-agree"
