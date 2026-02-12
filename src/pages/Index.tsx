@@ -17,8 +17,8 @@ const localBusinessSchema = {
   "name": "CRM82",
   "description": "Профессиональное внедрение amoCRM: настройка воронок продаж, интеграции, автоматизация бизнес-процессов. Сертифицированный партнёр amoCRM.",
   "url": "https://crm82.tech",
-  "image": "https://crm82.lovable.app/og-image.png",
-  "telephone": "+7 (999) 999-99-99",
+  "image": "https://crm82.tech/og-image.png",
+  "telephone": "+7 (969) 777-36-72",
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "RU"
