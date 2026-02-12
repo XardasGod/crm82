@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { ArrowRight, TrendingUp } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, TrendingUp, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { caseStudies } from "@/data/cases";
 import { OptimizedImage } from "./OptimizedImage";
@@ -7,7 +8,9 @@ import { OptimizedImage } from "./OptimizedImage";
 const VISIBLE_COUNT = 6;
 
 export const CasesSection = () => {
-  const visibleCases = caseStudies.slice(0, VISIBLE_COUNT);
+  const [showAll, setShowAll] = useState(false);
+  const visibleCases = showAll ? caseStudies : caseStudies.slice(0, VISIBLE_COUNT);
+  const hasMore = caseStudies.length > VISIBLE_COUNT;
 
   return (
     <section className="py-24 bg-muted/30" id="cases">
@@ -75,6 +78,22 @@ export const CasesSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {hasMore && !showAll && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center mt-10"
+          >
+            <button
+              onClick={() => setShowAll(true)}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary/10 text-primary font-semibold hover:bg-primary/20 transition-colors"
+            >
+              Показать все кейсы
+              <ChevronDown className="w-4 h-4" />
+            </button>
+          </motion.div>
+        )}
       </div>
     </section>
   );
