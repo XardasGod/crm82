@@ -25,6 +25,7 @@ const serviceLinks = [
   { href: "/automation", label: "Автоматизация" },
   { href: "/payments", label: "Платёжные системы" },
   { href: "/widgets", label: "Виджеты amoCRM" },
+  { href: "/speech-analytics", label: "Речевая аналитика" },
 ];
 
 export const Header = () => {
