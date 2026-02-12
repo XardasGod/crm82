@@ -56,7 +56,7 @@ export const LeadForm = ({
     });
 
     if (dbError) {
-      console.error("DB error:", dbError);
+      if (import.meta.env.DEV) console.error("DB error:", dbError);
     }
 
     // Create deal in amoCRM
@@ -74,13 +74,13 @@ export const LeadForm = ({
       });
 
       if (error) {
-        console.error("amoCRM error:", error);
+        if (import.meta.env.DEV) console.error("amoCRM error:", error);
         toast.error("Заявка сохранена, но ошибка при отправке в CRM. Мы свяжемся с вами.");
       } else {
         toast.success("Заявка отправлена! Мы свяжемся с вами в течение 15 минут.");
       }
     } catch (err) {
-      console.error("amoCRM call error:", err);
+      if (import.meta.env.DEV) console.error("amoCRM call error:", err);
       toast.success("Заявка сохранена! Мы свяжемся с вами в течение 15 минут.");
     }
 
