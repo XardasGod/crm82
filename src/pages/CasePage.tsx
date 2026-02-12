@@ -8,6 +8,14 @@ import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { CaseNavigation } from "@/components/CaseNavigation";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbSeparator,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb";
 import NotFound from "./NotFound";
 
 const CasePage = () => {
@@ -75,8 +83,29 @@ const CasePage = () => {
       <Header />
 
       {/* Hero */}
+      {/* Breadcrumbs */}
+      <section className="pt-24 pb-12">
+        <div className="container mx-auto px-4">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Главная</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/#cases">Кейсы</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{caseData.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+      </section>
+
       {/* Hero Image */}
-      <section className="pt-24 pb-0">
+      <section className="pb-0">
         <div className="w-full h-64 md:h-80 overflow-hidden">
           <OptimizedImage
             src={caseData.image}
