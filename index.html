@@ -3,9 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Manrope:wght@700;800&display=swap" as="style" />
     <link rel="preconnect" href="https://mc.yandex.ru" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
     <link rel="preconnect" href="https://gso.amocrm.ru" crossorigin />
+    <style>
+      /* Critical CSS for above-the-fold content */
+      :root {
+        --background: 220 25% 97%;
+        --foreground: 220 30% 12%;
+        --primary: 217 91% 50%;
+        --primary-foreground: 0 0% 100%;
+        --card: 0 0% 100%;
+        --card-foreground: 220 30% 12%;
+        --border: 220 15% 90%;
+        --radius: 0.75rem;
+        --hero-gradient: linear-gradient(135deg, hsl(220 30% 8%), hsl(217 50% 15%));
+        --card-shadow: 0 4px 24px -4px hsl(220 30% 12% / 0.08);
+        --glow-primary: 0 0 40px hsl(217 91% 50% / 0.3);
+      }
+      html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+      }
+      body {
+        background: hsl(var(--background));
+        color: hsl(var(--foreground));
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      h1, h2, h3 {
+        font-family: 'Manrope', sans-serif;
+      }
+      * {
+        border-color: hsl(var(--border));
+      }
+    </style>
     <title>Внедрение amoCRM — настройка CRM и автоматизация продаж | CRM82</title>
     <meta name="description" content="Внедрение и настройка amoCRM под ключ: автоматизация продаж, воронки, интеграции с телефонией и мессенджерами. Рост продаж от 20%. Сертифицированный партнёр amoCRM." />
     <meta name="author" content="CRM82" />
