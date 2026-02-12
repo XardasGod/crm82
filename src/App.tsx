@@ -14,6 +14,7 @@ const WidgetsPage = lazy(() => import("./pages/WidgetsPage"));
 const SetupAmocrmPage = lazy(() => import("./pages/SetupAmocrmPage"));
 const TelephonyPage = lazy(() => import("./pages/TelephonyPage"));
 const AutomationPage = lazy(() => import("./pages/AutomationPage"));
+const SpeechAnalyticsPage = lazy(() => import("./pages/SpeechAnalyticsPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/setup-amocrm" element={<SetupAmocrmPage />} />
             <Route path="/telephony" element={<TelephonyPage />} />
             <Route path="/automation" element={<AutomationPage />} />
+            <Route path="/speech-analytics" element={<SpeechAnalyticsPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
