@@ -44,7 +44,7 @@ export const Header = () => {
     >
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
         <a href="#" onClick={scrollToTop} className="flex items-center">
-          <OptimizedImage src={logo} webpSrc={logoWebp} alt="CRM82 — внедрение и настройка amoCRM" className={`h-8 transition-all duration-300 ${scrolled ? "" : "brightness-0 invert"}`} />
+          <OptimizedImage src={logo} webpSrc={logoWebp} alt="CRM82 — внедрение и настройка amoCRM" className={`h-8 transition-all duration-300 ${scrolled ? "" : "brightness-0 invert"}`} width={120} height={40} loading="eager" />
         </a>
 
         {/* Desktop nav */}

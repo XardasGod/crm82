@@ -82,6 +82,9 @@ const CasePage = () => {
             webpSrc={caseData.imageWebp}
             alt={`Кейс внедрения amoCRM для ${caseData.title} — ${caseData.industry}`}
             className="w-full h-full object-cover"
+            width={1200}
+            height={600}
+            loading="eager"
           />
         </div>
       </section>

@@ -27,6 +27,7 @@ export const OptimizedImage = ({
         width={width}
         height={height}
         loading={loading}
+        decoding="async"
       />
     </picture>
   );

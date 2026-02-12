@@ -77,6 +77,8 @@ export const CertificateSection = () => {
                     alt={cert.alt}
                     className="w-full h-full object-contain p-2 transition-transform duration-300 group-hover:scale-[1.03]"
                     loading="lazy"
+                    width={400}
+                    height={300}
                   />
                 </div>
                 <span className="mt-3 text-sm font-medium text-muted-foreground text-center">
@@ -117,6 +119,8 @@ export const CertificateSection = () => {
                 webpSrc={selected.webpSrc}
                 alt={selected.alt}
                 className="w-full rounded-xl card-shadow"
+                width={800}
+                height={600}
               />
             </motion.div>
           </motion.div>
