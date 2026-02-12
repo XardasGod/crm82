@@ -83,6 +83,24 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/106777831" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script>(function(a,m,o,c,r,m){a[m]={id:"30805",hash:"8642155bd5faa2c28393e702492b34c160a2445ecfa82d467e417efb8fc8390f",locale:"ru",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));</script>
+    <script>
+      (function(){
+        var loaded=false;
+        function loadAmoChat(){
+          if(loaded)return;loaded=true;
+          (function(a,m,o,c,r,m){a[m]={id:"30805",hash:"8642155bd5faa2c28393e702492b34c160a2445ecfa82d467e417efb8fc8390f",locale:"ru",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));
+        }
+        setTimeout(loadAmoChat,20000);
+        var observer=new IntersectionObserver(function(entries){
+          entries.forEach(function(e){if(e.isIntersecting){loadAmoChat();observer.disconnect();}});
+        },{threshold:0.1});
+        function observe(){
+          var el=document.getElementById('cases');
+          if(el){observer.observe(el);}
+          else{setTimeout(observe,500);}
+        }
+        observe();
+      })();
+    </script>
   </body>
 </html>
