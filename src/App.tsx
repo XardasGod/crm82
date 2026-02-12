@@ -9,6 +9,9 @@ import CasePage from "./pages/CasePage";
 import PolicyPage from "./pages/PolicyPage";
 import PaymentsPage from "./pages/PaymentsPage";
 import WidgetsPage from "./pages/WidgetsPage";
+import SetupAmocrmPage from "./pages/SetupAmocrmPage";
+import TelephonyPage from "./pages/TelephonyPage";
+import AutomationPage from "./pages/AutomationPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +29,9 @@ const App = () => (
           <Route path="/policy" element={<PolicyPage />} />
           <Route path="/payments" element={<PaymentsPage />} />
           <Route path="/widgets" element={<WidgetsPage />} />
+          <Route path="/setup-amocrm" element={<SetupAmocrmPage />} />
+          <Route path="/telephony" element={<TelephonyPage />} />
+          <Route path="/automation" element={<AutomationPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
