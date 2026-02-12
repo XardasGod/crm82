@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import heroCrm from "@/assets/hero-crm.jpg";
 import heroCrmWebp from "@/assets/hero-crm.jpg?format=webp";
 import { LeadForm } from "./LeadForm";
@@ -15,11 +14,7 @@ export const HeroSection = () => {
       
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
+          <div className="anim-hero-enter">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary-foreground/80 text-sm font-medium mb-6 border border-primary/20">
               Сертифицированный партнёр amoCRM
             </span>
@@ -45,12 +40,7 @@ export const HeroSection = () => {
               </div>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="mt-10"
-            >
+            <div className="mt-10 anim-hero-fade">
               <OptimizedImage
                 src={heroCrm}
                 webpSrc={heroCrmWebp}
@@ -60,17 +50,12 @@ export const HeroSection = () => {
                 width={600}
                 height={400}
               />
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="flex justify-center lg:justify-end"
-          >
+          <div className="flex justify-center lg:justify-end anim-hero-enter-right">
             <LeadForm />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

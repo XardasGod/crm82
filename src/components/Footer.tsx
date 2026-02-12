@@ -1,15 +1,9 @@
-import { motion } from "framer-motion";
 import { Send, Phone } from "lucide-react";
+import { InView } from "./InView";
 
 export const Footer = () => {
   return (
-    <motion.footer
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      className="bg-foreground/[0.03] border-t border-border py-10 pb-24 md:pb-10"
-    >
+    <InView as="footer" animation="anim-hidden-up" className="bg-foreground/[0.03] border-t border-border py-10 pb-24 md:pb-10">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Navigation */}
@@ -67,6 +61,6 @@ export const Footer = () => {
           © {new Date().getFullYear()} CRM82. Все права защищены.
         </div>
       </div>
-    </motion.footer>
+    </InView>
   );
 };

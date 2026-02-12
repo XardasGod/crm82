@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { Link } from "react-router-dom";
+import { InView } from "@/components/InView";
 import {
   ArrowLeft, ArrowRight, CheckCircle2, Phone, Headphones, PhoneCall,
   BarChart3, Globe, Voicemail, Shield, Zap,
@@ -78,7 +78,7 @@ const TelephonyPage = () => {
           backgroundSize: "60px 60px"
         }} />
         <div className="container mx-auto px-4 relative z-10">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="max-w-3xl">
+          <div className="max-w-3xl anim-hero-enter">
             <Link to="/" className="inline-flex items-center gap-2 text-primary-foreground/60 hover:text-primary-foreground/90 text-sm font-medium transition-colors mb-6">
               <ArrowLeft className="w-4 h-4" /> Назад на главную
             </Link>
@@ -94,7 +94,7 @@ const TelephonyPage = () => {
             <a href="#telephony-form" className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-xl font-bold text-sm hover:bg-accent/90 transition-colors">
               Оставить заявку <ArrowRight className="w-4 h-4" />
             </a>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -102,13 +102,13 @@ const TelephonyPage = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-6">
             {benefits.map((b, i) => (
-              <motion.div key={b.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }} className="bg-card rounded-xl p-6 card-shadow">
+              <InView key={b.title} animation="anim-hidden" className={`bg-card rounded-xl p-6 card-shadow anim-delay-${i + 1}`}>
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <b.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-lg font-bold text-card-foreground mb-2">{b.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{b.description}</p>
-              </motion.div>
+              </InView>
             ))}
           </div>
         </div>
@@ -116,13 +116,13 @@ const TelephonyPage = () => {
 
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-center mb-12">
+          <InView animation="anim-hidden-up" className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4 font-display">Какую телефонию интегрируем</h2>
             <p className="text-muted-foreground text-lg">Работаем со всеми популярными провайдерами IP-телефонии</p>
-          </motion.div>
+          </InView>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {providers.map((p, i) => (
-              <motion.div key={p.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.05 }} className="bg-card rounded-xl p-5 card-shadow hover:shadow-lg transition-shadow">
+              <InView key={p.name} animation="anim-hidden" className={`bg-card rounded-xl p-5 card-shadow hover:shadow-lg transition-shadow anim-delay-${Math.min(i + 1, 6)}`}>
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
                   <p.icon className="w-5 h-5 text-primary" />
                 </div>
@@ -135,7 +135,7 @@ const TelephonyPage = () => {
                     </span>
                   ))}
                 </div>
-              </motion.div>
+              </InView>
             ))}
           </div>
         </div>
@@ -143,10 +143,10 @@ const TelephonyPage = () => {
 
       <section id="telephony-form" className="py-20 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 flex flex-col items-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-center mb-10">
+          <InView animation="anim-hidden-up" className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-4 font-display">Подключить телефонию</h2>
             <p className="text-muted-foreground text-lg">Оставьте заявку — подберём оптимальное решение для вашей телефонии</p>
-          </motion.div>
+          </InView>
           <LeadForm title="Нужна интеграция телефонии?" subtitle="Оставьте заявку — подберём провайдера и настроим" source="telephony" buttonText="Оставить заявку" />
         </div>
       </section>
