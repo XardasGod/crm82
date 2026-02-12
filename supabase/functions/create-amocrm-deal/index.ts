@@ -89,20 +89,26 @@ serve(async (req) => {
     // Search by phone
     const phoneSearch = new URLSearchParams({ query: phone });
     const phoneSearchRes = await fetch(`${baseUrl}/contacts?${phoneSearch}`, { headers });
-    if (phoneSearchRes.ok) {
-      const data = await phoneSearchRes.json();
-      contactId = data?._embedded?.contacts?.[0]?.id;
-      if (contactId) console.log(`Found existing contact ${contactId} by phone`);
+    if (phoneSearchRes.ok && phoneSearchRes.status !== 204) {
+      const text = await phoneSearchRes.text();
+      if (text) {
+        const data = JSON.parse(text);
+        contactId = data?._embedded?.contacts?.[0]?.id;
+        if (contactId) console.log(`Found existing contact ${contactId} by phone`);
+      }
     }
 
     // Search by email if not found by phone
     if (!contactId && email) {
       const emailSearch = new URLSearchParams({ query: email });
       const emailSearchRes = await fetch(`${baseUrl}/contacts?${emailSearch}`, { headers });
-      if (emailSearchRes.ok) {
-        const data = await emailSearchRes.json();
-        contactId = data?._embedded?.contacts?.[0]?.id;
-        if (contactId) console.log(`Found existing contact ${contactId} by email`);
+      if (emailSearchRes.ok && emailSearchRes.status !== 204) {
+        const text = await emailSearchRes.text();
+        if (text) {
+          const data = JSON.parse(text);
+          contactId = data?._embedded?.contacts?.[0]?.id;
+          if (contactId) console.log(`Found existing contact ${contactId} by email`);
+        }
       }
     }
 
@@ -144,9 +150,10 @@ serve(async (req) => {
         }]),
       });
 
-      const contactData = await contactRes.json();
+      const contactText = await contactRes.text();
+      const contactData = contactText ? JSON.parse(contactText) : null;
       if (!contactRes.ok) {
-        console.error('amoCRM contact error:', JSON.stringify(contactData));
+        console.error('amoCRM contact error:', contactText);
         throw new Error(`Contact creation failed [${contactRes.status}]`);
       }
 
@@ -176,9 +183,10 @@ serve(async (req) => {
       body: JSON.stringify(leadBody),
     });
 
-    const leadData = await leadRes.json();
+    const leadText = await leadRes.text();
+    const leadData = leadText ? JSON.parse(leadText) : null;
     if (!leadRes.ok) {
-      console.error('amoCRM lead error:', JSON.stringify(leadData));
+      console.error('amoCRM lead error:', leadText);
       throw new Error(`Lead creation failed [${leadRes.status}]`);
     }
 
