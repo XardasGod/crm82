@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, TrendingUp, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -9,7 +9,10 @@ const VISIBLE_COUNT = 6;
 
 export const CasesSection = () => {
   const [showAll, setShowAll] = useState(false);
-  const visibleCases = showAll ? caseStudies : caseStudies.slice(0, VISIBLE_COUNT);
+  const visibleCases = useMemo(
+    () => (showAll ? caseStudies : caseStudies.slice(0, VISIBLE_COUNT)),
+    [showAll]
+  );
   const hasMore = caseStudies.length > VISIBLE_COUNT;
 
   return (
