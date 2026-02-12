@@ -1,6 +1,9 @@
 User-agent: Googlebot
 Allow: /
 
+User-agent: YandexBot
+Allow: /
+
 User-agent: Bingbot
 Allow: /
 
