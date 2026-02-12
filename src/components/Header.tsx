@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo-crm82.png";
+import logoWebp from "@/assets/logo-crm82.png?format=webp";
+import { OptimizedImage } from "./OptimizedImage";
 
 const navLinks = [
   { href: "#benefits", label: "Преимущества" },
@@ -42,7 +44,7 @@ export const Header = () => {
     >
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
         <a href="#" onClick={scrollToTop} className="flex items-center">
-          <img src={logo} alt="CRM82 — внедрение и настройка amoCRM" className={`h-8 transition-all duration-300 ${scrolled ? "" : "brightness-0 invert"}`} />
+          <OptimizedImage src={logo} webpSrc={logoWebp} alt="CRM82 — внедрение и настройка amoCRM" className={`h-8 transition-all duration-300 ${scrolled ? "" : "brightness-0 invert"}`} />
         </a>
 
         {/* Desktop nav */}

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import { caseStudies } from "@/data/cases";
+import { OptimizedImage } from "./OptimizedImage";
 
 export const CasesSection = () => {
   return (
@@ -36,8 +37,9 @@ export const CasesSection = () => {
                 className="group block bg-card rounded-xl overflow-hidden card-shadow hover:shadow-lg hover:scale-[1.03] transition-all duration-300 h-full"
               >
                 <div className="h-44 overflow-hidden">
-                  <img
+                  <OptimizedImage
                     src={c.image}
+                    webpSrc={c.imageWebp}
                     alt={`Кейс внедрения amoCRM — ${c.title}, ${c.industry}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"

@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import heroCrm from "@/assets/hero-crm.jpg";
+import heroCrmWebp from "@/assets/hero-crm.jpg?format=webp";
 import { LeadForm } from "./LeadForm";
+import { OptimizedImage } from "./OptimizedImage";
 
 export const HeroSection = () => {
   return (
@@ -49,13 +51,14 @@ export const HeroSection = () => {
               transition={{ delay: 0.5, duration: 0.6 }}
               className="mt-10"
             >
-              <img
+              <OptimizedImage
                 src={heroCrm}
+                webpSrc={heroCrmWebp}
                 alt="Интерфейс amoCRM с воронкой продаж, аналитикой и автоматизацией для бизнеса"
                 className="rounded-xl border border-primary-foreground/10 shadow-2xl max-w-full"
                 loading="lazy"
-                width="600"
-                height="400"
+                width={600}
+                height={400}
               />
             </motion.div>
           </motion.div>
