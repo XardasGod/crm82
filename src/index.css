@@ -242,6 +242,25 @@
     to { opacity: 1; transform: scale(1); }
   }
 
+  /* Fix amoCRM widget intercepting scroll events */
+  #amo_social_button,
+  .amo_social_button_holder {
+    pointer-events: none;
+  }
+  #amo_social_button > *,
+  .amo_social_button_holder > * {
+    pointer-events: auto;
+  }
+  /* Prevent amoCRM iframe overlay from blocking scroll */
+  iframe[src*="amocrm"],
+  iframe[src*="amo_social"] {
+    pointer-events: none;
+  }
+  iframe[src*="amocrm"]:hover,
+  iframe[src*="amo_social"]:hover {
+    pointer-events: auto;
+  }
+
   /* Mobile menu */
   .anim-mobile-menu {
     animation: mobile-menu-in 0.2s ease-out forwards;
