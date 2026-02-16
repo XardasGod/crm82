@@ -16,12 +16,34 @@ const leadSchema = z.object({
   website: z.string().max(0, "Bot detected").optional(), // honeypot field
 });
 
-const RATE_LIMIT_MAX = 5;
+const RATE_LIMIT_MAX = 3;
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+
+// Allowed origins for this endpoint
+const ALLOWED_ORIGINS = [
+  'https://crm82.lovable.app',
+  'https://crm82.ru',
+  'https://www.crm82.ru',
+];
+
+// In-memory per-IP tracking for honeypot abuse
+const honeypotAbusers = new Map<string, number>();
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  // Validate origin/referer to prevent abuse from unknown sources
+  const origin = req.headers.get('origin') || '';
+  const referer = req.headers.get('referer') || '';
+  const isPreview = origin.includes('.lovable.app') || referer.includes('.lovable.app');
+  const isAllowed = ALLOWED_ORIGINS.some(o => origin.startsWith(o) || referer.startsWith(o));
+  if (!isPreview && !isAllowed && origin !== '' && referer !== '') {
+    return new Response(JSON.stringify({ error: 'Forbidden' }), {
+      status: 403,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
   }
 
   const AMOCRM_SUBDOMAIN = Deno.env.get('AMOCRM_SUBDOMAIN');
@@ -42,13 +64,30 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
     );
 
+    // Check if IP is a known honeypot abuser
+    const honeypotCount = honeypotAbusers.get(clientIp) || 0;
+    if (honeypotCount >= 3) {
+      // Silently accept to not tip off bots
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     const oneHourAgo = new Date(Date.now() - RATE_LIMIT_WINDOW_MS).toISOString();
     const { count } = await supabaseAdmin
       .from('leads')
       .select('*', { count: 'exact', head: true })
+      .gte('created_at', oneHourAgo)
+      .eq('source', clientIp.substring(0, 50)); // We'll also check global
+
+    // Global rate limit as fallback
+    const { count: globalCount } = await supabaseAdmin
+      .from('leads')
+      .select('*', { count: 'exact', head: true })
       .gte('created_at', oneHourAgo);
 
-    if (count !== null && count >= RATE_LIMIT_MAX) {
+    if ((globalCount !== null && globalCount >= 20) || (count !== null && count >= RATE_LIMIT_MAX)) {
       return new Response(JSON.stringify({ error: 'Слишком много заявок. Попробуйте позже.' }), {
         status: 429,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -59,9 +98,11 @@ serve(async (req) => {
     const parseResult = leadSchema.safeParse(rawBody);
 
     if (!parseResult.success) {
-      // If honeypot was filled, silently return success to not tip off bots
+      // If honeypot was filled, track abuser IP and silently return success
       const honeypotError = parseResult.error.errors.find(e => e.path.includes('website'));
       if (honeypotError) {
+        honeypotAbusers.set(clientIp, (honeypotAbusers.get(clientIp) || 0) + 1);
+        console.log(`Honeypot triggered by IP ${clientIp}, count: ${honeypotAbusers.get(clientIp)}`);
         return new Response(JSON.stringify({ success: true }), {
           status: 200,
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
