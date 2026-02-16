@@ -5,6 +5,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { CreditCard, Percent, Receipt, ArrowRight, CheckCircle2, Wallet, SplitSquareHorizontal, Landmark, Banknote, Mail, Repeat, Building2, ArrowLeft, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { InView } from "@/components/InView";
+import { PaymentsCalculator } from "@/components/PaymentsCalculator";
 
 const paymentSystems: { name: string; icon: LucideIcon; description: string; features: string[] }[] = [
   { name: "ЮKassa", icon: Wallet, description: "Универсальная платёжная система для приёма онлайн-платежей картами, электронными кошельками и через СБП.", features: ["Карты РФ и зарубежные", "СБП", "Электронные кошельки"] },
@@ -130,6 +131,20 @@ const PaymentsPage = () => {
               </InView>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <InView animation="anim-hidden-up" className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4 font-display">
+              Сколько вы переплачиваете?
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Рассчитайте вашу переплату модулю GetPay
+            </p>
+          </InView>
+          <PaymentsCalculator />
         </div>
       </section>
 
