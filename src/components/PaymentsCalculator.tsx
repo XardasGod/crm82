@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Slider } from "@/components/ui/slider";
-import { Calculator } from "lucide-react";
+import { Calculator, ArrowRight } from "lucide-react";
 import { InView } from "@/components/InView";
 
 export const PaymentsCalculator = () => {
@@ -67,6 +67,12 @@ export const PaymentsCalculator = () => {
             <p className="text-xs text-muted-foreground mt-2">
               {revenue} млн × {installmentShare}% × 7% = {formatCurrency(overpayment)}
             </p>
+            <a
+              href="#payments-form"
+              className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-accent/90 transition-colors mt-4"
+            >
+              Узнать как сэкономить <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </div>
