@@ -20,6 +20,7 @@ export const Footer = () => {
               <a href="/automation" className="hover:text-foreground transition-colors">Автоматизация продаж</a>
               <a href="/payments" className="hover:text-foreground transition-colors">Платёжные системы</a>
               <a href="/widgets" className="hover:text-foreground transition-colors">Виджеты amoCRM</a>
+              <a href="/blog" className="hover:text-foreground transition-colors">Блог</a>
               <a href="/policy" className="hover:text-foreground transition-colors">Политика конфиденциальности</a>
             </div>
           </div>
