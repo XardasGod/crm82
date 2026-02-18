@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { Link } from "react-router-dom";
 import { InView } from "@/components/InView";
+import { getOgImageUrl } from "@/lib/og-image";
 import {
   ArrowLeft, ArrowRight, CheckCircle2, Bot, MessageSquare, Mail,
   Workflow, Repeat, Clock, TrendingUp, Zap, BellRing,
@@ -36,6 +37,7 @@ const AutomationPage = () => {
     setMeta("property", "og:title", "Автоматизация продаж в amoCRM — CRM82");
     setMeta("property", "og:description", "Настраиваем автоворонки, чат-боты и автозадачи в amoCRM. Экономия времени и рост продаж.");
     setMeta("property", "og:type", "website");
+    setMeta("property", "og:image", getOgImageUrl("Автоматизация продаж в amoCRM", "Автоворонки, чат-боты, автозадачи", "Автоматизация"));
 
     const addJsonLd = (id: string, data: object) => {
       const existing = document.getElementById(id);

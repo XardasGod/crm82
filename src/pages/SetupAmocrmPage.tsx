@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { Link } from "react-router-dom";
 import { InView } from "@/components/InView";
+import { getOgImageUrl } from "@/lib/og-image";
 import {
   ArrowLeft, ArrowRight, CheckCircle2, Settings, Users, BarChart3,
   Workflow, ShieldCheck, Layers, FileText, Target, Gauge,
@@ -36,6 +37,7 @@ const SetupAmocrmPage = () => {
     setMeta("property", "og:title", "Настройка amoCRM под ключ — CRM82");
     setMeta("property", "og:description", "Внедряем amoCRM для бизнеса: воронки продаж, автоматизация, обучение. Рост конверсии от 30%.");
     setMeta("property", "og:type", "website");
+    setMeta("property", "og:image", getOgImageUrl("Настройка amoCRM под ключ", "Аудит, воронки, автоматизация, обучение", "Услуга"));
 
     const addJsonLd = (id: string, data: object) => {
       const existing = document.getElementById(id);

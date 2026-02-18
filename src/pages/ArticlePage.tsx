@@ -6,6 +6,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { InView } from "@/components/InView";
 import { RelatedCases } from "@/components/RelatedCases";
 import { getArticleBySlug, articles } from "@/data/articles";
+import { getOgImageUrl } from "@/lib/og-image";
 import { Clock, Tag, ArrowLeft, ArrowRight } from "lucide-react";
 
 /** Parse content with **bold** and [link text](/url) syntax */
@@ -35,6 +36,17 @@ const ArticlePage = () => {
     if (meta) meta.setAttribute("content", article.metaDescription);
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.setAttribute("href", `https://crm82.tech/blog/${article.slug}`);
+
+    // Set OG image
+    const setMeta = (attr: string, key: string, content: string) => {
+      let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement;
+      if (!el) { el = document.createElement("meta"); el.setAttribute(attr, key); document.head.appendChild(el); }
+      el.setAttribute("content", content);
+    };
+    const ogImage = getOgImageUrl(article.title, article.industry + ' • ' + article.readTime, 'Блог');
+    setMeta("property", "og:image", ogImage);
+    setMeta("property", "og:title", article.metaTitle);
+    setMeta("property", "og:description", article.metaDescription);
 
     const articleSchema = {
       "@context": "https://schema.org",

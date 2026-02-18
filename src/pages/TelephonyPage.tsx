@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { Link } from "react-router-dom";
 import { InView } from "@/components/InView";
+import { getOgImageUrl } from "@/lib/og-image";
 import {
   ArrowLeft, ArrowRight, CheckCircle2, Phone, Headphones, PhoneCall,
   BarChart3, Globe, Voicemail, Shield, Zap,
@@ -36,6 +37,7 @@ const TelephonyPage = () => {
     setMeta("property", "og:title", "Интеграция телефонии с amoCRM — CRM82");
     setMeta("property", "og:description", "Подключаем IP-телефонию к amoCRM. Звонки из CRM, запись, аналитика, автосоздание сделок.");
     setMeta("property", "og:type", "website");
+    setMeta("property", "og:image", getOgImageUrl("Интеграция телефонии с amoCRM", "Sipuni, UIS, Mango Office и другие", "Телефония"));
 
     const addJsonLd = (id: string, data: object) => {
       const existing = document.getElementById(id);
