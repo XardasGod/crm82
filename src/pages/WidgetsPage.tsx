@@ -5,6 +5,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { Puzzle, ArrowRight, Play, Crown, Gift, Shuffle, Users, Palette, Webhook, EyeOff, MessageCircle, Code2, Clock, ArrowLeft, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { InView } from "@/components/InView";
+import { getOgImageUrl } from "@/lib/og-image";
 
 interface Widget {
   name: string;
@@ -87,6 +88,7 @@ const WidgetsPage = () => {
     setMeta("property", "og:title", "Виджеты для amoCRM — автоматизация процессов | CRM82");
     setMeta("property", "og:description", "Готовые виджеты для amoCRM: распределение сделок, антидубль, цветные сделки и другие. Бесплатный тестовый период 14 дней.");
     setMeta("property", "og:type", "website");
+    setMeta("property", "og:image", getOgImageUrl("Виджеты для amoCRM", "Распределение сделок, антидубль, цветные сделки", "Виджеты"));
 
     const addJsonLd = (id: string, data: object) => {
       const existing = document.getElementById(id);

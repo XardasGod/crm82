@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { Link } from "react-router-dom";
 import { InView } from "@/components/InView";
+import { getOgImageUrl } from "@/lib/og-image";
 import {
   ArrowLeft, ArrowRight, CheckCircle2, Brain, Mic, BarChart3,
   ShieldCheck, Users, MessageSquareWarning, Target, TrendingUp,
@@ -83,6 +84,7 @@ const SpeechAnalyticsPage = () => {
     setMeta("property", "og:title", "Речевая аналитика в amoCRM — Voice AI | CRM82");
     setMeta("property", "og:description", "ИИ-анализ звонков: выявление ошибок менеджеров, контроль качества, сбор данных о ЦА для маркетинга.");
     setMeta("property", "og:type", "website");
+    setMeta("property", "og:image", getOgImageUrl("Речевая аналитика в amoCRM", "ИИ-анализ звонков, контроль качества, данные для маркетинга", "Voice AI"));
 
     const addJsonLd = (id: string, data: object) => {
       const existing = document.getElementById(id);
