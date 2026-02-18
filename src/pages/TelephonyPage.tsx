@@ -62,9 +62,20 @@ const TelephonyPage = () => {
       serviceType: "Telephony Integration",
     });
 
+    addJsonLd("ld-faq-telephony", {
+      "@context": "https://schema.org", "@type": "FAQPage",
+      mainEntity: [
+        { "@type": "Question", name: "Какую телефонию можно подключить к amoCRM?", acceptedAnswer: { "@type": "Answer", text: "Мы интегрируем Sipuni, UIS/CoMagic, Mango Office, Билайн Бизнес, МТС Exolve и любые другие АТС с поддержкой SIP-протокола." } },
+        { "@type": "Question", name: "Будут ли записываться звонки?", acceptedAnswer: { "@type": "Answer", text: "Да, все звонки записываются и прикрепляются к карточке сделки в amoCRM. Вы можете прослушать любой разговор прямо из CRM." } },
+        { "@type": "Question", name: "Создаются ли сделки автоматически при входящем звонке?", acceptedAnswer: { "@type": "Answer", text: "Да, при входящем звонке от нового клиента автоматически создаётся контакт и сделка в amoCRM. Для существующих клиентов звонок привязывается к их карточке." } },
+        { "@type": "Question", name: "Сколько стоит интеграция телефонии?", acceptedAnswer: { "@type": "Answer", text: "Стоимость зависит от выбранного провайдера и сложности настройки. Оставьте заявку — подберём оптимальное решение и рассчитаем стоимость." } },
+      ],
+    });
+
     return () => {
       document.getElementById("ld-breadcrumb-telephony")?.remove();
       document.getElementById("ld-service-telephony")?.remove();
+      document.getElementById("ld-faq-telephony")?.remove();
     };
   }, []);
 

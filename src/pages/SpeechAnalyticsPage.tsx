@@ -115,9 +115,20 @@ const SpeechAnalyticsPage = () => {
       },
     });
 
+    addJsonLd("ld-faq-speech", {
+      "@context": "https://schema.org", "@type": "FAQPage",
+      mainEntity: [
+        { "@type": "Question", name: "Как работает речевая аналитика в amoCRM?", acceptedAnswer: { "@type": "Answer", text: "Виджет Voice AI автоматически транскрибирует звонки в текст и анализирует их с помощью ИИ: выявляет ошибки менеджеров, конфликтные ситуации, собирает данные о потребностях клиентов." } },
+        { "@type": "Question", name: "Сколько стоит внедрение речевой аналитики?", acceptedAnswer: { "@type": "Answer", text: "Стоимость внедрения — от 50 000 ₽. Дополнительно оплачивается абонентская плата за токены виджета, которая зависит от объёма звонков. 50 минут предоставляется бесплатно для теста." } },
+        { "@type": "Question", name: "Анализирует ли ИИ все звонки или выборочно?", acceptedAnswer: { "@type": "Answer", text: "ИИ анализирует 100% звонков автоматически, в отличие от ручного прослушивания, где обычно проверяется лишь 3-5% от общего объёма." } },
+        { "@type": "Question", name: "Какие данные можно извлечь из звонков?", acceptedAnswer: { "@type": "Answer", text: "Частые вопросы клиентов, боли и потребности ЦА, возражения, качество работы менеджеров, соблюдение скриптов, эмоциональный тон разговора. Данные автоматически записываются в поля amoCRM." } },
+      ],
+    });
+
     return () => {
       document.getElementById("ld-breadcrumb-speech")?.remove();
       document.getElementById("ld-service-speech")?.remove();
+      document.getElementById("ld-faq-speech")?.remove();
     };
   }, []);
 

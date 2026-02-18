@@ -104,7 +104,19 @@ const WidgetsPage = () => {
       ],
     });
 
-    return () => { document.getElementById("ld-breadcrumb-widgets")?.remove(); };
+    addJsonLd("ld-faq-widgets", {
+      "@context": "https://schema.org", "@type": "FAQPage",
+      mainEntity: [
+        { "@type": "Question", name: "Есть ли бесплатный тестовый период у виджетов?", acceptedAnswer: { "@type": "Answer", text: "Да, все платные виджеты предоставляют 14 дней бесплатного тестового периода. Бесплатные виджеты работают без ограничений." } },
+        { "@type": "Question", name: "Как установить виджет в amoCRM?", acceptedAnswer: { "@type": "Answer", text: "Нажмите кнопку «Установить» на странице виджета — вы будете перенаправлены на страницу авторизации amoCRM. После подтверждения виджет автоматически установится в ваш аккаунт." } },
+        { "@type": "Question", name: "Можно ли разработать виджет под наши задачи?", acceptedAnswer: { "@type": "Answer", text: "Да, мы разрабатываем кастомные виджеты для amoCRM под индивидуальные задачи бизнеса. Оставьте заявку — обсудим ваши требования." } },
+      ],
+    });
+
+    return () => {
+      document.getElementById("ld-breadcrumb-widgets")?.remove();
+      document.getElementById("ld-faq-widgets")?.remove();
+    };
   }, []);
 
   return (
