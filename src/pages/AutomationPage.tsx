@@ -62,9 +62,20 @@ const AutomationPage = () => {
       serviceType: "Sales Automation",
     });
 
+    addJsonLd("ld-faq-automation", {
+      "@context": "https://schema.org", "@type": "FAQPage",
+      mainEntity: [
+        { "@type": "Question", name: "Что можно автоматизировать в amoCRM?", acceptedAnswer: { "@type": "Answer", text: "Автозадачи, авторассылки (email, SMS), чат-боты в мессенджерах, Digital Pipeline, уведомления руководителю, интеграции с 1С, сайтом и другими сервисами." } },
+        { "@type": "Question", name: "Насколько автоматизация увеличивает продажи?", acceptedAnswer: { "@type": "Answer", text: "По нашему опыту, автоматизация процессов в amoCRM увеличивает конверсию до 40% и экономит менеджерам более 2 часов в день за счёт устранения рутинных операций." } },
+        { "@type": "Question", name: "Можно ли подключить чат-бота к WhatsApp и Telegram?", acceptedAnswer: { "@type": "Answer", text: "Да, мы настраиваем чат-ботов для WhatsApp, Telegram и виджета на сайте. Боты квалифицируют лидов, отвечают на частые вопросы и передают горячих клиентов менеджерам." } },
+        { "@type": "Question", name: "Как быстро окупается автоматизация?", acceptedAnswer: { "@type": "Answer", text: "Обычно автоматизация окупается в первый месяц за счёт сокращения потерь лидов и увеличения скорости обработки заявок." } },
+      ],
+    });
+
     return () => {
       document.getElementById("ld-breadcrumb-automation")?.remove();
       document.getElementById("ld-service-automation")?.remove();
+      document.getElementById("ld-faq-automation")?.remove();
     };
   }, []);
 

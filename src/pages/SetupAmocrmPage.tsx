@@ -62,9 +62,20 @@ const SetupAmocrmPage = () => {
       serviceType: "CRM Implementation",
     });
 
+    addJsonLd("ld-faq-setup", {
+      "@context": "https://schema.org", "@type": "FAQPage",
+      mainEntity: [
+        { "@type": "Question", name: "Сколько времени занимает настройка amoCRM?", acceptedAnswer: { "@type": "Answer", text: "Стандартная настройка amoCRM под ключ занимает от 5 до 14 рабочих дней в зависимости от сложности процессов и количества интеграций." } },
+        { "@type": "Question", name: "Что входит в настройку amoCRM под ключ?", acceptedAnswer: { "@type": "Answer", text: "Аудит бизнес-процессов, проектирование воронок продаж, настройка полей и тегов, автоматизация действий, интеграция с телефонией и мессенджерами, обучение команды и поддержка после запуска." } },
+        { "@type": "Question", name: "Нужно ли покупать лицензию amoCRM отдельно?", acceptedAnswer: { "@type": "Answer", text: "Да, лицензия amoCRM оплачивается отдельно. Мы поможем выбрать оптимальный тариф и получить максимальную скидку как сертифицированный партнёр." } },
+        { "@type": "Question", name: "Можно ли настроить amoCRM для нескольких отделов?", acceptedAnswer: { "@type": "Answer", text: "Да, мы настраиваем мульти-воронки для разных отделов с индивидуальными правами доступа, полями и автоматизацией для каждого подразделения." } },
+      ],
+    });
+
     return () => {
       document.getElementById("ld-breadcrumb-setup")?.remove();
       document.getElementById("ld-service-setup")?.remove();
+      document.getElementById("ld-faq-setup")?.remove();
     };
   }, []);
 
