@@ -8,6 +8,22 @@ import { RelatedCases } from "@/components/RelatedCases";
 import { getArticleBySlug, articles } from "@/data/articles";
 import { Clock, Tag, ArrowLeft, ArrowRight } from "lucide-react";
 
+/** Parse content with **bold** and [link text](/url) syntax */
+const renderContent = (content: string) => {
+  // Split by bold and link patterns
+  const parts = content.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/);
+  return parts.map((part, j) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={j} className="text-foreground">{part.slice(2, -2)}</strong>;
+    }
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (linkMatch) {
+      return <Link key={j} to={linkMatch[2]} className="text-primary hover:underline font-medium">{linkMatch[1]}</Link>;
+    }
+    return <span key={j}>{part}</span>;
+  });
+};
+
 const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const article = slug ? getArticleBySlug(slug) : undefined;
@@ -92,12 +108,7 @@ const ArticlePage = () => {
                     {section.heading}
                   </h2>
                   <div className="text-muted-foreground leading-relaxed whitespace-pre-line text-[15px]">
-                    {section.content.split(/(\*\*[^*]+\*\*)/).map((part, j) => {
-                      if (part.startsWith("**") && part.endsWith("**")) {
-                        return <strong key={j} className="text-foreground">{part.slice(2, -2)}</strong>;
-                      }
-                      return <span key={j}>{part}</span>;
-                    })}
+                    {renderContent(section.content)}
                   </div>
                 </div>
               </InView>
