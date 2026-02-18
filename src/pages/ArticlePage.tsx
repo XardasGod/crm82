@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { InView } from "@/components/InView";
+import { RelatedCases } from "@/components/RelatedCases";
 import { getArticleBySlug, articles } from "@/data/articles";
 import { Clock, Tag, ArrowLeft, ArrowRight } from "lucide-react";
 
@@ -126,6 +127,11 @@ const ArticlePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Related cases */}
+      {article.relatedCases && article.relatedCases.length > 0 && (
+        <RelatedCases caseSlugs={article.relatedCases} />
+      )}
 
       {/* CTA */}
       <section className="py-16 bg-muted/30" id="article-form">
