@@ -7,13 +7,22 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
+const utmSchema = z.object({
+  utm_source: z.string().max(200).optional(),
+  utm_medium: z.string().max(200).optional(),
+  utm_campaign: z.string().max(200).optional(),
+  utm_content: z.string().max(200).optional(),
+  utm_term: z.string().max(200).optional(),
+}).optional();
+
 const leadSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name too long"),
   phone: z.string().trim().regex(/^\+?[0-9\s\-\(\)]+$/, "Invalid phone format").min(7, "Phone too short").max(20, "Phone too long"),
   email: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().email("Invalid email").max(255).optional()),
   company: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().max(200, "Company name too long").optional()),
   source: z.string().trim().max(50).default("main"),
-  website: z.string().max(0, "Bot detected").optional(), // honeypot field
+  website: z.string().max(0, "Bot detected").optional(),
+  utm: utmSchema,
 });
 
 const RATE_LIMIT_MAX = 3;
@@ -114,7 +123,7 @@ serve(async (req) => {
       });
     }
 
-    const { name, phone, email, company, source } = parseResult.data;
+    const { name, phone, email, company, source, utm } = parseResult.data;
 
     // Support both "crm82" and "crm82.amocrm.ru" formats
     const domain = AMOCRM_SUBDOMAIN.includes('.') ? AMOCRM_SUBDOMAIN : `${AMOCRM_SUBDOMAIN}.amocrm.ru`;
@@ -231,7 +240,33 @@ serve(async (req) => {
       throw new Error(`Lead creation failed [${leadRes.status}]`);
     }
 
-    return new Response(JSON.stringify({ success: true, lead_id: leadData?._embedded?.leads?.[0]?.id }), {
+    const leadId = leadData?._embedded?.leads?.[0]?.id;
+
+    // 4. Add UTM note to the lead if UTM params present
+    if (leadId && utm && Object.keys(utm).length > 0) {
+      const utmLines = Object.entries(utm).map(([k, v]) => `${k}: ${v}`).join('\n');
+      const noteBody = [{
+        entity_id: leadId,
+        note_type: "common",
+        params: { text: `UTM-метки:\n${utmLines}` },
+      }];
+      try {
+        const noteRes = await fetch(`${baseUrl}/leads/${leadId}/notes`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(noteBody),
+        });
+        if (!noteRes.ok) {
+          console.error('amoCRM note error:', await noteRes.text());
+        } else {
+          console.log(`Added UTM note to lead ${leadId}`);
+        }
+      } catch (noteErr) {
+        console.error('UTM note error:', noteErr);
+      }
+    }
+
+    return new Response(JSON.stringify({ success: true, lead_id: leadId }), {
       status: 200,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
