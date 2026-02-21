@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -30,6 +30,23 @@ export const LeadForm = ({
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [honeypot, setHoneypot] = useState("");
+
+  // Capture UTM params on mount (from URL or sessionStorage)
+  const utm = useMemo(() => {
+    const params = new URLSearchParams(window.location.search);
+    const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
+    const result: Record<string, string> = {};
+    keys.forEach((k) => {
+      const v = params.get(k);
+      if (v) {
+        result[k] = v;
+        try { sessionStorage.setItem(k, v); } catch {}
+      } else {
+        try { const stored = sessionStorage.getItem(k); if (stored) result[k] = stored; } catch {}
+      }
+    });
+    return Object.keys(result).length > 0 ? result : undefined;
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +88,7 @@ export const LeadForm = ({
 
     try {
       const { data, error } = await supabase.functions.invoke("create-amocrm-deal", {
-        body: { name, phone, email: email || null, company: company || null, source, website: honeypot },
+        body: { name, phone, email: email || null, company: company || null, source, website: honeypot, utm },
       });
 
       if (error) {
