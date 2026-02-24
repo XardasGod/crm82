@@ -37,15 +37,15 @@ const BlogPage = () => {
       <Header />
       <section className="pt-28 pb-16 bg-gradient-to-b from-[hsl(var(--hero-dark))] to-background">
         <div className="container mx-auto px-4">
-          <nav className="text-sm text-muted-foreground mb-6">
-            <Link to="/" className="hover:text-foreground transition-colors">Главная</Link>
+          <nav className="text-sm text-primary-foreground/60 mb-6">
+            <Link to="/" className="hover:text-primary-foreground/80 transition-colors">Главная</Link>
             <span className="mx-2">/</span>
-            <span className="text-foreground">Блог</span>
+            <span className="text-primary-foreground/90">Блог</span>
           </nav>
-          <h1 className="text-3xl md:text-5xl font-bold text-foreground font-display mb-4">
+          <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground font-display mb-4">
             Блог о CRM для строительства и недвижимости
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
+          <p className="text-lg text-primary-foreground/70 max-w-2xl">
             Практические статьи о внедрении amoCRM в строительных компаниях, агентствах недвижимости и смежных отраслях.
           </p>
         </div>
