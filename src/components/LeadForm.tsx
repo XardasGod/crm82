@@ -80,7 +80,7 @@ export const LeadForm = ({
     // Create deal in amoCRM
     // Send analytics goals regardless of amoCRM result
     if (typeof window !== "undefined" && (window as any).ym) {
-      (window as any).ym(106777831, "reachGoal", "lead_form_submit");
+      (window as any).ym(106983693, "reachGoal", "lead_form_submit");
     }
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("event", "generate_lead", { event_category: "form", event_label: "lead_form" });
