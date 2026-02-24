@@ -46,7 +46,7 @@ serve(async (req) => {
   // Validate origin/referer to prevent abuse from unknown sources
   const origin = req.headers.get('origin') || '';
   const referer = req.headers.get('referer') || '';
-  const isPreview = origin.includes('.lovable.app') || referer.includes('.lovable.app');
+  const isPreview = origin.includes('.lovable.app') || referer.includes('.lovable.app') || origin.includes('.lovableproject.com') || referer.includes('.lovableproject.com');
   const isAllowed = ALLOWED_ORIGINS.some(o => origin.startsWith(o) || referer.startsWith(o));
   if (!isPreview && !isAllowed && origin !== '' && referer !== '') {
     return new Response(JSON.stringify({ error: 'Forbidden' }), {
