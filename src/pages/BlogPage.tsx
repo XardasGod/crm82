@@ -35,7 +35,7 @@ const BlogPage = () => {
   return (
     <main>
       <Header />
-      <section className="pt-28 pb-16 bg-gradient-to-b from-[hsl(var(--hero-dark))] to-background">
+      <section className="pt-28 pb-16 hero-gradient">
         <div className="container mx-auto px-4">
           <nav className="text-sm text-primary-foreground/60 mb-6">
             <Link to="/" className="hover:text-primary-foreground/80 transition-colors">Главная</Link>
