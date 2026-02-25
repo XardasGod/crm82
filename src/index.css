@@ -242,23 +242,29 @@
     to { opacity: 1; transform: scale(1); }
   }
 
-  /* Fix amoCRM widget intercepting scroll events */
-  #amo_social_button,
+  /* Fix amoCRM widget: allow clicks on widget itself but prevent invisible overlays from blocking scroll */
+  #amo_social_button {
+    pointer-events: auto !important;
+  }
+  /* Only disable pointer-events on the full-screen invisible overlay container, not the visible widget */
   .amo_social_button_holder {
     pointer-events: none;
   }
-  #amo_social_button > *,
-  .amo_social_button_holder > * {
-    pointer-events: auto;
+  .amo_social_button_holder .amo_social_button__frame,
+  .amo_social_button_holder .amo_social_button__btn,
+  .amo_social_button_holder .amo_social_button__messengers,
+  .amo_social_button_holder .amo_social_button__wrapper,
+  .amo_social_button_holder > div {
+    pointer-events: auto !important;
   }
-  /* Prevent amoCRM iframe overlay from blocking scroll */
-  iframe[src*="amocrm"],
-  iframe[src*="amo_social"] {
+  /* Prevent only full-screen amoCRM iframe overlays from blocking scroll, keep visible ones clickable */
+  iframe[src*="amocrm"][style*="width: 100%"],
+  iframe[src*="amo_social"][style*="width: 100%"] {
     pointer-events: none;
   }
-  iframe[src*="amocrm"]:hover,
-  iframe[src*="amo_social"]:hover {
-    pointer-events: auto;
+  iframe[src*="amocrm"]:not([style*="width: 100%"]),
+  iframe[src*="amo_social"]:not([style*="width: 100%"]) {
+    pointer-events: auto !important;
   }
 
   /* Mobile menu */
