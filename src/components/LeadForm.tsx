@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -31,7 +31,15 @@ export const LeadForm = ({
   const [loading, setLoading] = useState(false);
   const [honeypot, setHoneypot] = useState("");
 
-  // Capture UTM params on mount (from URL or sessionStorage)
+  // JS challenge: record timestamp of first user interaction
+  const firstInteraction = useRef<number | null>(null);
+  const markInteraction = useCallback(() => {
+    if (!firstInteraction.current) {
+      firstInteraction.current = Date.now();
+    }
+  }, []);
+
+  // Capture UTM params on mount
   const utm = useMemo(() => {
     const params = new URLSearchParams(window.location.search);
     const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
@@ -77,8 +85,7 @@ export const LeadForm = ({
       if (import.meta.env.DEV) console.error("DB error:", dbError);
     }
 
-    // Create deal in amoCRM
-    // Send analytics goals regardless of amoCRM result
+    // Send analytics goals
     if (typeof window !== "undefined" && (window as any).ym) {
       (window as any).ym(106983693, "reachGoal", "lead_form_submit");
     }
@@ -86,9 +93,18 @@ export const LeadForm = ({
       (window as any).gtag("event", "generate_lead", { event_category: "form", event_label: "lead_form" });
     }
 
+    // JS challenge: compute interaction duration
+    const now = Date.now();
+    const interactionTs = firstInteraction.current || now;
+    const duration = now - interactionTs;
+
     try {
       const { data, error } = await supabase.functions.invoke("create-amocrm-deal", {
-        body: { name, phone, email: email || null, company: company || null, source, website: honeypot, utm },
+        body: {
+          name, phone, email: email || null, company: company || null,
+          source, website: honeypot, utm,
+          _t: interactionTs, _d: duration,
+        },
       });
 
       if (error) {
@@ -103,6 +119,7 @@ export const LeadForm = ({
     }
 
     setFormData({ name: "", phone: "", email: "", company: "" });
+    firstInteraction.current = null;
     setLoading(false);
   };
 
@@ -114,7 +131,7 @@ export const LeadForm = ({
       <p className="text-muted-foreground text-sm mb-6">
         {subtitle}
       </p>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4" onFocus={markInteraction} onClick={markInteraction}>
         <Input
           placeholder="Ваше имя"
           value={formData.name}
@@ -141,7 +158,7 @@ export const LeadForm = ({
           onChange={(e) => setFormData({ ...formData, company: e.target.value })}
           className="h-12 bg-muted border-0 text-foreground placeholder:text-muted-foreground"
         />
-        {/* Honeypot field - hidden from real users, bots will fill it */}
+        {/* Honeypot field */}
         <div className="absolute opacity-0 -z-10 h-0 overflow-hidden" aria-hidden="true" tabIndex={-1}>
           <Input
             placeholder="Website"

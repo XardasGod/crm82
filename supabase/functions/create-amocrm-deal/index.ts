@@ -7,6 +7,21 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
+// Known bot User-Agent patterns
+const BOT_UA_PATTERNS = [
+  /bot/i, /crawl/i, /spider/i, /slurp/i, /mediapartners/i,
+  /headless/i, /phantom/i, /selenium/i, /puppeteer/i, /playwright/i,
+  /wget/i, /curl/i, /httpie/i, /python-requests/i, /axios/i, /node-fetch/i,
+  /go-http-client/i, /java\//i, /libwww/i, /scrapy/i,
+  /ahrefsbot/i, /semrushbot/i, /dotbot/i, /mj12bot/i,
+  /petalbot/i, /bytespider/i, /yandexbot/i, /baiduspider/i,
+];
+
+function isBotUserAgent(ua: string): boolean {
+  if (!ua || ua.length < 10) return true; // Too short or empty UA
+  return BOT_UA_PATTERNS.some(pattern => pattern.test(ua));
+}
+
 const utmSchema = z.object({
   utm_source: z.string().max(200).optional(),
   utm_medium: z.string().max(200).optional(),
@@ -23,12 +38,14 @@ const leadSchema = z.object({
   source: z.string().trim().max(50).default("main"),
   website: z.string().max(0, "Bot detected").optional(),
   utm: utmSchema,
+  // JS challenge fields
+  _t: z.number().optional(),  // timestamp of first interaction
+  _d: z.number().optional(),  // duration in ms from interaction to submit
 });
 
 const RATE_LIMIT_MAX = 3;
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
 
-// Allowed origins for this endpoint
 const ALLOWED_ORIGINS = [
   'https://crm82.lovable.app',
   'https://crm82.ru',
@@ -37,13 +54,30 @@ const ALLOWED_ORIGINS = [
 
 // In-memory per-IP tracking for honeypot abuse
 const honeypotAbusers = new Map<string, number>();
+// In-memory per-IP tracking for bot UA abuse
+const botUaBlocked = new Map<string, number>();
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
-  // Validate origin/referer to prevent abuse from unknown sources
+  // 1. User-Agent bot check
+  const userAgent = req.headers.get('user-agent') || '';
+  const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+
+  if (isBotUserAgent(userAgent)) {
+    const count = (botUaBlocked.get(clientIp) || 0) + 1;
+    botUaBlocked.set(clientIp, count);
+    console.log(`Bot UA blocked: "${userAgent}" IP: ${clientIp} (count: ${count})`);
+    // Silently return success to not tip off bots
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
+  }
+
+  // 2. Validate origin/referer
   const origin = req.headers.get('origin') || '';
   const referer = req.headers.get('referer') || '';
   const isPreview = origin.includes('.lovable.app') || referer.includes('.lovable.app') || origin.includes('.lovableproject.com') || referer.includes('.lovableproject.com');
@@ -66,8 +100,6 @@ serve(async (req) => {
   }
 
   try {
-    // Rate limiting by IP
-    const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
     const supabaseAdmin = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
@@ -76,21 +108,20 @@ serve(async (req) => {
     // Check if IP is a known honeypot abuser
     const honeypotCount = honeypotAbusers.get(clientIp) || 0;
     if (honeypotCount >= 3) {
-      // Silently accept to not tip off bots
       return new Response(JSON.stringify({ success: true }), {
         status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
 
+    // Rate limiting by IP
     const oneHourAgo = new Date(Date.now() - RATE_LIMIT_WINDOW_MS).toISOString();
     const { count } = await supabaseAdmin
       .from('leads')
       .select('*', { count: 'exact', head: true })
       .gte('created_at', oneHourAgo)
-      .eq('source', clientIp.substring(0, 50)); // We'll also check global
+      .eq('source', clientIp.substring(0, 50));
 
-    // Global rate limit as fallback
     const { count: globalCount } = await supabaseAdmin
       .from('leads')
       .select('*', { count: 'exact', head: true })
@@ -107,7 +138,6 @@ serve(async (req) => {
     const parseResult = leadSchema.safeParse(rawBody);
 
     if (!parseResult.success) {
-      // If honeypot was filled, track abuser IP and silently return success
       const honeypotError = parseResult.error.errors.find(e => e.path.includes('website'));
       if (honeypotError) {
         honeypotAbusers.set(clientIp, (honeypotAbusers.get(clientIp) || 0) + 1);
@@ -123,9 +153,27 @@ serve(async (req) => {
       });
     }
 
-    const { name, phone, email, company, source, utm } = parseResult.data;
+    const { name, phone, email, company, source, utm, _t, _d } = parseResult.data;
 
-    // Support both "crm82" and "crm82.amocrm.ru" formats
+    // 3. JS challenge validation
+    // Real users: interaction timestamp exists, duration > 3 seconds, timestamp not from the future
+    const now = Date.now();
+    if (_t && _d) {
+      const isTooFast = _d < 3000; // Less than 3 seconds to fill form
+      const isFromFuture = _t > now + 60000; // Timestamp from the future (with 1 min tolerance)
+      const isTooOld = _t < now - 24 * 60 * 60 * 1000; // Older than 24 hours
+      
+      if (isTooFast || isFromFuture || isTooOld) {
+        console.log(`JS challenge failed: IP=${clientIp} duration=${_d}ms timestamp=${_t} isTooFast=${isTooFast} isFromFuture=${isFromFuture} isTooOld=${isTooOld}`);
+        return new Response(JSON.stringify({ success: true }), {
+          status: 200,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+    }
+    // If _t/_d not present, we still allow (graceful degradation for older cached forms)
+
+    // --- amoCRM logic (unchanged) ---
     const domain = AMOCRM_SUBDOMAIN.includes('.') ? AMOCRM_SUBDOMAIN : `${AMOCRM_SUBDOMAIN}.amocrm.ru`;
     const baseUrl = `https://${domain}/api/v4`;
     const headers = {
@@ -136,7 +184,6 @@ serve(async (req) => {
     // 1. Search for existing contact by phone, then by email
     let contactId: number | undefined;
 
-    // Search by phone
     const phoneSearch = new URLSearchParams({ query: phone });
     const phoneSearchRes = await fetch(`${baseUrl}/contacts?${phoneSearch}`, { headers });
     if (phoneSearchRes.ok && phoneSearchRes.status !== 204) {
@@ -148,7 +195,6 @@ serve(async (req) => {
       }
     }
 
-    // Search by email if not found by phone
     if (!contactId && email) {
       const emailSearch = new URLSearchParams({ query: email });
       const emailSearchRes = await fetch(`${baseUrl}/contacts?${emailSearch}`, { headers });
@@ -162,7 +208,7 @@ serve(async (req) => {
       }
     }
 
-    // 2. If contact found, update it with latest data; otherwise create new
+    // 2. Create or update contact
     if (contactId) {
       const updateFields: any[] = [
         { field_code: "PHONE", values: [{ value: phone }] },
