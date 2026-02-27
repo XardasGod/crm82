@@ -1,51 +1,83 @@
+## План: 12 SEO-статей по интеграциям amoCRM
+
+### Обновленный список статей
+
+Согласно вашим корректировкам: убираем Яндекс.Директ и 1С, добавляем Bizon365 и интеграцию с сайтом, плюс новая услуга — настройка чат-бота.
 
 
-## Plan: Add 2 New SEO Blog Articles
+| #   | Интеграция       | Slug                                 | Целевые ключевые слова                                            |
+| --- | ---------------- | ------------------------------------ | ----------------------------------------------------------------- |
+| 1   | Avito            | `integratsiya-amocrm-avito`          | "интеграция amoCRM Avito", "amoCRM Авито заявки"                  |
+| 2   | WhatsApp         | `integratsiya-amocrm-whatsapp`       | "amoCRM WhatsApp", "подключить Ватсап к amoCRM"                   |
+| 3   | Telegram         | `integratsiya-amocrm-telegram`       | "amoCRM Telegram", "подключить телеграм к amoCRM"                 |
+| 4   | MAX (Мессенджер) | `integratsiya-amocrm-max`            | "amoCRM и MAX", "интеграция MAX мессендежра с amoCRM"             |
+| 5   | Sipuni           | `integratsiya-amocrm-sipuni`         | "amoCRM Sipuni", "Сипуни amoCRM настройка"                        |
+| 6   | Сайт             | `integratsiya-amocrm-sajt`           | "amoCRM интеграция с сайтом", "заявки с сайта в CRM"              |
+| 7   | Яндекс.Метрика   | `integratsiya-amocrm-yandex-metrika` | "amoCRM Яндекс Метрика", "сквозная аналитика"                     |
+| 8   | Instagram        | `integratsiya-amocrm-instagram`      | "amoCRM Instagram", "Инстаграм amoCRM"                            |
+| 9   | Wazzup           | `integratsiya-amocrm-wazzup`         | "amoCRM Wazzup", "Wazzup настройка"                               |
+| 10  | Bizon365         | `integratsiya-amocrm-bizon365`       | "amoCRM Bizon365", "вебинары amoCRM", "Бизон365 CRM"              |
+| 11  | GetCourse        | `integratsiya-amocrm-getcourse`      | "amoCRM GetCourse", "CRM для онлайн-школ"                         |
+| 12  | Roistat          | `integratsiya-amocrm-roistat`        | "amoCRM Roistat", "сквозная аналитика Roistat"                    |
+| 13  | Чат-бот          | `nastrojka-chat-bota-amocrm`         | "чат-бот amoCRM", "настройка чат-бота для CRM", "Salesbot amoCRM" |
 
-### New Articles
 
-Two new articles targeting high-intent keyword clusters that are NOT yet covered by existing content. Both articles are service-oriented (targeting keywords around specific services) rather than industry-oriented (which is already well covered by the 7 existing articles).
+Итого: **13 новых статей** (12 интеграций + 1 услуга по чат-боту).
 
----
+### Структура каждой статьи
 
-**Article 1: "Интеграция телефонии с amoCRM: как не терять звонки и контролировать отдел продаж"**
-- Slug: `integratsiya-telefonii-amocrm`
-- Target keywords: "интеграция телефонии amoCRM", "телефония для CRM", "запись звонков amoCRM", "Sipuni amoCRM"
-- Industry tag: Телефония
-- Sections:
-  - Почему бизнес теряет звонки без интеграции телефонии
-  - Что даёт связка телефонии и amoCRM
-  - Какие АТС и сервисы мы подключаем (Sipuni, Мегафон, и т.д.)
-  - Речевая аналитика звонков (ссылка на /speech-analytics)
-  - Результаты: цифры по клиентам
-- Internal links: /telephony, /speech-analytics, /setup-amocrm, /automation
-- Related cases: rkkr, imperialexpert, morozov
+Каждая статья содержит 4-5 разделов:
 
-**Article 2: "Как выбрать CRM-систему для малого бизнеса в 2026 году"**
-- Slug: `kak-vybrat-crm-dlya-malogo-biznesa`
-- Target keywords: "CRM для малого бизнеса", "как выбрать CRM", "сравнение CRM систем", "amoCRM или Битрикс24"
-- Industry tag: Бизнес
-- Sections:
-  - Зачем малому бизнесу CRM-система
-  - Критерии выбора CRM: на что обращать внимание
-  - Почему мы рекомендуем amoCRM
-  - Типовой план внедрения CRM за 2 недели
-  - Сколько стоит внедрение и когда окупается
-- Internal links: /setup-amocrm, /telephony, /automation, /widgets
-- Related cases: konsalting, strakhovaniye, alfakar
+1. Зачем нужна эта интеграция / услуга (боли без нее)
+2. Что дает связка amoCRM + сервис (возможности)
+3. Как мы настраиваем (процесс, сроки)
+4. Результаты у клиентов (цифры)
+5. Внутренние ссылки на `/setup-amocrm`, `/telephony`, `/automation`, `/widgets`
 
----
+Тег industry: "Интеграции" для всех интеграций, "Автоматизация" для чат-бота.
 
-### Technical Changes
+### Технические изменения
 
-**1. `src/data/articles.ts`**
-- Add 2 new article objects to the `articles` array with all required fields (slug, title, metaTitle, metaDescription, excerpt, industry, publishDate, readTime, keywords, sections, relatedCases)
-- Content will include markdown-style internal links (`[text](/path)`) to service pages
+**1. `src/data/articles.ts**`
 
-**2. `public/sitemap.xml`**
-- Add 2 new `<url>` entries:
-  - `https://crm82.tech/blog/integratsiya-telefonii-amocrm`
-  - `https://crm82.tech/blog/kak-vybrat-crm-dlya-malogo-biznesa`
+- Добавить 13 новых объектов в массив `articles` с полным набором полей (slug, title, metaTitle, metaDescription, excerpt, industry, publishDate, readTime, keywords, sections, relatedCases)
+- Контент включает Markdown-ссылки на страницы услуг для внутренней перелинковки
 
-No changes needed to routing, components, or page templates -- they already handle dynamic articles via `/blog/:slug`.
+**2. `public/sitemap.xml**`
 
+- Добавить 13 новых `<url>` записей с lastmod `2026-02-27`
+
+### Что НЕ меняется
+
+- Роутинг — уже есть `/blog/:slug`
+- Компоненты (ArticlePage, BlogPage, Header) — работают автоматически
+- Навигация основного сайта — статьи видны только на странице `/blog`
+- Остальные страницы и функциональность сайта
+
+### Краткое содержание статей
+
+**Avito** — автоматический захват заявок с Авито в CRM, отслеживание объявлений, автоответы.
+
+**WhatsApp** — переписка из CRM, шаблоны сообщений, автоматические рассылки, сохранение истории.
+
+**Telegram** — боты для захвата заявок, переписка из CRM, уведомления менеджерам.
+
+**MAX** — подключение VK Мессенджера (MAX) для общения с клиентами из CRM.
+
+**Sipuni** — настройка виртуальной АТС, запись звонков, маршрутизация, аналитика.
+
+**Сайт** — формы, callback-виджеты, передача UTM-меток, автоматическое создание сделок.
+
+**Яндекс.Метрика** — сквозная аналитика, передача данных о продажах обратно в Метрику.
+
+**Instagram** — обработка сообщений и комментариев из CRM, автоматизация ответов.
+
+**Wazzup** — агрегатор мессенджеров (WhatsApp + Telegram + Instagram) в amoCRM.
+
+**Bizon365** — автоматическое создание сделок после вебинаров, сегментация участников по активности, цепочки догрева.
+
+**GetCourse** — синхронизация учеников и оплат, автоматизация воронки для онлайн-школ.
+
+**Roistat** — мультиканальная аналитика, ROI по каналам, автоматическая разметка.
+
+**Чат-бот** — настройка Salesbot amoCRM: квалификация лидов, автоответы в нерабочее время, сбор данных перед звонком менеджера.
