@@ -10,6 +10,7 @@ export interface Article {
   keywords: string[];
   sections: ArticleSection[];
   relatedCases?: string[]; // slugs from caseStudies
+  relatedArticles?: string[]; // slugs from articles
 }
 
 export interface ArticleSection {
@@ -50,7 +51,8 @@ export const articles: Article[] = [
         content: "На основе 300+ внедрений мы выработали типовой проект для застройщиков:\n\n1. **Воронки продаж** — от первого обращения до подписания ДДУ/ДКП, включая этап ипотечного одобрения\n2. **Шахматка** — интерактивная синхронизация наличия квартир между сайтом и CRM\n3. [Интеграция телефонии](/telephony) — запись звонков, автоматическое создание сделок, маршрутизация по менеджерам\n4. **Мессенджеры** — WhatsApp, Telegram прямо из CRM с сохранением переписки\n5. [Автоматические задачи](/automation) — follow-up после показов, напоминания о звонках\n6. **Документооборот** — автогенерация договоров бронирования из CRM\n7. **Аналитика** — дашборды по продажам, конверсии, эффективности менеджеров\n\nСредний срок [настройки amoCRM](/setup-amocrm) — 10–14 рабочих дней. Результат — рост продаж от 20% в первые 2 месяца."
       }
     ],
-    relatedCases: ["ug1", "morozov", "rkkr"]
+    relatedCases: ["ug1", "morozov", "rkkr"],
+    relatedArticles: ["crm-dlya-agentstva-nedvizhimosti", "crm-dlya-stroitelnoj-kompanii", "integratsiya-telefonii-amocrm"]
   },
   {
     slug: "crm-dlya-agentstva-nedvizhimosti",
@@ -84,7 +86,8 @@ export const articles: Article[] = [
         content: "Типичные результаты для агентств недвижимости после [настройки amoCRM](/setup-amocrm):\n\n• Потеря заявок снижается до 0 — каждое обращение фиксируется\n• Цикл сделки сокращается на 30–40%\n• Повторные обращения растут на 20–50% за счёт системной работы с базой\n• Руководитель экономит 5–10 часов в неделю на контроле\n• Онбординг нового агента — 2 дня вместо 2 недель\n\nСтоимость внедрения окупается в среднем за 1–2 закрытые сделки."
       }
     ],
-    relatedCases: ["morozov", "ug1", "rkkr"]
+    relatedCases: ["morozov", "ug1", "rkkr"],
+    relatedArticles: ["crm-dlya-zastrojshchika", "crm-dlya-dizajna-interjerov", "integratsiya-amocrm-whatsapp"]
   },
   {
     slug: "crm-dlya-stroitelnoj-kompanii",
@@ -118,7 +121,8 @@ export const articles: Article[] = [
         content: "Для строительных компаний с отделом продаж 3–10 человек типовое внедрение включает:\n\n1. Аудит текущих процессов — 1 день\n2. [Настройка воронок и карточек](/setup-amocrm) — 2–3 дня\n3. [Подключение телефонии](/telephony) и мессенджеров — 1–2 дня\n4. [Автоматизация задач](/automation) и уведомлений — 2–3 дня\n5. Обучение команды — 1 день\n6. Сопровождение и корректировки — 2 недели\n\nОбщий срок — 7–14 рабочих дней. Инвестиции окупаются за 2–3 месяца за счёт роста конверсии и сокращения потерь."
       }
     ],
-    relatedCases: ["ug1", "imperialexpert", "rkkr"]
+    relatedCases: ["ug1", "imperialexpert", "rkkr"],
+    relatedArticles: ["crm-dlya-zastrojshchika", "crm-dlya-remontnoj-kompanii", "crm-dlya-prodazhi-strojmaterialov"]
   },
   {
     slug: "crm-dlya-remontnoj-kompanii",
@@ -152,7 +156,8 @@ export const articles: Article[] = [
         content: "После [настройки amoCRM](/setup-amocrm) наши клиенты из сферы ремонта фиксируют:\n\n• Потеря заявок снижается с 30–40% до 0%\n• Скорость ответа — менее 15 минут вместо нескольких часов\n• Конверсия заявки в договор растёт на 25–35%\n• Повторные заказы увеличиваются на 20%\n• Руководитель экономит 8–10 часов в неделю на контроле\n\nВнедрение окупается уже на 2–3 заказе. Средний срок настройки — 5–10 рабочих дней."
       }
     ],
-    relatedCases: ["ug1", "imperialexpert", "konsalting"]
+    relatedCases: ["ug1", "imperialexpert", "konsalting"],
+    relatedArticles: ["crm-dlya-stroitelnoj-kompanii", "crm-dlya-dizajna-interjerov", "crm-dlya-prodazhi-strojmaterialov"]
   },
   {
     slug: "crm-dlya-prodazhi-strojmaterialov",
@@ -186,7 +191,8 @@ export const articles: Article[] = [
         content: "Типичные результаты для компаний по продаже стройматериалов:\n\n• Рост повторных продаж на 30–40%\n• Сокращение времени обработки заказа в 2 раза\n• Полная прозрачность по марже и прибыльности клиентов\n• Снижение потери клиентов при смене менеджеров до нуля\n• Автоматическая отчётность для руководителя\n\nВнедрение amoCRM для продажи стройматериалов занимает 7–10 рабочих дней. Окупаемость — 1–2 месяца."
       }
     ],
-    relatedCases: ["ug1", "alfakar", "konsalting"]
+    relatedCases: ["ug1", "alfakar", "konsalting"],
+    relatedArticles: ["crm-dlya-stroitelnoj-kompanii", "crm-dlya-remontnoj-kompanii", "integratsiya-amocrm-avito"]
   },
   {
     slug: "crm-dlya-dizajna-interjerov",
@@ -220,7 +226,8 @@ export const articles: Article[] = [
         content: "Дизайн интерьеров — бизнес, построенный на рекомендациях. [Автоматизация в amoCRM](/automation) помогает системно работать с этим:\n\n• После сдачи проекта — автоматический запрос отзыва\n• Через 6 месяцев — «Как ваш интерьер? Может, пора обновить текстиль?»\n• Реферальная программа: «Порекомендуйте нас — получите бесплатную консультацию по декору»\n• Сегментация базы: кто заказывал дизайн квартиры — предложить загородный дом\n\nСистемная работа с рекомендациями увеличивает входящий поток на 20–30% без дополнительных затрат на рекламу.\n\n[Настройка amoCRM](/setup-amocrm) для дизайн-студии занимает 5–10 рабочих дней."
       }
     ],
-    relatedCases: ["morozov", "ug1", "imperialexpert"]
+    relatedCases: ["morozov", "ug1", "imperialexpert"],
+    relatedArticles: ["crm-dlya-remontnoj-kompanii", "crm-dlya-agentstva-nedvizhimosti", "integratsiya-amocrm-whatsapp"]
   },
   {
     slug: "crm-dlya-upravlyayushchej-kompanii",
@@ -254,7 +261,8 @@ export const articles: Article[] = [
         content: "Результаты для управляющих компаний после [настройки amoCRM](/setup-amocrm):\n\n• Время обработки заявки сокращается в 3 раза\n• Потеря заявок снижается до 0%\n• Удовлетворённость жителей растёт на 30–40%\n• Нагрузка на диспетчеров снижается на 40–60%\n• Количество жалоб в ГЖИ снижается на 50%\n\namoCRM для управляющей компании — это не просто CRM, а полноценная система управления качеством обслуживания. [Внедрение](/setup-amocrm) занимает 7–14 рабочих дней."
       }
     ],
-    relatedCases: ["ug1", "rkkr", "imperialexpert"]
+    relatedCases: ["ug1", "rkkr", "imperialexpert"],
+    relatedArticles: ["crm-dlya-zastrojshchika", "crm-dlya-stroitelnoj-kompanii", "integratsiya-amocrm-telegram"]
   },
   {
     slug: "integratsiya-telefonii-amocrm",
@@ -288,7 +296,8 @@ export const articles: Article[] = [
         content: "Типичные результаты после интеграции телефонии с amoCRM:\n\n• **Потеря звонков снижается до 2–5%** (с 15–30% до интеграции)\n• **Скорость обработки пропущенных — до 15 минут** (вместо «забыли перезвонить»)\n• **Конверсия из звонка в сделку растёт на 20–35%** за счёт записи и контроля качества\n• **Время на отчётность сокращается на 80%** — все данные автоматически в CRM\n\nВ кейсе с РККР после подключения Sipuni и amoCRM потеря звонков снизилась с 25% до 3%, а конверсия выросла на 30%.\n\nИнтеграция телефонии — один из первых шагов при [настройке amoCRM](/setup-amocrm). Подключение занимает 2–3 рабочих дня и начинает приносить результат с первой недели."
       }
     ],
-    relatedCases: ["rkkr", "imperialexpert", "morozov"]
+    relatedCases: ["rkkr", "imperialexpert", "morozov"],
+    relatedArticles: ["integratsiya-amocrm-sipuni", "integratsiya-telefonii-amocrm", "integratsiya-amocrm-sajt"]
   },
   {
     slug: "kak-vybrat-crm-dlya-malogo-biznesa",
@@ -322,7 +331,8 @@ export const articles: Article[] = [
         content: "Прозрачная экономика внедрения CRM для малого бизнеса:\n\n**Лицензия amoCRM:** от 599 руб./мес. за пользователя (тариф «Базовый»). Для команды из 5 человек — ~3 000 руб./мес.\n\n**Стоимость внедрения:** зависит от сложности процессов. Типовое внедрение для малого бизнеса — от 50 000 руб. Включает настройку воронок, интеграцию телефонии и мессенджеров, обучение команды.\n\n**Когда окупается?** В среднем за 1–2 месяца. Вот простой расчёт:\n• Вы теряете 20% заявок (допустим, 10 заявок в месяц из 50)\n• Средний чек — 30 000 руб., конверсия — 30%\n• Потери: 10 × 30% × 30 000 = 90 000 руб./мес.\n• Внедрение CRM стоит 50 000 руб. → окупается за 17 дней\n\nЭто консервативная оценка. В реальности CRM также увеличивает конверсию из лида в сделку, средний чек (за счёт допродаж) и повторные покупки.\n\nГотовы начать? [Оставьте заявку](/setup-amocrm) — проведём бесплатный аудит ваших процессов и рассчитаем окупаемость для вашего бизнеса."
       }
     ],
-    relatedCases: ["konsalting", "strakhovaniye", "alfakar"]
+    relatedCases: ["konsalting", "strakhovaniye", "alfakar"],
+    relatedArticles: ["integratsiya-amocrm-whatsapp", "integratsiya-amocrm-telegram", "nastrojka-chat-bota-amocrm"]
   },
   // ===== ИНТЕГРАЦИИ amoCRM =====
   {
@@ -353,7 +363,8 @@ export const articles: Article[] = [
         content: "После подключения Авито к amoCRM наши клиенты фиксируют:\n\n• **Скорость ответа** — менее 5 минут вместо нескольких часов\n• **Потеря заявок** — снижается до 0%\n• **Конверсия** — рост на 20–35% за счёт быстрых ответов и follow-up\n• **Контроль** — руководитель видит все переписки и скорость обработки\n• **Аналитика** — понимание, какие объявления приносят сделки, а какие — только вопросы\n\nОсобенно заметен эффект в ремонтных компаниях и продаже стройматериалов, где Авито — основной канал привлечения."
       }
     ],
-    relatedCases: ["ug1", "imperialexpert", "konsalting"]
+    relatedCases: ["ug1", "imperialexpert", "konsalting"],
+    relatedArticles: ["integratsiya-amocrm-sajt", "integratsiya-amocrm-yandex-metrika", "crm-dlya-prodazhi-strojmaterialov"]
   },
   {
     slug: "integratsiya-amocrm-whatsapp",
@@ -383,7 +394,8 @@ export const articles: Article[] = [
         content: "Типичные результаты после подключения WhatsApp к amoCRM:\n\n• **Скорость ответа** — менее 3 минут (вместо часов)\n• **Конверсия** — рост на 15–25% за счёт быстрой коммуникации\n• **Повторные продажи** — рост на 20–30% за счёт рассылок и follow-up\n• **Контроль** — руководитель читает любую переписку\n• **Безопасность** — база клиентов принадлежит компании, а не менеджеру\n\nWhatsApp — must-have интеграция для любого бизнеса, работающего с B2C-клиентами. Оставьте заявку на [настройку amoCRM](/setup-amocrm) — мы подключим WhatsApp в рамках внедрения."
       }
     ],
-    relatedCases: ["konsalting", "strakhovaniye", "imperialexpert"]
+    relatedCases: ["konsalting", "strakhovaniye", "imperialexpert"],
+    relatedArticles: ["integratsiya-amocrm-wazzup", "integratsiya-amocrm-telegram", "nastrojka-chat-bota-amocrm"]
   },
   {
     slug: "integratsiya-amocrm-telegram",
@@ -413,7 +425,8 @@ export const articles: Article[] = [
         content: "После интеграции Telegram с amoCRM:\n\n• **Новый канал продаж** — от 10 до 30% заявок приходят через Telegram\n• **Скорость ответа** — менее 2 минут благодаря уведомлениям\n• **Конверсия бота** — 30–50% посетителей бота оставляют контакт\n• **Экономия времени** — бот отвечает 24/7, менеджер подключается к «тёплым» лидам\n• **Контроль** — вся переписка в CRM\n\n[Настройте amoCRM](/setup-amocrm) с интеграцией Telegram и получите дополнительный канал продаж без затрат на рекламу."
       }
     ],
-    relatedCases: ["konsalting", "strakhovaniye", "alfakar"]
+    relatedCases: ["konsalting", "strakhovaniye", "alfakar"],
+    relatedArticles: ["integratsiya-amocrm-whatsapp", "nastrojka-chat-bota-amocrm", "integratsiya-amocrm-wazzup"]
   },
   {
     slug: "integratsiya-amocrm-max",
@@ -443,7 +456,8 @@ export const articles: Article[] = [
         content: "Интеграция MAX с amoCRM особенно эффективна для:\n\n• **Компании с активной группой VK** — обращения из соцсети не теряются\n• **B2C-бизнесы** — розничные продажи, услуги, образование\n• **Региональные компании** — где VK остаётся основной соцсетью\n• **Компании с молодой аудиторией** — школы, курсы, фитнес\n\nВ связке с [телефонией](/telephony) и другими мессенджерами вы получаете полное покрытие всех каналов коммуникации в одной CRM-системе."
       }
     ],
-    relatedCases: ["konsalting", "alfakar", "strakhovaniye"]
+    relatedCases: ["konsalting", "alfakar", "strakhovaniye"],
+    relatedArticles: ["integratsiya-amocrm-telegram", "integratsiya-amocrm-whatsapp", "integratsiya-amocrm-instagram"]
   },
   {
     slug: "integratsiya-amocrm-sipuni",
@@ -473,7 +487,8 @@ export const articles: Article[] = [
         content: "После настройки Sipuni + amoCRM наши клиенты фиксируют:\n\n• **Пропущенные звонки** — снижение до 5% (вместо 20–30%)\n• **Скорость обратного звонка** — менее 15 минут вместо часов\n• **Конверсия** — рост на 15–20% за счёт контроля качества\n• **Контроль** — руководитель слушает любой звонок из CRM\n• **Аналитика** — понимание, какие каналы приносят звонки и сделки\n\nSipuni — это основа качественной [телефонии для amoCRM](/telephony). Оставьте заявку на [настройку](/setup-amocrm) — подключим за 1–3 дня."
       }
     ],
-    relatedCases: ["rkkr", "ug1", "imperialexpert"]
+    relatedCases: ["rkkr", "ug1", "imperialexpert"],
+    relatedArticles: ["integratsiya-telefonii-amocrm", "integratsiya-amocrm-wazzup", "kak-vybrat-crm-dlya-malogo-biznesa"]
   },
   {
     slug: "integratsiya-amocrm-sajt",
@@ -503,7 +518,8 @@ export const articles: Article[] = [
         content: "Типичные результаты интеграции сайта с amoCRM:\n\n• **Скорость обработки** — менеджер видит заявку через 30 секунд\n• **Потеря заявок** — 0% вместо 10–20%\n• **Сквозная аналитика** — видно, какой рекламный канал приносит продажи\n• **Конверсия** — рост на 15–25% за счёт скорости и follow-up\n• **ROI рекламы** — точное понимание окупаемости каждого канала\n\nИнтеграция с сайтом — это фундамент для [сквозной аналитики](/blog/integratsiya-amocrm-yandex-metrika). Оставьте заявку на [настройку amoCRM](/setup-amocrm)."
       }
     ],
-    relatedCases: ["ug1", "konsalting", "imperialexpert"]
+    relatedCases: ["ug1", "konsalting", "imperialexpert"],
+    relatedArticles: ["integratsiya-amocrm-avito", "integratsiya-amocrm-yandex-metrika", "integratsiya-amocrm-whatsapp"]
   },
   {
     slug: "integratsiya-amocrm-yandex-metrika",
@@ -533,7 +549,8 @@ export const articles: Article[] = [
         content: "Компании, внедрившие сквозную аналитику:\n\n• **Экономия рекламного бюджета** — 20–40% за счёт отключения убыточных кампаний\n• **Рост ROI** — в среднем в 1.5–2 раза за 2–3 месяца\n• **Прозрачность** — руководитель видит реальную стоимость привлечения клиента\n• **Оптимизация** — автостратегии Директа обучаются на реальных продажах, а не лидах\n\nСквозная аналитика — это не luxury, а необходимость для любого бизнеса с рекламным бюджетом от 50 000 руб./мес. [Настроим amoCRM](/setup-amocrm) с полной аналитикой."
       }
     ],
-    relatedCases: ["ug1", "rkkr", "konsalting"]
+    relatedCases: ["ug1", "rkkr", "konsalting"],
+    relatedArticles: ["integratsiya-amocrm-sajt", "integratsiya-amocrm-roistat", "kak-vybrat-crm-dlya-malogo-biznesa"]
   },
   {
     slug: "integratsiya-amocrm-instagram",
@@ -563,7 +580,8 @@ export const articles: Article[] = [
         content: "После подключения Instagram к amoCRM:\n\n• **Скорость ответа** — менее 5 минут 24/7\n• **Конверсия из Direct** — рост на 25–40%\n• **Контроль** — руководитель видит все переписки\n• **Аналитика** — сколько сделок приносит Instagram\n• **Безопасность** — переписки в CRM, а не на личном телефоне\n\nInstagram + amoCRM — must-have для бизнесов с визуальным продуктом. [Настройте amoCRM](/setup-amocrm) с интеграцией Instagram."
       }
     ],
-    relatedCases: ["konsalting", "strakhovaniye", "alfakar"]
+    relatedCases: ["konsalting", "strakhovaniye", "alfakar"],
+    relatedArticles: ["integratsiya-amocrm-whatsapp", "integratsiya-amocrm-telegram", "integratsiya-amocrm-max"]
   },
   {
     slug: "integratsiya-amocrm-wazzup",
@@ -593,7 +611,8 @@ export const articles: Article[] = [
         content: "Из нашего опыта более 300 внедрений, Wazzup — оптимальный выбор для amoCRM:\n\n• **Надёжность** — минимум сбоев среди всех агрегаторов\n• **Поддержка** — быстрая реакция на проблемы\n• **Цена/качество** — от 1 500 руб./мес. за канал\n• **Обновления** — регулярно добавляются новые функции\n\nРезультаты наших клиентов:\n• Скорость ответа — менее 3 минут\n• Конверсия из мессенджеров — рост на 20–35%\n• Контроль переписок — 100%\n• Повторные продажи через рассылки — рост на 15–25%\n\n[Настройте amoCRM](/setup-amocrm) с Wazzup — и все мессенджеры будут в одном окне."
       }
     ],
-    relatedCases: ["konsalting", "strakhovaniye", "rkkr"]
+    relatedCases: ["konsalting", "strakhovaniye", "rkkr"],
+    relatedArticles: ["integratsiya-amocrm-whatsapp", "integratsiya-amocrm-telegram", "integratsiya-amocrm-instagram"]
   },
   {
     slug: "integratsiya-amocrm-bizon365",
@@ -623,7 +642,8 @@ export const articles: Article[] = [
         content: "После интеграции Bizon365 с amoCRM:\n\n• **Конверсия вебинара в продажу** — рост на 30–50%\n• **Скорость обработки** — «горячие» лиды обзваниваются в первые 15 минут\n• **Возврат «холодных»** — автоцепочки догревают тех, кто ушёл рано\n• **Аналитика** — точное понимание ROI каждого вебинара\n• **Экономия времени** — менеджеры не тратят время на сортировку списков\n\nИдеально для онлайн-школ, инфобизнеса, образовательных проектов. Рекомендуем также подключить [GetCourse](/blog/integratsiya-amocrm-getcourse) для полной автоматизации. [Настроим amoCRM](/setup-amocrm) под вебинарные продажи."
       }
     ],
-    relatedCases: ["konsalting", "strakhovaniye", "alfakar"]
+    relatedCases: ["konsalting", "strakhovaniye", "alfakar"],
+    relatedArticles: ["integratsiya-amocrm-roistat", "integratsiya-amocrm-sajt", "integratsiya-amocrm-getcourse"]
   },
   {
     slug: "integratsiya-amocrm-getcourse",
@@ -653,7 +673,8 @@ export const articles: Article[] = [
         content: "После интеграции GetCourse с amoCRM:\n\n• **Конверсия в оплату** — рост на 25–40% за счёт системной работы менеджеров\n• **Средний чек** — рост на 15–20% за счёт допродаж из CRM\n• **LTV ученика** — рост на 30% за счёт автоматических цепочек продления\n• **Контроль** — руководитель видит каждую сделку и переписку\n• **Масштабирование** — новые менеджеры начинают продавать за 2 дня\n\nТакже рекомендуем подключить [Bizon365](/blog/integratsiya-amocrm-bizon365) для автоматизации вебинарных воронок. [Настроим amoCRM](/setup-amocrm) для вашей онлайн-школы."
       }
     ],
-    relatedCases: ["konsalting", "strakhovaniye", "alfakar"]
+    relatedCases: ["konsalting", "strakhovaniye", "alfakar"],
+    relatedArticles: ["integratsiya-amocrm-bizon365", "integratsiya-amocrm-sajt", "integratsiya-amocrm-yandex-metrika"]
   },
   {
     slug: "integratsiya-amocrm-roistat",
@@ -683,7 +704,8 @@ export const articles: Article[] = [
         content: "Компании с Roistat + amoCRM фиксируют:\n\n• **Экономия бюджета** — 25–40% за счёт отключения убыточных каналов\n• **Рост ROI** — в 2–3 раза за 3 месяца оптимизации\n• **Прозрачность** — каждый рубль рекламного бюджета отслежен\n• **Масштабирование** — инвестирование в доказанно прибыльные каналы\n• **Скорость решений** — данные в реальном времени, а не раз в месяц\n\nRoistat — инвестиция, которая окупается за 1–2 месяца. [Настроим amoCRM](/setup-amocrm) с полной сквозной аналитикой."
       }
     ],
-    relatedCases: ["ug1", "rkkr", "konsalting"]
+    relatedCases: ["ug1", "rkkr", "konsalting"],
+    relatedArticles: ["integratsiya-amocrm-yandex-metrika", "integratsiya-amocrm-sajt", "integratsiya-amocrm-bizon365"]
   },
   {
     slug: "nastrojka-chat-bota-amocrm",
@@ -713,7 +735,8 @@ export const articles: Article[] = [
         content: "После настройки Salesbot в amoCRM:\n\n• **Скорость ответа** — менее 10 секунд 24/7\n• **Конверсия** — рост на 20–35% за счёт мгновенной реакции\n• **Экономия времени менеджеров** — бот снимает 30–50% рутинных диалогов\n• **Квалификация** — менеджер получает готового лида с заполненной карточкой\n• **Охват** — бот работает одновременно во всех мессенджерах\n\nЧат-бот — это не замена менеджера, а его «суперсила». Бот обрабатывает рутину, менеджер закрывает сделки.\n\nОставьте заявку на [настройку amoCRM](/setup-amocrm) — внедрим чат-бота как часть комплексной [автоматизации](/automation) вашего бизнеса."
       }
     ],
-    relatedCases: ["konsalting", "strakhovaniye", "imperialexpert"]
+    relatedCases: ["konsalting", "strakhovaniye", "imperialexpert"],
+    relatedArticles: ["integratsiya-amocrm-whatsapp", "integratsiya-amocrm-telegram", "integratsiya-amocrm-wazzup"]
   }
 ];
 
