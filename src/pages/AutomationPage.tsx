@@ -74,10 +74,25 @@ const AutomationPage = () => {
       ],
     });
 
+    addJsonLd("ld-howto-automation", {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "Как автоматизировать продажи в amoCRM",
+      description: "Пошаговый процесс настройки автоматизации: от анализа рутинных операций до запуска автоворонок и чат-ботов.",
+      totalTime: "P7D",
+      step: [
+        { "@type": "HowToStep", position: 1, name: "Анализ рутинных операций", text: "Выявляем повторяющиеся действия менеджеров, которые можно автоматизировать" },
+        { "@type": "HowToStep", position: 2, name: "Проектирование автоматизации", text: "Создаём схему автоматических действий, триггеров и условий" },
+        { "@type": "HowToStep", position: 3, name: "Настройка Digital Pipeline", text: "Настраиваем автозадачи, авторассылки, чат-ботов и уведомления" },
+        { "@type": "HowToStep", position: 4, name: "Тестирование и оптимизация", text: "Проверяем работу автоматизации на реальных сделках и корректируем" },
+      ],
+    });
+
     return () => {
       document.getElementById("ld-breadcrumb-automation")?.remove();
       document.getElementById("ld-service-automation")?.remove();
       document.getElementById("ld-faq-automation")?.remove();
+      document.getElementById("ld-howto-automation")?.remove();
     };
   }, []);
 

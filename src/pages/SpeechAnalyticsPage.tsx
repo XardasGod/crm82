@@ -127,10 +127,25 @@ const SpeechAnalyticsPage = () => {
       ],
     });
 
+    addJsonLd("ld-howto-speech", {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "Как внедрить речевую аналитику в amoCRM",
+      description: "Пошаговый процесс внедрения Voice AI: аудит, настройка, тестирование и обучение команды.",
+      totalTime: "P7D",
+      step: steps.map((s, i) => ({
+        "@type": "HowToStep",
+        position: i + 1,
+        name: s.title,
+        text: s.description,
+      })),
+    });
+
     return () => {
       document.getElementById("ld-breadcrumb-speech")?.remove();
       document.getElementById("ld-service-speech")?.remove();
       document.getElementById("ld-faq-speech")?.remove();
+      document.getElementById("ld-howto-speech")?.remove();
     };
   }, []);
 
