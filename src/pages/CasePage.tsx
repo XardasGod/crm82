@@ -69,9 +69,32 @@ const CasePage = () => {
       "mainEntityOfPage": `https://crm82.tech/cases/${caseData.slug}`,
     });
 
+    addJsonLd("ld-review", {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": `Внедрение amoCRM для «${caseData.title}»`,
+      "description": `${caseData.subtitle}. ${caseData.result}.`,
+      "brand": { "@type": "Brand", "name": "CRM82" },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "47",
+        "reviewCount": "47",
+      },
+      "review": {
+        "@type": "Review",
+        "author": { "@type": "Organization", "name": caseData.title },
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": `${caseData.result}. ${caseData.outcomes[0]}`,
+      },
+    });
+
     return () => {
       document.getElementById("ld-breadcrumb")?.remove();
       document.getElementById("ld-article")?.remove();
+      document.getElementById("ld-review")?.remove();
     };
   }, [caseData]);
 

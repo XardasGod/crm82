@@ -74,10 +74,25 @@ const SetupAmocrmPage = () => {
       ],
     });
 
+    addJsonLd("ld-howto-setup", {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "Как настроить amoCRM под ключ",
+      description: "Пошаговый процесс внедрения amoCRM для бизнеса: от аудита процессов до сопровождения после запуска.",
+      totalTime: "P14D",
+      step: steps.map((s, i) => ({
+        "@type": "HowToStep",
+        position: i + 1,
+        name: s.title,
+        text: s.description,
+      })),
+    });
+
     return () => {
       document.getElementById("ld-breadcrumb-setup")?.remove();
       document.getElementById("ld-service-setup")?.remove();
       document.getElementById("ld-faq-setup")?.remove();
+      document.getElementById("ld-howto-setup")?.remove();
     };
   }, []);
 

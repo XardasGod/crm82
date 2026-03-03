@@ -74,10 +74,25 @@ const TelephonyPage = () => {
       ],
     });
 
+    addJsonLd("ld-howto-telephony", {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "Как подключить телефонию к amoCRM",
+      description: "Пошаговый процесс интеграции IP-телефонии с amoCRM: выбор провайдера, настройка маршрутизации, запуск.",
+      totalTime: "P3D",
+      step: [
+        { "@type": "HowToStep", position: 1, name: "Выбор провайдера", text: "Подбираем оптимальную АТС под задачи и бюджет компании" },
+        { "@type": "HowToStep", position: 2, name: "Настройка АТС", text: "Настраиваем виртуальную АТС, маршрутизацию и IVR-меню" },
+        { "@type": "HowToStep", position: 3, name: "Интеграция с amoCRM", text: "Подключаем телефонию к amoCRM: автосоздание сделок, запись звонков" },
+        { "@type": "HowToStep", position: 4, name: "Тестирование и обучение", text: "Проверяем работу, обучаем менеджеров работе со звонками в CRM" },
+      ],
+    });
+
     return () => {
       document.getElementById("ld-breadcrumb-telephony")?.remove();
       document.getElementById("ld-service-telephony")?.remove();
       document.getElementById("ld-faq-telephony")?.remove();
+      document.getElementById("ld-howto-telephony")?.remove();
     };
   }, []);
 
