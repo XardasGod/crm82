@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { InView } from "@/components/InView";
 import { RelatedCases } from "@/components/RelatedCases";
+import { RelatedArticles } from "@/components/RelatedArticles";
 import { getArticleBySlug, articles } from "@/data/articles";
 import { getOgImageUrl } from "@/lib/og-image";
 import { Clock, Tag, ArrowLeft, ArrowRight } from "lucide-react";
@@ -150,6 +151,11 @@ const ArticlePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Related articles */}
+      {article.relatedArticles && article.relatedArticles.length > 0 && (
+        <RelatedArticles articleSlugs={article.relatedArticles} />
+      )}
 
       {/* Related cases */}
       {article.relatedCases && article.relatedCases.length > 0 && (
