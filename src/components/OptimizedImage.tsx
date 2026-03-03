@@ -6,6 +6,7 @@ interface OptimizedImageProps {
   width?: number;
   height?: number;
   loading?: "lazy" | "eager";
+  fetchPriority?: "high" | "low" | "auto";
 }
 
 export const OptimizedImage = ({
@@ -16,6 +17,7 @@ export const OptimizedImage = ({
   width,
   height,
   loading = "lazy",
+  fetchPriority,
 }: OptimizedImageProps) => {
   return (
     <picture>
@@ -27,7 +29,8 @@ export const OptimizedImage = ({
         width={width}
         height={height}
         loading={loading}
-        decoding="async"
+        decoding={loading === "eager" ? "sync" : "async"}
+        {...(fetchPriority ? { fetchPriority } : {})}
       />
     </picture>
   );

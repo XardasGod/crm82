@@ -47,6 +47,7 @@ export const HeroSection = () => {
                 alt="Интерфейс amoCRM с воронкой продаж, аналитикой и автоматизацией для бизнеса"
                 className="rounded-xl border border-primary-foreground/10 shadow-2xl w-full"
                 loading="eager"
+                fetchPriority="high"
                 width={600}
                 height={400}
               />
