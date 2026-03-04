@@ -85,12 +85,18 @@ export const LeadForm = ({
       if (import.meta.env.DEV) console.error("DB error:", dbError);
     }
 
+    // Generate event_id for FB deduplication
+    const eventId = crypto.randomUUID();
+
     // Send analytics goals
     if (typeof window !== "undefined" && (window as any).ym) {
       (window as any).ym(106983693, "reachGoal", "lead_form_submit");
     }
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("event", "generate_lead", { event_category: "form", event_label: "lead_form" });
+    }
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "Lead", {}, { eventID: eventId });
     }
 
     // JS challenge: compute interaction duration
@@ -104,6 +110,7 @@ export const LeadForm = ({
           name, phone, email: email || null, company: company || null,
           source, website: honeypot, utm,
           _t: interactionTs, _d: duration,
+          event_id: eventId,
         },
       });
 
