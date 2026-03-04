@@ -18,7 +18,7 @@ const BOT_UA_PATTERNS = [
 ];
 
 function isBotUserAgent(ua: string): boolean {
-  if (!ua || ua.length < 10) return true; // Too short or empty UA
+  if (!ua || ua.length < 10) return true;
   return BOT_UA_PATTERNS.some(pattern => pattern.test(ua));
 }
 
@@ -32,19 +32,19 @@ const utmSchema = z.object({
 
 const leadSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100, "Name too long"),
-  phone: z.string().trim().regex(/^\+?[0-9\s\-\(\)]+$/, "Invalid phone format").min(7, "Phone too short").max(20, "Phone too long"),
+  phone: z.string().trim().regex(/^\+?[0-9\s\-()]+$/, "Invalid phone format").min(7, "Phone too short").max(20, "Phone too long"),
   email: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().email("Invalid email").max(255).optional()),
   company: z.preprocess((v) => (v === "" || v === null ? undefined : v), z.string().trim().max(200, "Company name too long").optional()),
   source: z.string().trim().max(50).default("main"),
   website: z.string().max(0, "Bot detected").optional(),
   utm: utmSchema,
-  // JS challenge fields
-  _t: z.number().optional(),  // timestamp of first interaction
-  _d: z.number().optional(),  // duration in ms from interaction to submit
+  _t: z.number().optional(),
+  _d: z.number().optional(),
+  event_id: z.string().uuid().optional(),
 });
 
 const RATE_LIMIT_MAX = 3;
-const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
 
 const ALLOWED_ORIGINS = [
   'https://crm82.lovable.app',
@@ -52,17 +52,71 @@ const ALLOWED_ORIGINS = [
   'https://www.crm82.ru',
 ];
 
-// In-memory per-IP tracking for honeypot abuse
 const honeypotAbusers = new Map<string, number>();
-// In-memory per-IP tracking for bot UA abuse
 const botUaBlocked = new Map<string, number>();
+
+// SHA-256 hash helper for FB CAPI
+async function sha256(value: string): Promise<string> {
+  const data = new TextEncoder().encode(value.trim().toLowerCase());
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// Fire-and-forget Facebook CAPI event
+async function sendFbCapiEvent(params: {
+  eventId?: string;
+  email?: string;
+  phone?: string;
+  clientIp: string;
+  userAgent: string;
+  sourceUrl: string;
+}) {
+  const FB_CAPI_TOKEN = Deno.env.get('FB_CAPI_ACCESS_TOKEN');
+  if (!FB_CAPI_TOKEN) {
+    console.log('FB_CAPI_ACCESS_TOKEN not set, skipping CAPI');
+    return;
+  }
+
+  try {
+    const userData: Record<string, any> = {
+      client_ip_address: params.clientIp,
+      client_user_agent: params.userAgent,
+    };
+    if (params.email) userData.em = [await sha256(params.email)];
+    if (params.phone) {
+      const normalized = params.phone.replace(/[\s\-()]/g, '');
+      userData.ph = [await sha256(normalized)];
+    }
+
+    const eventData = {
+      event_name: 'Lead',
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: params.eventId,
+      event_source_url: params.sourceUrl || 'https://crm82.ru',
+      action_source: 'website',
+      user_data: userData,
+    };
+
+    const res = await fetch(
+      `https://graph.facebook.com/v21.0/1940056993251273/events?access_token=${FB_CAPI_TOKEN}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: [eventData] }),
+      }
+    );
+    const text = await res.text();
+    console.log(`FB CAPI response: ${res.status} ${text}`);
+  } catch (err) {
+    console.error('FB CAPI error:', err);
+  }
+}
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
-  // 1. User-Agent bot check
   const userAgent = req.headers.get('user-agent') || '';
   const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
 
@@ -70,14 +124,12 @@ serve(async (req) => {
     const count = (botUaBlocked.get(clientIp) || 0) + 1;
     botUaBlocked.set(clientIp, count);
     console.log(`Bot UA blocked: "${userAgent}" IP: ${clientIp} (count: ${count})`);
-    // Silently return success to not tip off bots
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
 
-  // 2. Validate origin/referer
   const origin = req.headers.get('origin') || '';
   const referer = req.headers.get('referer') || '';
   const isPreview = origin.includes('.lovable.app') || referer.includes('.lovable.app') || origin.includes('.lovableproject.com') || referer.includes('.lovableproject.com');
@@ -105,7 +157,6 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
     );
 
-    // Check if IP is a known honeypot abuser
     const honeypotCount = honeypotAbusers.get(clientIp) || 0;
     if (honeypotCount >= 3) {
       return new Response(JSON.stringify({ success: true }), {
@@ -114,7 +165,6 @@ serve(async (req) => {
       });
     }
 
-    // Rate limiting by IP
     const oneHourAgo = new Date(Date.now() - RATE_LIMIT_WINDOW_MS).toISOString();
     const { count } = await supabaseAdmin
       .from('leads')
@@ -153,15 +203,14 @@ serve(async (req) => {
       });
     }
 
-    const { name, phone, email, company, source, utm, _t, _d } = parseResult.data;
+    const { name, phone, email, company, source, utm, _t, _d, event_id } = parseResult.data;
 
-    // 3. JS challenge validation
-    // Real users: interaction timestamp exists, duration > 3 seconds, timestamp not from the future
+    // JS challenge validation
     const now = Date.now();
     if (_t && _d) {
-      const isTooFast = _d < 3000; // Less than 3 seconds to fill form
-      const isFromFuture = _t > now + 60000; // Timestamp from the future (with 1 min tolerance)
-      const isTooOld = _t < now - 24 * 60 * 60 * 1000; // Older than 24 hours
+      const isTooFast = _d < 3000;
+      const isFromFuture = _t > now + 60000;
+      const isTooOld = _t < now - 24 * 60 * 60 * 1000;
       
       if (isTooFast || isFromFuture || isTooOld) {
         console.log(`JS challenge failed: IP=${clientIp} duration=${_d}ms timestamp=${_t} isTooFast=${isTooFast} isFromFuture=${isFromFuture} isTooOld=${isTooOld}`);
@@ -171,9 +220,8 @@ serve(async (req) => {
         });
       }
     }
-    // If _t/_d not present, we still allow (graceful degradation for older cached forms)
 
-    // --- amoCRM logic (unchanged) ---
+    // --- amoCRM logic ---
     const domain = AMOCRM_SUBDOMAIN.includes('.') ? AMOCRM_SUBDOMAIN : `${AMOCRM_SUBDOMAIN}.amocrm.ru`;
     const baseUrl = `https://${domain}/api/v4`;
     const headers = {
@@ -181,7 +229,6 @@ serve(async (req) => {
       'Content-Type': 'application/json',
     };
 
-    // 1. Search for existing contact by phone, then by email
     let contactId: number | undefined;
 
     const phoneSearch = new URLSearchParams({ query: phone });
@@ -208,7 +255,6 @@ serve(async (req) => {
       }
     }
 
-    // 2. Create or update contact
     if (contactId) {
       const updateFields: any[] = [
         { field_code: "PHONE", values: [{ value: phone }] },
@@ -240,9 +286,9 @@ serve(async (req) => {
       const contactRes = await fetch(`${baseUrl}/contacts`, {
         method: 'POST',
         headers,
-        body: JSON.stringify([{
-          name,
-          custom_fields_values: customFields,
+        body: JSON.stringify([{\
+          name,\
+          custom_fields_values: customFields,\
         }]),
       });
 
@@ -257,7 +303,6 @@ serve(async (req) => {
       console.log(`Created new contact ${contactId}`);
     }
 
-    // 3. Create lead (deal)
     const sourceLabels: Record<string, string> = {
       main: "Главная",
       payments: "Платёжные системы",
@@ -288,7 +333,6 @@ serve(async (req) => {
 
     const leadId = leadData?._embedded?.leads?.[0]?.id;
 
-    // 4. Add UTM note to the lead if UTM params present
     if (leadId && utm && Object.keys(utm).length > 0) {
       const utmLines = Object.entries(utm).map(([k, v]) => `${k}: ${v}`).join('\n');
       const noteBody = [{
@@ -311,6 +355,17 @@ serve(async (req) => {
         console.error('UTM note error:', noteErr);
       }
     }
+
+    // Fire-and-forget: send Lead event to Facebook CAPI
+    const sourceUrl = referer || origin || 'https://crm82.ru';
+    sendFbCapiEvent({
+      eventId: event_id,
+      email,
+      phone,
+      clientIp,
+      userAgent,
+      sourceUrl,
+    }).catch(err => console.error('FB CAPI async error:', err));
 
     return new Response(JSON.stringify({ success: true, lead_id: leadId }), {
       status: 200,
