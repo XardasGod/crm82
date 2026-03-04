@@ -1,83 +1,49 @@
-## План: 12 SEO-статей по интеграциям amoCRM
-
-### Обновленный список статей
-
-Согласно вашим корректировкам: убираем Яндекс.Директ и 1С, добавляем Bizon365 и интеграцию с сайтом, плюс новая услуга — настройка чат-бота.
 
 
-| #   | Интеграция       | Slug                                 | Целевые ключевые слова                                            |
-| --- | ---------------- | ------------------------------------ | ----------------------------------------------------------------- |
-| 1   | Avito            | `integratsiya-amocrm-avito`          | "интеграция amoCRM Avito", "amoCRM Авито заявки"                  |
-| 2   | WhatsApp         | `integratsiya-amocrm-whatsapp`       | "amoCRM WhatsApp", "подключить Ватсап к amoCRM"                   |
-| 3   | Telegram         | `integratsiya-amocrm-telegram`       | "amoCRM Telegram", "подключить телеграм к amoCRM"                 |
-| 4   | MAX (Мессенджер) | `integratsiya-amocrm-max`            | "amoCRM и MAX", "интеграция MAX мессендежра с amoCRM"             |
-| 5   | Sipuni           | `integratsiya-amocrm-sipuni`         | "amoCRM Sipuni", "Сипуни amoCRM настройка"                        |
-| 6   | Сайт             | `integratsiya-amocrm-sajt`           | "amoCRM интеграция с сайтом", "заявки с сайта в CRM"              |
-| 7   | Яндекс.Метрика   | `integratsiya-amocrm-yandex-metrika` | "amoCRM Яндекс Метрика", "сквозная аналитика"                     |
-| 8   | Instagram        | `integratsiya-amocrm-instagram`      | "amoCRM Instagram", "Инстаграм amoCRM"                            |
-| 9   | Wazzup           | `integratsiya-amocrm-wazzup`         | "amoCRM Wazzup", "Wazzup настройка"                               |
-| 10  | Bizon365         | `integratsiya-amocrm-bizon365`       | "amoCRM Bizon365", "вебинары amoCRM", "Бизон365 CRM"              |
-| 11  | GetCourse        | `integratsiya-amocrm-getcourse`      | "amoCRM GetCourse", "CRM для онлайн-школ"                         |
-| 12  | Roistat          | `integratsiya-amocrm-roistat`        | "amoCRM Roistat", "сквозная аналитика Roistat"                    |
-| 13  | Чат-бот          | `nastrojka-chat-bota-amocrm`         | "чат-бот amoCRM", "настройка чат-бота для CRM", "Salesbot amoCRM" |
+## План: Интеграция Facebook Pixel + Conversions API
 
+### Что будет сделано
 
-Итого: **13 новых статей** (12 интеграций + 1 услуга по чат-боту).
+**1. Клиентский Facebook Pixel (`index.html`)**
+- Добавить базовый скрипт Facebook Pixel (ID: `1940056993251273`) аналогично Яндекс.Метрике и GA4
+- Автоматическое отслеживание `PageView` на всех страницах
+- Отложенная загрузка (аналогично amoCRM чату) для минимального влияния на Core Web Vitals
 
-### Структура каждой статьи
+**2. Клиентские события (`LeadForm.tsx`)**
+- Добавить вызов `fbq('track', 'Lead')` при успешной отправке формы (рядом с существующими ym/gtag вызовами)
 
-Каждая статья содержит 4-5 разделов:
+**3. Серверная часть — Facebook Conversions API**
 
-1. Зачем нужна эта интеграция / услуга (боли без нее)
-2. Что дает связка amoCRM + сервис (возможности)
-3. Как мы настраиваем (процесс, сроки)
-4. Результаты у клиентов (цифры)
-5. Внутренние ссылки на `/setup-amocrm`, `/telephony`, `/automation`, `/widgets`
+Создать edge-функцию `facebook-capi` которая будет вызываться из `create-amocrm-deal` после успешного создания лида:
 
-Тег industry: "Интеграции" для всех интеграций, "Автоматизация" для чат-бота.
+- **Endpoint**: `POST https://graph.facebook.com/v21.0/1940056993251273/events`
+- **Событие**: `Lead` с параметрами:
+  - `event_time`, `event_source_url`, `action_source: "website"`
+  - `user_data`: хешированные (SHA-256) `email`, `phone`, `client_ip_address`, `client_user_agent`
+- **Access Token**: сохранить как секрет `FB_CAPI_ACCESS_TOKEN`
 
-### Технические изменения
+**4. Обновить `create-amocrm-deal/index.ts`**
+- После успешного создания лида в amoCRM, отправлять серверное событие `Lead` в Facebook CAPI напрямую (без отдельной edge-функции, чтобы не добавлять лишний hop)
+- Хешировать email и phone через SHA-256 (требование Facebook)
+- Передавать `client_ip_address` и `client_user_agent` из заголовков запроса
 
-**1. `src/data/articles.ts**`
+**5. Конфигурация**
+- `supabase/config.toml`: добавить `verify_jwt = false` для существующей функции (уже настроено)
+- Секрет `FB_CAPI_ACCESS_TOKEN` — запросить через add_secret
 
-- Добавить 13 новых объектов в массив `articles` с полным набором полей (slug, title, metaTitle, metaDescription, excerpt, industry, publishDate, readTime, keywords, sections, relatedCases)
-- Контент включает Markdown-ссылки на страницы услуг для внутренней перелинковки
+### Архитектура событий
 
-**2. `public/sitemap.xml**`
+```text
+Браузер                          Сервер
+───────                          ──────
+PageView  ──► fbq (клиент)
+Lead      ──► fbq (клиент)  +   create-amocrm-deal ──► FB CAPI (Lead)
+```
 
-- Добавить 13 новых `<url>` записей с lastmod `2026-02-27`
+Дедупликация: клиентский и серверный `Lead` будут дедуплицированы Facebook по `event_id` (одинаковый ID генерируется на клиенте и передается на сервер).
 
-### Что НЕ меняется
+### Файлы для изменения
+- `index.html` — добавить FB Pixel скрипт
+- `src/components/LeadForm.tsx` — добавить `fbq('track', 'Lead')` + передать `event_id`
+- `supabase/functions/create-amocrm-deal/index.ts` — добавить отправку в FB CAPI
 
-- Роутинг — уже есть `/blog/:slug`
-- Компоненты (ArticlePage, BlogPage, Header) — работают автоматически
-- Навигация основного сайта — статьи видны только на странице `/blog`
-- Остальные страницы и функциональность сайта
-
-### Краткое содержание статей
-
-**Avito** — автоматический захват заявок с Авито в CRM, отслеживание объявлений, автоответы.
-
-**WhatsApp** — переписка из CRM, шаблоны сообщений, автоматические рассылки, сохранение истории.
-
-**Telegram** — боты для захвата заявок, переписка из CRM, уведомления менеджерам.
-
-**MAX** — подключение VK Мессенджера (MAX) для общения с клиентами из CRM.
-
-**Sipuni** — настройка виртуальной АТС, запись звонков, маршрутизация, аналитика.
-
-**Сайт** — формы, callback-виджеты, передача UTM-меток, автоматическое создание сделок.
-
-**Яндекс.Метрика** — сквозная аналитика, передача данных о продажах обратно в Метрику.
-
-**Instagram** — обработка сообщений и комментариев из CRM, автоматизация ответов.
-
-**Wazzup** — агрегатор мессенджеров (WhatsApp + Telegram + Instagram) в amoCRM.
-
-**Bizon365** — автоматическое создание сделок после вебинаров, сегментация участников по активности, цепочки догрева.
-
-**GetCourse** — синхронизация учеников и оплат, автоматизация воронки для онлайн-школ.
-
-**Roistat** — мультиканальная аналитика, ROI по каналам, автоматическая разметка.
-
-**Чат-бот** — настройка Salesbot amoCRM: квалификация лидов, автоответы в нерабочее время, сбор данных перед звонком менеджера.
