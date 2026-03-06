@@ -4,6 +4,7 @@ import certAmocrm from "@/assets/certificate-amocrm.jpg";
 import certSipuni from "@/assets/certificate-sipuni-fixed.jpg";
 import certWazzup from "@/assets/certificate-wazzup-fixed.jpg";
 import heroCrm from "@/assets/hero-crm.jpg";
+import presentationBg from "@/assets/presentation-hero-bg.jpg";
 import {
   CheckCircle2, Star, BarChart3, Calendar, Award, Phone, MessageCircle, Send,
   AlertTriangle, TrendingUp, Shield, Eye, Clock, Bot, Globe, Mail,
@@ -36,11 +37,8 @@ const PresentationPage = () => {
 
       {/* Титульный блок — компактный */}
       <section className="kp-no-break mb-5">
-        <div className="relative rounded-2xl bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900 text-white p-6 overflow-hidden">
-          <div className="absolute inset-0 opacity-[0.04]" style={{
-            backgroundImage: "linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)",
-            backgroundSize: "40px 40px"
-          }} />
+        <div className="relative rounded-2xl text-white p-6 overflow-hidden" style={{ backgroundColor: '#0a1628' }}>
+          <img src={presentationBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-60" />
           <div className="relative z-10 flex items-center gap-6">
             <div className="flex-1">
               <img src={logoCrm82} alt="CRM82" className="h-6 mb-3 brightness-0 invert" />
