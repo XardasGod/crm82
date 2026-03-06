@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import logoCrm82 from "@/assets/logo-crm82.png";
+import certAmocrm from "@/assets/certificate-amocrm.jpg";
+import certSipuni from "@/assets/certificate-sipuni-fixed.jpg";
+import certWazzup from "@/assets/certificate-wazzup-fixed.jpg";
 import heroCrm from "@/assets/hero-crm.jpg";
 import {
   CheckCircle2, Star, BarChart3, Calendar, Award, Phone, MessageCircle, Send,
@@ -70,6 +73,17 @@ const PresentationPage = () => {
                 <p className="font-bold text-xs">{item.label}</p>
                 <p className="text-[11px] text-gray-500">{item.desc}</p>
               </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-3 mb-4">
+          {[
+            { src: certAmocrm, alt: "Сертификат amoCRM" },
+            { src: certSipuni, alt: "Сертификат Sipuni" },
+            { src: certWazzup, alt: "Сертификат Wazzup" },
+          ].map((cert) => (
+            <div key={cert.alt} className="flex-1 rounded-xl border border-gray-100 bg-gray-50 p-2 aspect-[4/3] flex items-center justify-center">
+              <img src={cert.src} alt={cert.alt} className="max-w-full max-h-full object-contain" />
             </div>
           ))}
         </div>
