@@ -16,6 +16,7 @@ const TelephonyPage = lazy(() => import("./pages/TelephonyPage"));
 const AutomationPage = lazy(() => import("./pages/AutomationPage"));
 const SpeechAnalyticsPage = lazy(() => import("./pages/SpeechAnalyticsPage"));
 const SpeechAnalyticsKPPage = lazy(() => import("./pages/SpeechAnalyticsKPPage"));
+const PresentationPage = lazy(() => import("./pages/PresentationPage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
 const IntegrationsPage = lazy(() => import("./pages/IntegrationsPage"));
 const ArticlePage = lazy(() => import("./pages/ArticlePage"));
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="/automation" element={<AutomationPage />} />
             <Route path="/speech-analytics" element={<SpeechAnalyticsPage />} />
             <Route path="/speech-analytics-kp" element={<SpeechAnalyticsKPPage />} />
+            <Route path="/presentation" element={<PresentationPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/integrations" element={<IntegrationsPage />} />
             <Route path="/blog/:slug" element={<ArticlePage />} />
