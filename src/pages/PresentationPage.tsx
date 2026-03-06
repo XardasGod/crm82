@@ -32,242 +32,227 @@ const PresentationPage = () => {
         }
       `}</style>
 
-      {/* ===== Слайд 1: Титульный ===== */}
-      <section className="kp-no-break mb-0">
-        <div className="relative rounded-2xl bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900 text-white p-8 overflow-hidden">
-          {/* Grid overlay */}
+      {/* ===== СТРАНИЦА 1: Титульный + О нас ===== */}
+
+      {/* Титульный блок — компактный */}
+      <section className="kp-no-break mb-5">
+        <div className="relative rounded-2xl bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900 text-white p-6 overflow-hidden">
           <div className="absolute inset-0 opacity-[0.04]" style={{
             backgroundImage: "linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)",
             backgroundSize: "40px 40px"
           }} />
-          <div className="relative z-10">
-            <img src={logoCrm82} alt="CRM82" className="h-8 mb-6 brightness-0 invert" />
-            <h1 className="text-3xl font-extrabold leading-tight mb-3 print:text-2xl">
-              CRM82 — ваш надежный партнер<br />по внедрению <span className="text-blue-400">amoCRM</span>
-            </h1>
-            <p className="text-blue-200 text-sm max-w-lg mb-6">
-              Автоматизируем продажи, настраиваем интеграции и увеличиваем вашу прибыль.
-            </p>
-            <div className="inline-block bg-blue-600/20 border border-blue-500/30 rounded-lg px-4 py-2 text-xs text-blue-200">
-              Знакомство с компанией и наши услуги →
+          <div className="relative z-10 flex items-center gap-6">
+            <div className="flex-1">
+              <img src={logoCrm82} alt="CRM82" className="h-6 mb-3 brightness-0 invert" />
+              <h1 className="text-2xl font-extrabold leading-tight mb-2 print:text-xl">
+                CRM82 — ваш надежный партнер по внедрению <span className="text-blue-400">amoCRM</span>
+              </h1>
+              <p className="text-blue-200 text-xs max-w-md">
+                Автоматизируем продажи, настраиваем интеграции и увеличиваем вашу прибыль.
+              </p>
+            </div>
+            <div className="hidden print:flex flex-col items-end text-right text-[10px] text-blue-300 gap-0.5 flex-shrink-0">
+              <span>crm82.tech</span>
+              <span>+7 (969) 777-36-72</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ===== Слайд 2: О нас в цифрах ===== */}
-      <section className="kp-page-break mb-8">
-        <h2 className="text-xl font-extrabold mb-4 border-b-2 border-gray-200 pb-2">Почему выбирают CRM82?</h2>
-        <div className="grid grid-cols-2 gap-3 mb-4">
+      {/* О нас в цифрах */}
+      <section className="mb-5 kp-no-break">
+        <h2 className="text-lg font-extrabold mb-3 border-b-2 border-gray-200 pb-1.5">Почему выбирают CRM82?</h2>
+        <div className="grid grid-cols-4 gap-2 mb-3">
           {[
             { icon: Award, label: "Сертифицированный партнёр", desc: "amoCRM, Sipuni, Wazzup" },
-            { icon: Calendar, label: "На рынке с 2019 года", desc: "Проверенный опыт" },
+            { icon: Calendar, label: "С 2019 года", desc: "На рынке" },
             { icon: BarChart3, label: "300+ внедрений", desc: "Успешных проектов" },
-            { icon: Star, label: "NPS 9.2 / 10", desc: "Индекс лояльности клиентов" },
+            { icon: Star, label: "NPS 9.2/10", desc: "Лояльность клиентов" },
           ].map((item) => (
-            <div key={item.label} className="kp-no-break flex gap-3 items-start p-3 rounded-xl bg-gray-50 border border-gray-100">
-              <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-                <item.icon className="w-4 h-4 text-blue-600" />
-              </div>
-              <div>
-                <p className="font-bold text-xs">{item.label}</p>
-                <p className="text-[11px] text-gray-500">{item.desc}</p>
-              </div>
+            <div key={item.label} className="text-center p-2 rounded-lg bg-gray-50 border border-gray-100">
+              <item.icon className="w-4 h-4 text-blue-600 mx-auto mb-1" />
+              <p className="font-bold text-[11px] leading-tight">{item.label}</p>
+              <p className="text-[10px] text-gray-500">{item.desc}</p>
             </div>
           ))}
         </div>
-        <div className="flex gap-3 mb-4">
+        <div className="flex gap-2 mb-3">
           {[
             { src: certAmocrm, alt: "Сертификат amoCRM" },
             { src: certSipuni, alt: "Сертификат Sipuni" },
             { src: certWazzup, alt: "Сертификат Wazzup" },
           ].map((cert) => (
-            <div key={cert.alt} className="flex-1 rounded-xl border border-gray-100 bg-gray-50 p-2 aspect-[4/3] flex items-center justify-center">
+            <div key={cert.alt} className="flex-1 rounded-lg border border-gray-100 bg-gray-50 p-1.5 aspect-[4/3] flex items-center justify-center">
               <img src={cert.src} alt={cert.alt} className="max-w-full max-h-full object-contain" />
             </div>
           ))}
         </div>
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-xs text-blue-800 text-center font-medium">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 text-[11px] text-blue-800 text-center font-medium">
           Мы не просто настраиваем программу — мы выстраиваем систему, которая приносит деньги.
         </div>
       </section>
 
-      {/* ===== Слайд 3: Проблемы бизнеса ===== */}
-      <section className="mb-8 kp-no-break">
-        <h2 className="text-xl font-extrabold mb-4 border-b-2 border-gray-200 pb-2">Знакомые ситуации?</h2>
-        <div className="space-y-2.5">
+      {/* ===== СТРАНИЦА 2: Проблемы + Решение ===== */}
+
+      {/* Проблемы бизнеса */}
+      <section className="kp-page-break mb-5 kp-no-break">
+        <h2 className="text-lg font-extrabold mb-3 border-b-2 border-gray-200 pb-1.5">Знакомые ситуации?</h2>
+        <div className="grid grid-cols-2 gap-2">
           {[
             { icon: AlertTriangle, text: "Менеджеры забывают перезвонить клиентам или теряют заявки." },
-            { icon: Eye, text: "Нет прозрачной аналитики: непонятно, откуда приходят лиды и где они «отваливаются»." },
-            { icon: Clock, text: "Много времени уходит на рутину — заполнение документов, ручные рассылки." },
-            { icon: Shield, text: "Руководитель не видит реальную картину продаж и не может контролировать сотрудников." },
+            { icon: Eye, text: "Нет прозрачной аналитики: непонятно, откуда лиды и где они «отваливаются»." },
+            { icon: Clock, text: "Много времени уходит на рутину — документы, ручные рассылки." },
+            { icon: Shield, text: "Руководитель не видит реальную картину продаж." },
           ].map((item) => (
-            <div key={item.text} className="flex gap-3 items-start p-3 rounded-xl bg-red-50 border border-red-100">
-              <item.icon className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-              <p className="text-xs text-gray-700">{item.text}</p>
+            <div key={item.text} className="flex gap-2 items-start p-2.5 rounded-lg bg-red-50 border border-red-100">
+              <item.icon className="w-3.5 h-3.5 text-red-500 mt-0.5 flex-shrink-0" />
+              <p className="text-[11px] text-gray-700 leading-snug">{item.text}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ===== Слайд 4: Наше решение ===== */}
-      <section className="kp-page-break mb-8 kp-no-break">
-        <h2 className="text-xl font-extrabold mb-4 border-b-2 border-gray-200 pb-2">Что вы получите после внедрения?</h2>
-        <div className="grid grid-cols-2 gap-3 mb-4">
+      {/* Наше решение */}
+      <section className="mb-5 kp-no-break">
+        <h2 className="text-lg font-extrabold mb-3 border-b-2 border-gray-200 pb-1.5">Что вы получите после внедрения?</h2>
+        <div className="grid grid-cols-2 gap-2 mb-3">
           {[
             { icon: TrendingUp, title: "Рост конверсии до 40%", desc: "Уже в первый месяц работы" },
-            { icon: Shield, title: "100% контроль заявок", desc: "Ни один лид не потеряется, все обращения в едином окне" },
-            { icon: BarChart3, title: "Прозрачная аналитика", desc: "Дашборды и отчёты по каждому этапу продаж и менеджеру" },
-            { icon: Bot, title: "Автоматизация рутины", desc: "Digital-воронки и боты сделают половину работы за отдел" },
+            { icon: Shield, title: "100% контроль заявок", desc: "Все обращения в едином окне" },
+            { icon: BarChart3, title: "Прозрачная аналитика", desc: "Дашборды по каждому этапу продаж" },
+            { icon: Bot, title: "Автоматизация рутины", desc: "Воронки и боты работают за менеджеров" },
           ].map((item) => (
-            <div key={item.title} className="kp-no-break p-3 rounded-xl bg-green-50 border border-green-100">
-              <div className="flex items-center gap-2 mb-1">
-                <item.icon className="w-4 h-4 text-green-600" />
-                <p className="font-bold text-xs">{item.title}</p>
+            <div key={item.title} className="kp-no-break p-2.5 rounded-lg bg-green-50 border border-green-100">
+              <div className="flex items-center gap-1.5 mb-0.5">
+                <item.icon className="w-3.5 h-3.5 text-green-600" />
+                <p className="font-bold text-[11px]">{item.title}</p>
               </div>
-              <p className="text-[11px] text-gray-600">{item.desc}</p>
+              <p className="text-[10px] text-gray-600">{item.desc}</p>
             </div>
           ))}
         </div>
-        <div className="rounded-xl overflow-hidden border border-gray-200">
+        <div className="rounded-lg overflow-hidden border border-gray-200">
           <img src={heroCrm} alt="Интерфейс amoCRM" className="w-full h-auto" />
         </div>
       </section>
 
-      {/* ===== Слайд 5: Услуги ===== */}
-      <section className="mb-8 kp-no-break">
-        <h2 className="text-xl font-extrabold mb-4 border-b-2 border-gray-200 pb-2">Все интеграции в одном окне</h2>
-        <div className="space-y-2">
+      {/* ===== СТРАНИЦА 3: Услуги + Процесс ===== */}
+
+      {/* Услуги */}
+      <section className="kp-page-break mb-5 kp-no-break">
+        <h2 className="text-lg font-extrabold mb-3 border-b-2 border-gray-200 pb-1.5">Все интеграции в одном окне</h2>
+        <div className="grid grid-cols-2 gap-2">
           {[
-            { icon: Settings, title: "Настройка логики", desc: "Создаём воронки продаж, настраиваем карточки сделок и контактов." },
-            { icon: MessageSquare, title: "Мессенджеры и соцсети", desc: "Интеграция с WhatsApp, Telegram, Instagram (через Wazzup)." },
-            { icon: Headphones, title: "IP-телефония", desc: "Подключение Sipuni и других АТС с записью звонков в карточке клиента." },
-            { icon: Globe, title: "Сайт и почта", desc: "Сбор всех заявок с форм на сайте и email." },
-            { icon: Zap, title: "Автоматизация", desc: "Триггерные рассылки, автозадачи для менеджеров и генерация документов." },
+            { icon: Settings, title: "Настройка логики", desc: "Воронки продаж, карточки сделок и контактов." },
+            { icon: MessageSquare, title: "Мессенджеры и соцсети", desc: "WhatsApp, Telegram, Instagram (Wazzup)." },
+            { icon: Headphones, title: "IP-телефония", desc: "Sipuni и другие АТС с записью звонков." },
+            { icon: Globe, title: "Сайт и почта", desc: "Сбор заявок с форм и email." },
+            { icon: Zap, title: "Автоматизация", desc: "Рассылки, автозадачи, генерация документов." },
           ].map((item) => (
-            <div key={item.title} className="flex gap-3 items-start p-2.5 rounded-xl bg-gray-50 border border-gray-100">
-              <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <item.icon className="w-3.5 h-3.5 text-blue-600" />
+            <div key={item.title} className="flex gap-2 items-start p-2 rounded-lg bg-gray-50 border border-gray-100">
+              <div className="w-6 h-6 rounded bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <item.icon className="w-3 h-3 text-blue-600" />
               </div>
               <div>
-                <p className="font-bold text-xs">{item.title}</p>
-                <p className="text-[11px] text-gray-600">{item.desc}</p>
+                <p className="font-bold text-[11px]">{item.title}</p>
+                <p className="text-[10px] text-gray-600">{item.desc}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ===== Слайд 6: Как мы работаем ===== */}
-      <section className="kp-page-break mb-8 kp-no-break">
-        <h2 className="text-xl font-extrabold mb-1 border-b-2 border-gray-200 pb-2">Внедрение за 5–14 дней, а не месяцами</h2>
-        <p className="text-xs text-gray-500 mb-4">4 простых шага к автоматизации продаж</p>
-        <div className="grid grid-cols-4 gap-3">
+      {/* Как мы работаем */}
+      <section className="mb-5 kp-no-break">
+        <h2 className="text-lg font-extrabold mb-1 border-b-2 border-gray-200 pb-1.5">Внедрение за 5–14 дней</h2>
+        <p className="text-[10px] text-gray-500 mb-3">4 простых шага к автоматизации продаж</p>
+        <div className="grid grid-cols-4 gap-2">
           {[
-            { num: "01", title: "Аудит", desc: "Анализируем ваши текущие процессы продаж и находим точки роста (бесплатно)." },
-            { num: "02", title: "Настройка", desc: "Создаём воронки, настраиваем поля, автоматизацию и подключаем интеграции." },
-            { num: "03", title: "Обучение", desc: "Практические тренинги для менеджеров и руководства." },
-            { num: "04", title: "Поддержка", desc: "Сопровождаем 30 дней после запуска, оптимизируем процессы." },
+            { num: "01", title: "Аудит", desc: "Анализ процессов продаж и точек роста (бесплатно)." },
+            { num: "02", title: "Настройка", desc: "Воронки, автоматизация, все интеграции." },
+            { num: "03", title: "Обучение", desc: "Тренинги для менеджеров и руководства." },
+            { num: "04", title: "Поддержка", desc: "30 дней сопровождения после запуска." },
           ].map((s) => (
-            <div key={s.num} className="text-center p-3 rounded-xl bg-gray-50 border border-gray-100">
-              <span className="text-2xl font-extrabold text-blue-600/25">{s.num}</span>
-              <p className="font-bold text-xs mt-1">{s.title}</p>
-              <p className="text-[10px] text-gray-600 mt-1 leading-snug">{s.desc}</p>
+            <div key={s.num} className="text-center p-2 rounded-lg bg-gray-50 border border-gray-100">
+              <span className="text-xl font-extrabold text-blue-600/25">{s.num}</span>
+              <p className="font-bold text-[11px] mt-0.5">{s.title}</p>
+              <p className="text-[10px] text-gray-600 mt-0.5 leading-snug">{s.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ===== Слайд 7: Ниши ===== */}
-      <section className="mb-8 kp-no-break">
-        <h2 className="text-xl font-extrabold mb-4 border-b-2 border-gray-200 pb-2">Опыт работы в вашей сфере</h2>
-        <p className="text-xs text-gray-600 mb-3">Мы успешно внедрили CRM для компаний из самых разных отраслей:</p>
-        <div className="grid grid-cols-2 gap-2.5">
+      {/* Ниши */}
+      <section className="mb-5 kp-no-break">
+        <h2 className="text-lg font-extrabold mb-3 border-b-2 border-gray-200 pb-1.5">Опыт работы в вашей сфере</h2>
+        <div className="grid grid-cols-3 gap-2">
           {[
-            { icon: Building2, title: "Недвижимость и строительство", desc: "ЖСК ЮГ-1, АН Морозов" },
-            { icon: Car, title: "Автобизнес и автошколы", desc: "ООО «Альфакар», Город Дорог" },
-            { icon: Users, title: "Консалтинг, HR и экспертиза", desc: "Империал Эксперт, Технадзор" },
-            { icon: GraduationCap, title: "Онлайн-школы и образование", desc: "Академия популярного искусства" },
-            { icon: Plane, title: "Туризм и страхование", desc: "Пегас Турист, страховые компании" },
-            { icon: Mail, title: "Кадастровые услуги", desc: "РККР и другие" },
+            { icon: Building2, title: "Недвижимость", desc: "ЖСК ЮГ-1, АН Морозов" },
+            { icon: Car, title: "Автобизнес", desc: "Альфакар, Город Дорог" },
+            { icon: Users, title: "Консалтинг и HR", desc: "Империал Эксперт" },
+            { icon: GraduationCap, title: "Образование", desc: "Онлайн-школы" },
+            { icon: Plane, title: "Туризм", desc: "Пегас Турист" },
+            { icon: Mail, title: "Кадастр и страхование", desc: "РККР и другие" },
           ].map((item) => (
-            <div key={item.title} className="flex gap-2.5 items-start p-2.5 rounded-xl bg-gray-50 border border-gray-100">
-              <item.icon className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+            <div key={item.title} className="flex gap-2 items-start p-2 rounded-lg bg-gray-50 border border-gray-100">
+              <item.icon className="w-3.5 h-3.5 text-blue-600 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="font-bold text-xs">{item.title}</p>
-                <p className="text-[11px] text-gray-500">{item.desc}</p>
+                <p className="font-bold text-[11px]">{item.title}</p>
+                <p className="text-[10px] text-gray-500">{item.desc}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ===== Слайд 8: Кейсы ===== */}
-      <section className="mb-8 kp-no-break">
-        <h2 className="text-xl font-extrabold mb-4 border-b-2 border-gray-200 pb-2">Кейсы, которыми мы гордимся</h2>
-        <div className="space-y-3">
+      {/* ===== СТРАНИЦА 4: Кейсы + Контакты ===== */}
+
+      {/* Кейсы */}
+      <section className="kp-page-break mb-5 kp-no-break">
+        <h2 className="text-lg font-extrabold mb-3 border-b-2 border-gray-200 pb-1.5">Кейсы, которыми мы гордимся</h2>
+        <div className="grid grid-cols-3 gap-2">
           {[
-            {
-              title: "Агентство недвижимости «Морозов»",
-              result: "Сократили цикл сделки на 40%",
-              desc: "Полная интеграция с мессенджерами и сайтом.",
-              percent: 40,
-            },
-            {
-              title: "ЖСК ЮГ-1 (Строительство)",
-              result: "Увеличили продажи на 20%",
-              desc: "Прозрачная система ведения клиента от заявки до сделки.",
-              percent: 20,
-            },
-            {
-              title: "Центр экспертиз «Империал Эксперт»",
-              result: "Экономия 30 мин на каждой сделке",
-              desc: "Автоматизация рутины и генерация документов.",
-              percent: 30,
-            },
+            { title: "АН «Морозов»", result: "−40% цикл сделки", desc: "Интеграция с мессенджерами и сайтом.", percent: 40 },
+            { title: "ЖСК ЮГ-1", result: "+20% продажи", desc: "Прозрачное ведение клиента.", percent: 20 },
+            { title: "Империал Эксперт", result: "−30 мин / сделка", desc: "Автоматизация рутины.", percent: 30 },
           ].map((c) => (
-            <div key={c.title} className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 border border-gray-100">
-              <div className="w-14 h-14 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
-                <span className="text-lg font-extrabold text-blue-600">{c.percent}%</span>
+            <div key={c.title} className="p-3 rounded-lg bg-gray-50 border border-gray-100 text-center">
+              <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mx-auto mb-1.5">
+                <span className="text-sm font-extrabold text-blue-600">{c.percent}%</span>
               </div>
-              <div>
-                <p className="font-bold text-sm">{c.title}</p>
-                <p className="text-xs text-blue-700 font-semibold">{c.result}</p>
-                <p className="text-[11px] text-gray-500">{c.desc}</p>
-              </div>
+              <p className="font-bold text-xs">{c.title}</p>
+              <p className="text-[11px] text-blue-700 font-semibold">{c.result}</p>
+              <p className="text-[10px] text-gray-500 mt-0.5">{c.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ===== Слайд 10: Контакты ===== */}
-      <section className="kp-page-break kp-no-break">
-        <div className="rounded-2xl bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900 text-white p-8">
-          <img src={logoCrm82} alt="CRM82" className="h-7 mb-4 brightness-0 invert" />
-          <h2 className="text-xl font-extrabold mb-5">Давайте обсудим ваш проект</h2>
-          
-          <div className="grid grid-cols-2 gap-4 mb-6">
+      {/* Контакты */}
+      <section className="kp-no-break">
+        <div className="rounded-2xl bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900 text-white p-6">
+          <div className="flex items-start justify-between mb-4">
             <div>
-              <p className="text-[11px] text-blue-300 mb-1">Телефон / Мессенджеры</p>
-              <a href="tel:+79697773672" className="flex items-center gap-2 text-sm font-semibold text-white">
-                <Phone className="w-4 h-4" />
+              <img src={logoCrm82} alt="CRM82" className="h-6 mb-2 brightness-0 invert" />
+              <h2 className="text-lg font-extrabold">Давайте обсудим ваш проект</h2>
+            </div>
+            <div className="text-right text-[10px] text-blue-300 space-y-0.5">
+              <p>crm82.tech</p>
+              <a href="tel:+79697773672" className="flex items-center justify-end gap-1.5 text-white font-semibold text-xs">
+                <Phone className="w-3 h-3" />
                 +7 (969) 777-36-72
               </a>
             </div>
-            <div>
-              <p className="text-[11px] text-blue-300 mb-1">Сайт</p>
-              <p className="text-sm font-semibold">crm82.tech</p>
-            </div>
           </div>
 
-          <div className="flex gap-3 mb-6">
+          <div className="flex gap-3 mb-4">
             <a href="https://t.me/crm82_support" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-blue-600/30 border border-blue-500/30 rounded-lg px-4 py-2 text-xs text-blue-200 hover:bg-blue-600/40 transition-colors">
+              className="flex items-center gap-2 bg-blue-600/30 border border-blue-500/30 rounded-lg px-4 py-2 text-xs text-blue-200">
               <Send className="w-3.5 h-3.5" />
               Написать в Telegram
             </a>
             <a href="https://wa.me/79697773672" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-green-600/30 border border-green-500/30 rounded-lg px-4 py-2 text-xs text-green-200 hover:bg-green-600/40 transition-colors">
+              className="flex items-center gap-2 bg-green-600/30 border border-green-500/30 rounded-lg px-4 py-2 text-xs text-green-200">
               <MessageCircle className="w-3.5 h-3.5" />
               Написать в WhatsApp
             </a>
