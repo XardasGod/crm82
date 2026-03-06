@@ -41,7 +41,7 @@ const PresentationPage = () => {
             backgroundSize: "40px 40px"
           }} />
           <div className="relative z-10">
-            <img src={logoCrm82} alt="CRM82" className="h-8 mb-6" />
+            <img src={logoCrm82} alt="CRM82" className="h-8 mb-6 brightness-0 invert" />
             <h1 className="text-3xl font-extrabold leading-tight mb-3 print:text-2xl">
               CRM82 — ваш надежный партнер<br />по внедрению <span className="text-blue-400">amoCRM</span>
             </h1>
@@ -243,7 +243,7 @@ const PresentationPage = () => {
       {/* ===== Слайд 10: Контакты ===== */}
       <section className="kp-page-break kp-no-break">
         <div className="rounded-2xl bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900 text-white p-8">
-          <img src={logoCrm82} alt="CRM82" className="h-7 mb-4" />
+          <img src={logoCrm82} alt="CRM82" className="h-7 mb-4 brightness-0 invert" />
           <h2 className="text-xl font-extrabold mb-5">Давайте обсудим ваш проект</h2>
           
           <div className="grid grid-cols-2 gap-4 mb-6">
