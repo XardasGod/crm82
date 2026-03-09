@@ -130,7 +130,9 @@ const PresentationPage = () => {
         </div>
       </section>
 
-      <section className="mb-2 kp-no-break">
+      {/* ===== СТРАНИЦА 2: Услуги + Процесс + Ниши + Кейсы + Контакты ===== */}
+
+      <section className="kp-page-break mb-2 kp-no-break">
         <h2 className="text-sm font-extrabold mb-1.5 border-b border-gray-200 pb-1">Все интеграции в одном окне</h2>
         <div className="grid grid-cols-3 gap-1">
           {[
