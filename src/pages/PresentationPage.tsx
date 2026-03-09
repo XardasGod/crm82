@@ -105,9 +105,9 @@ const PresentationPage = () => {
         </div>
       </section>
 
-      {/* ===== СТРАНИЦА 2: Решение + Услуги + Процесс ===== */}
+      {/* Решение — остаётся на странице 1 */}
 
-      <section className="kp-page-break mb-2 kp-no-break">
+      <section className="mb-2 kp-no-break">
         <h2 className="text-sm font-extrabold mb-1.5 border-b border-gray-200 pb-1">Что вы получите после внедрения?</h2>
         <div className="grid grid-cols-2 gap-1 mb-2">
           {[
@@ -130,7 +130,9 @@ const PresentationPage = () => {
         </div>
       </section>
 
-      <section className="mb-2 kp-no-break">
+      {/* ===== СТРАНИЦА 2: Услуги + Процесс + Ниши + Кейсы + Контакты ===== */}
+
+      <section className="kp-page-break mb-2 kp-no-break">
         <h2 className="text-sm font-extrabold mb-1.5 border-b border-gray-200 pb-1">Все интеграции в одном окне</h2>
         <div className="grid grid-cols-3 gap-1">
           {[
@@ -171,9 +173,7 @@ const PresentationPage = () => {
         </div>
       </section>
 
-      {/* ===== СТРАНИЦА 3: Ниши + Кейсы + Контакты ===== */}
-
-      <section className="kp-page-break mb-2 kp-no-break">
+      <section className="mb-2 kp-no-break">
         <h2 className="text-sm font-extrabold mb-1.5 border-b border-gray-200 pb-1">Опыт в вашей сфере</h2>
         <div className="grid grid-cols-3 gap-1">
           {[
