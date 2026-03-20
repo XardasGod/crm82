@@ -38,7 +38,48 @@ const ArticlePage = () => {
 
   useEffect(() => {
     if (!article) return;
-...
+    document.title = article.metaTitle;
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute("content", article.metaDescription);
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute("href", `https://crm82.tech/blog/${article.slug}`);
+
+    const setMeta = (attr: string, key: string, content: string) => {
+      let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement;
+      if (!el) { el = document.createElement("meta"); el.setAttribute(attr, key); document.head.appendChild(el); }
+      el.setAttribute("content", content);
+    };
+    const ogImage = getOgImageUrl(article.title, article.industry + ' • ' + article.readTime, 'Блог');
+    setMeta("property", "og:image", ogImage);
+    setMeta("property", "og:title", article.metaTitle);
+    setMeta("property", "og:description", article.metaDescription);
+
+    const articleSchema = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: article.title,
+      description: article.metaDescription,
+      author: { "@type": "Organization", name: "CRM82" },
+      publisher: { "@type": "Organization", name: "CRM82", url: "https://crm82.tech" },
+      datePublished: article.publishDate,
+      mainEntityOfPage: `https://crm82.tech/blog/${article.slug}`,
+    };
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Главная", item: "https://crm82.tech/" },
+        { "@type": "ListItem", position: 2, name: "Блог", item: "https://crm82.tech/blog" },
+        { "@type": "ListItem", position: 3, name: article.title, item: `https://crm82.tech/blog/${article.slug}` },
+      ],
+    };
+
+    const s1 = document.createElement("script");
+    s1.id = "ld-article"; s1.type = "application/ld+json"; s1.textContent = JSON.stringify(articleSchema);
+    const s2 = document.createElement("script");
+    s2.id = "ld-breadcrumb-article"; s2.type = "application/ld+json"; s2.textContent = JSON.stringify(breadcrumbSchema);
+    document.head.append(s1, s2);
+    return () => { document.getElementById("ld-article")?.remove(); document.getElementById("ld-breadcrumb-article")?.remove(); };
   }, [article]);
 
   if (!article) return <Navigate to="/blog" replace />;
