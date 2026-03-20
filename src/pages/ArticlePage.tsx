@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -6,6 +6,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { InView } from "@/components/InView";
 import { RelatedCases } from "@/components/RelatedCases";
 import { RelatedArticles } from "@/components/RelatedArticles";
+import { TableOfContents, headingToId } from "@/components/TableOfContents";
 import { getArticleBySlug, articles } from "@/data/articles";
 import { getOgImageUrl } from "@/lib/og-image";
 import { Clock, Tag, ArrowLeft, ArrowRight } from "lucide-react";
@@ -30,6 +31,11 @@ const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const article = slug ? getArticleBySlug(slug) : undefined;
 
+  const tocItems = useMemo(
+    () => article ? article.sections.map((s) => ({ id: headingToId(s.heading), text: s.heading })) : [],
+    [article]
+  );
+
   useEffect(() => {
     if (!article) return;
     document.title = article.metaTitle;
@@ -38,7 +44,6 @@ const ArticlePage = () => {
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) canonical.setAttribute("href", `https://crm82.tech/blog/${article.slug}`);
 
-    // Set OG image
     const setMeta = (attr: string, key: string, content: string) => {
       let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement;
       if (!el) { el = document.createElement("meta"); el.setAttribute(attr, key); document.head.appendChild(el); }
@@ -114,10 +119,11 @@ const ArticlePage = () => {
       <article className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
+            <TableOfContents items={tocItems} />
             {article.sections.map((section, i) => (
               <InView key={i} animation="anim-hidden-up">
-                <div className="mb-10">
-                  <h2 className="text-xl md:text-2xl font-bold text-foreground font-display mb-4">
+                <div className="mb-10" id={headingToId(section.heading)}>
+                  <h2 className="text-xl md:text-2xl font-bold text-foreground font-display mb-4 scroll-mt-24">
                     {section.heading}
                   </h2>
                   <div className="text-muted-foreground leading-relaxed whitespace-pre-line text-[15px]">
