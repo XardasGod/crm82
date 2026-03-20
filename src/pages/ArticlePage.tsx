@@ -120,10 +120,11 @@ const ArticlePage = () => {
       <article className="py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
+            <TableOfContents items={tocItems} />
             {article.sections.map((section, i) => (
               <InView key={i} animation="anim-hidden-up">
-                <div className="mb-10">
-                  <h2 className="text-xl md:text-2xl font-bold text-foreground font-display mb-4">
+                <div className="mb-10" id={headingToId(section.heading)}>
+                  <h2 className="text-xl md:text-2xl font-bold text-foreground font-display mb-4 scroll-mt-24">
                     {section.heading}
                   </h2>
                   <div className="text-muted-foreground leading-relaxed whitespace-pre-line text-[15px]">
