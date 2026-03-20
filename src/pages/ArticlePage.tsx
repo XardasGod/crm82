@@ -80,6 +80,11 @@ const ArticlePage = () => {
 
   if (!article) return <Navigate to="/blog" replace />;
 
+  const tocItems = useMemo(
+    () => article.sections.map((s) => ({ id: headingToId(s.heading), text: s.heading })),
+    [article]
+  );
+
   const currentIndex = articles.findIndex(a => a.slug === article.slug);
   const prevArticle = currentIndex > 0 ? articles[currentIndex - 1] : null;
   const nextArticle = currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
