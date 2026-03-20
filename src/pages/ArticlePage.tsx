@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -6,6 +6,7 @@ import { LeadForm } from "@/components/LeadForm";
 import { InView } from "@/components/InView";
 import { RelatedCases } from "@/components/RelatedCases";
 import { RelatedArticles } from "@/components/RelatedArticles";
+import { TableOfContents, headingToId } from "@/components/TableOfContents";
 import { getArticleBySlug, articles } from "@/data/articles";
 import { getOgImageUrl } from "@/lib/og-image";
 import { Clock, Tag, ArrowLeft, ArrowRight } from "lucide-react";
