@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import logoCrm82 from "@/assets/logo-crm82.png";
 import certAmocrm from "@/assets/certificate-amocrm.jpg";
-import certSipuni from "@/assets/certificate-sipuni-fixed.jpg";
-import certWazzup from "@/assets/certificate-wazzup-fixed.jpg";
+import certSipuni from "@/assets/certificate-sipuni.jpg";
+import certWazzup from "@/assets/certificate-wazzup.jpg";
 import heroCrm from "@/assets/hero-crm.jpg";
 import presentationBg from "@/assets/presentation-hero-bg.jpg";
 import {
