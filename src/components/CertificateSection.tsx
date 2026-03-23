@@ -2,10 +2,10 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import certificateAmo from "@/assets/certificate-amocrm.jpg";
 import certificateAmoWebp from "@/assets/certificate-amocrm.jpg?format=webp";
-import certificateSipuni from "@/assets/certificate-sipuni-fixed.jpg";
-import certificateSipuniWebp from "@/assets/certificate-sipuni-fixed.jpg?format=webp";
-import certificateWazzup from "@/assets/certificate-wazzup-fixed.jpg";
-import certificateWazzupWebp from "@/assets/certificate-wazzup-fixed.jpg?format=webp";
+import certificateSipuni from "@/assets/certificate-sipuni.jpg";
+import certificateSipuniWebp from "@/assets/certificate-sipuni.jpg?format=webp";
+import certificateWazzup from "@/assets/certificate-wazzup.jpg";
+import certificateWazzupWebp from "@/assets/certificate-wazzup.jpg?format=webp";
 import { OptimizedImage } from "./OptimizedImage";
 import { InView } from "./InView";
 
