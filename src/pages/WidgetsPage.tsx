@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { Puzzle, ArrowRight, Play, Crown, Gift, Shuffle, Users, Palette, Webhook, EyeOff, MessageCircle, Code2, Clock, ArrowLeft, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ServiceFaq } from "@/components/ServiceFaq";
 import { InView } from "@/components/InView";
 import { getOgImageUrl } from "@/lib/og-image";
 
