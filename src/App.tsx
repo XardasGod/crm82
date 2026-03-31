@@ -21,7 +21,9 @@ const BlogPage = lazy(() => import("./pages/BlogPage"));
 const IntegrationsPage = lazy(() => import("./pages/IntegrationsPage"));
 const ArticlePage = lazy(() => import("./pages/ArticlePage"));
 const OfferPage = lazy(() => import("./pages/OfferPage"));
-const CityPage = lazy(() => import("./pages/CityPage"));
+const MoscowPage = lazy(() => import("./pages/CityPage").then(m => ({ default: m.MoscowPage })));
+const SaintPetersburgPage = lazy(() => import("./pages/CityPage").then(m => ({ default: m.SaintPetersburgPage })));
+const TyumenPage = lazy(() => import("./pages/CityPage").then(m => ({ default: m.TyumenPage })));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
