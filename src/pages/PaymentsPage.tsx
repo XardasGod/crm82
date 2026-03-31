@@ -54,7 +54,20 @@ const PaymentsPage = () => {
       ],
     });
 
-    return () => { document.getElementById("ld-breadcrumb-payments")?.remove(); };
+    addJsonLd("ld-faq-payments", {
+      "@context": "https://schema.org", "@type": "FAQPage",
+      mainEntity: [
+        { "@type": "Question", name: "Зачем подключать платёжные системы напрямую?", acceptedAnswer: { "@type": "Answer", text: "Подключение напрямую позволяет сэкономить от 3 до 7% комиссии, которую доначисляет платёжный модуль GetPay в GetCourse." } },
+        { "@type": "Question", name: "Какие платёжные системы можно подключить?", acceptedAnswer: { "@type": "Answer", text: "ЮKassa, Долями (Тинькофф), Яндекс Сплит, Сбербанк «В рассрочку», Подели, Продамус, Тинькофф эквайринг, ОТП Банк и другие." } },
+        { "@type": "Question", name: "Будут ли автоматически выдаваться чеки?", acceptedAnswer: { "@type": "Answer", text: "Да, мы настроим автоматическую выдачу чеков ОФД для всех подключённых платёжных систем." } },
+        { "@type": "Question", name: "Можно ли совместить GetPay и прямое подключение?", acceptedAnswer: { "@type": "Answer", text: "Да, можно оставить GetPay для оплаты картами, а рассрочки и сплиты подключить напрямую для экономии на комиссиях." } },
+      ],
+    });
+
+    return () => {
+      document.getElementById("ld-breadcrumb-payments")?.remove();
+      document.getElementById("ld-faq-payments")?.remove();
+    };
   }, []);
 
   return (
