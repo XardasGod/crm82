@@ -21,6 +21,9 @@ const BlogPage = lazy(() => import("./pages/BlogPage"));
 const IntegrationsPage = lazy(() => import("./pages/IntegrationsPage"));
 const ArticlePage = lazy(() => import("./pages/ArticlePage"));
 const OfferPage = lazy(() => import("./pages/OfferPage"));
+const MoscowPage = lazy(() => import("./pages/CityPage").then(m => ({ default: m.MoscowPage })));
+const SaintPetersburgPage = lazy(() => import("./pages/CityPage").then(m => ({ default: m.SaintPetersburgPage })));
+const TyumenPage = lazy(() => import("./pages/CityPage").then(m => ({ default: m.TyumenPage })));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -49,6 +52,9 @@ const App = () => (
             <Route path="/integrations" element={<IntegrationsPage />} />
             <Route path="/blog/:slug" element={<ArticlePage />} />
             <Route path="/oferta" element={<OfferPage />} />
+            <Route path="/moscow" element={<MoscowPage />} />
+            <Route path="/saint-petersburg" element={<SaintPetersburgPage />} />
+            <Route path="/tyumen" element={<TyumenPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
