@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
+import { ServiceFaq } from "@/components/ServiceFaq";
 import { CreditCard, Percent, Receipt, ArrowRight, CheckCircle2, Wallet, SplitSquareHorizontal, Landmark, Banknote, Mail, Repeat, Building2, ArrowLeft, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { InView } from "@/components/InView";
