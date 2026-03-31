@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
+import { ServiceFaq } from "@/components/ServiceFaq";
 import { Link } from "react-router-dom";
 import { InView } from "@/components/InView";
 import { getOgImageUrl } from "@/lib/og-image";
@@ -280,6 +281,13 @@ const SpeechAnalyticsPage = () => {
       </section>
 
       {/* Form */}
+      <ServiceFaq faqs={[
+        { q: "Как работает речевая аналитика в amoCRM?", a: "Виджет Voice AI автоматически транскрибирует звонки в текст и анализирует их с помощью ИИ: выявляет ошибки менеджеров, конфликтные ситуации, собирает данные о потребностях клиентов." },
+        { q: "Сколько стоит внедрение речевой аналитики?", a: "Стоимость внедрения — от 50 000 ₽. Дополнительно оплачивается абонентская плата за токены виджета, которая зависит от объёма звонков. 50 минут предоставляется бесплатно для теста." },
+        { q: "Анализирует ли ИИ все звонки или выборочно?", a: "ИИ анализирует 100% звонков автоматически, в отличие от ручного прослушивания, где обычно проверяется лишь 3-5% от общего объёма." },
+        { q: "Какие данные можно извлечь из звонков?", a: "Частые вопросы клиентов, боли и потребности ЦА, возражения, качество работы менеджеров, соблюдение скриптов, эмоциональный тон разговора." },
+      ]} />
+
       <section id="speech-form" className="py-20 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 flex flex-col items-center">
           <InView animation="anim-hidden-up" className="text-center mb-10">

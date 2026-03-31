@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
+import { ServiceFaq } from "@/components/ServiceFaq";
 import { CreditCard, Percent, Receipt, ArrowRight, CheckCircle2, Wallet, SplitSquareHorizontal, Landmark, Banknote, Mail, Repeat, Building2, ArrowLeft, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { InView } from "@/components/InView";
@@ -53,7 +54,20 @@ const PaymentsPage = () => {
       ],
     });
 
-    return () => { document.getElementById("ld-breadcrumb-payments")?.remove(); };
+    addJsonLd("ld-faq-payments", {
+      "@context": "https://schema.org", "@type": "FAQPage",
+      mainEntity: [
+        { "@type": "Question", name: "Зачем подключать платёжные системы напрямую?", acceptedAnswer: { "@type": "Answer", text: "Подключение напрямую позволяет сэкономить от 3 до 7% комиссии, которую доначисляет платёжный модуль GetPay в GetCourse." } },
+        { "@type": "Question", name: "Какие платёжные системы можно подключить?", acceptedAnswer: { "@type": "Answer", text: "ЮKassa, Долями (Тинькофф), Яндекс Сплит, Сбербанк «В рассрочку», Подели, Продамус, Тинькофф эквайринг, ОТП Банк и другие." } },
+        { "@type": "Question", name: "Будут ли автоматически выдаваться чеки?", acceptedAnswer: { "@type": "Answer", text: "Да, мы настроим автоматическую выдачу чеков ОФД для всех подключённых платёжных систем." } },
+        { "@type": "Question", name: "Можно ли совместить GetPay и прямое подключение?", acceptedAnswer: { "@type": "Answer", text: "Да, можно оставить GetPay для оплаты картами, а рассрочки и сплиты подключить напрямую для экономии на комиссиях." } },
+      ],
+    });
+
+    return () => {
+      document.getElementById("ld-breadcrumb-payments")?.remove();
+      document.getElementById("ld-faq-payments")?.remove();
+    };
   }, []);
 
   return (
@@ -147,6 +161,13 @@ const PaymentsPage = () => {
           <PaymentsCalculator />
         </div>
       </section>
+
+      <ServiceFaq faqs={[
+        { q: "Зачем подключать платёжные системы напрямую?", a: "Подключение напрямую позволяет сэкономить от 3 до 7% комиссии, которую доначисляет платёжный модуль GetPay в GetCourse." },
+        { q: "Какие платёжные системы можно подключить?", a: "ЮKassa, Долями (Тинькофф), Яндекс Сплит, Сбербанк «В рассрочку», Подели, Продамус, Тинькофф эквайринг, ОТП Банк и другие." },
+        { q: "Будут ли автоматически выдаваться чеки?", a: "Да, мы настроим автоматическую выдачу чеков ОФД для всех подключённых платёжных систем." },
+        { q: "Можно ли совместить GetPay и прямое подключение?", a: "Да, можно оставить GetPay для оплаты картами, а рассрочки и сплиты подключить напрямую для экономии на комиссиях." },
+      ]} />
 
       <section id="payments-form" className="py-20 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 flex flex-col items-center">

@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { Link } from "react-router-dom";
+import { ServiceFaq } from "@/components/ServiceFaq";
 import { InView } from "@/components/InView";
 import { getOgImageUrl } from "@/lib/og-image";
 import {
@@ -168,6 +169,13 @@ const AutomationPage = () => {
           </div>
         </div>
       </section>
+
+      <ServiceFaq faqs={[
+        { q: "Что можно автоматизировать в amoCRM?", a: "Автозадачи, авторассылки (email, SMS), чат-боты в мессенджерах, Digital Pipeline, уведомления руководителю, интеграции с 1С, сайтом и другими сервисами." },
+        { q: "Насколько автоматизация увеличивает продажи?", a: "По нашему опыту, автоматизация процессов в amoCRM увеличивает конверсию до 40% и экономит менеджерам более 2 часов в день за счёт устранения рутинных операций." },
+        { q: "Можно ли подключить чат-бота к WhatsApp и Telegram?", a: "Да, мы настраиваем чат-ботов для WhatsApp, Telegram и виджета на сайте. Боты квалифицируют лидов, отвечают на частые вопросы и передают горячих клиентов менеджерам." },
+        { q: "Как быстро окупается автоматизация?", a: "Обычно автоматизация окупается в первый месяц за счёт сокращения потерь лидов и увеличения скорости обработки заявок." },
+      ]} />
 
       <section id="automation-form" className="py-20 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 flex flex-col items-center">

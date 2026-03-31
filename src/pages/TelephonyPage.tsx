@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { Link } from "react-router-dom";
+import { ServiceFaq } from "@/components/ServiceFaq";
 import { InView } from "@/components/InView";
 import { getOgImageUrl } from "@/lib/og-image";
 import {
@@ -168,6 +169,13 @@ const TelephonyPage = () => {
           </div>
         </div>
       </section>
+
+      <ServiceFaq faqs={[
+        { q: "Какую телефонию можно подключить к amoCRM?", a: "Мы интегрируем Sipuni, UIS/CoMagic, Mango Office, Билайн Бизнес, МТС Exolve и любые другие АТС с поддержкой SIP-протокола." },
+        { q: "Будут ли записываться звонки?", a: "Да, все звонки записываются и прикрепляются к карточке сделки в amoCRM. Вы можете прослушать любой разговор прямо из CRM." },
+        { q: "Создаются ли сделки автоматически при входящем звонке?", a: "Да, при входящем звонке от нового клиента автоматически создаётся контакт и сделка в amoCRM. Для существующих клиентов звонок привязывается к их карточке." },
+        { q: "Сколько стоит интеграция телефонии?", a: "Стоимость зависит от выбранного провайдера и сложности настройки. Оставьте заявку — подберём оптимальное решение и рассчитаем стоимость." },
+      ]} />
 
       <section id="telephony-form" className="py-20 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 flex flex-col items-center">

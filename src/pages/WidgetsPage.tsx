@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { Puzzle, ArrowRight, Play, Crown, Gift, Shuffle, Users, Palette, Webhook, EyeOff, MessageCircle, Code2, Clock, ArrowLeft, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { ServiceFaq } from "@/components/ServiceFaq";
 import { InView } from "@/components/InView";
 import { getOgImageUrl } from "@/lib/og-image";
 
@@ -174,6 +175,12 @@ const WidgetsPage = () => {
           </div>
         </div>
       </section>
+
+      <ServiceFaq faqs={[
+        { q: "Есть ли бесплатный тестовый период у виджетов?", a: "Да, все платные виджеты предоставляют 14 дней бесплатного тестового периода. Бесплатные виджеты работают без ограничений." },
+        { q: "Как установить виджет в amoCRM?", a: "Нажмите кнопку «Установить» на странице виджета — вы будете перенаправлены на страницу авторизации amoCRM. После подтверждения виджет автоматически установится в ваш аккаунт." },
+        { q: "Можно ли разработать виджет под наши задачи?", a: "Да, мы разрабатываем кастомные виджеты для amoCRM под индивидуальные задачи бизнеса. Оставьте заявку — обсудим ваши требования." },
+      ]} />
 
       <section className="py-20 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 flex flex-col items-center">

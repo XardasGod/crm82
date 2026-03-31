@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { Link } from "react-router-dom";
+import { ServiceFaq } from "@/components/ServiceFaq";
 import { InView } from "@/components/InView";
 import { getOgImageUrl } from "@/lib/og-image";
 import {
@@ -162,6 +163,13 @@ const SetupAmocrmPage = () => {
           </div>
         </div>
       </section>
+
+      <ServiceFaq faqs={[
+        { q: "Сколько времени занимает настройка amoCRM?", a: "Стандартная настройка amoCRM под ключ занимает от 5 до 14 рабочих дней в зависимости от сложности процессов и количества интеграций." },
+        { q: "Что входит в настройку amoCRM под ключ?", a: "Аудит бизнес-процессов, проектирование воронок продаж, настройка полей и тегов, автоматизация действий, интеграция с телефонией и мессенджерами, обучение команды и поддержка после запуска." },
+        { q: "Нужно ли покупать лицензию amoCRM отдельно?", a: "Да, лицензия amoCRM оплачивается отдельно. Мы поможем выбрать оптимальный тариф и получить максимальную скидку как сертифицированный партнёр." },
+        { q: "Можно ли настроить amoCRM для нескольких отделов?", a: "Да, мы настраиваем мульти-воронки для разных отделов с индивидуальными правами доступа, полями и автоматизацией для каждого подразделения." },
+      ]} />
 
       <section id="setup-form" className="py-20 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 flex flex-col items-center">
