@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 import { Link } from "react-router-dom";
 import { ServiceFaq } from "@/components/ServiceFaq";
+import { CrmCalculator } from "@/components/CrmCalculator";
 import { InView } from "@/components/InView";
 import { getOgImageUrl } from "@/lib/og-image";
 import {
@@ -163,6 +164,9 @@ const SetupAmocrmPage = () => {
           </div>
         </div>
       </section>
+
+
+      <CrmCalculator />
 
       <ServiceFaq faqs={[
         { q: "Сколько времени занимает настройка amoCRM?", a: "Стандартная настройка amoCRM под ключ занимает от 5 до 14 рабочих дней в зависимости от сложности процессов и количества интеграций." },
