@@ -27,6 +27,36 @@ const renderContent = (content: string) => {
   });
 };
 
+/** Check if content has HTML blocks (tables, etc.) and render accordingly */
+const hasHtmlBlock = (content: string) => /<table[\s>]/i.test(content);
+
+const renderSectionContent = (content: string) => {
+  if (!hasHtmlBlock(content)) {
+    return (
+      <div className="text-muted-foreground leading-relaxed whitespace-pre-line text-[15px]">
+        {renderContent(content)}
+      </div>
+    );
+  }
+  // Split content by HTML blocks, render text parts normally and HTML via dangerouslySetInnerHTML
+  const parts = content.split(/(<table[\s\S]*?<\/table>)/gi);
+  return (
+    <div className="text-muted-foreground leading-relaxed text-[15px] space-y-4">
+      {parts.map((part, i) =>
+        /<table[\s>]/i.test(part) ? (
+          <div
+            key={i}
+            className="overflow-x-auto my-6 rounded-xl border border-border"
+            dangerouslySetInnerHTML={{ __html: part }}
+          />
+        ) : (
+          <div key={i} className="whitespace-pre-line">{renderContent(part)}</div>
+        )
+      )}
+    </div>
+  );
+};
+
 const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const article = slug ? getArticleBySlug(slug) : undefined;
@@ -126,9 +156,7 @@ const ArticlePage = () => {
                   <h2 className="text-xl md:text-2xl font-bold text-foreground font-display mb-4 scroll-mt-24">
                     {section.heading}
                   </h2>
-                  <div className="text-muted-foreground leading-relaxed whitespace-pre-line text-[15px]">
-                    {renderContent(section.content)}
-                  </div>
+                  {renderSectionContent(section.content)}
                 </div>
               </InView>
             ))}
