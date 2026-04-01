@@ -157,10 +157,12 @@ const Index = () => {
     addJsonLd("ld-local-business", localBusinessSchema);
     addJsonLd("ld-faq", faqSchema);
     addJsonLd("ld-breadcrumb", breadcrumbSchema);
+    addJsonLd("ld-reviews", reviewsSchema);
     return () => {
       document.getElementById("ld-local-business")?.remove();
       document.getElementById("ld-faq")?.remove();
       document.getElementById("ld-breadcrumb")?.remove();
+      document.getElementById("ld-reviews")?.remove();
     };
   }, []);
 
