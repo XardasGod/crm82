@@ -105,6 +105,44 @@ const breadcrumbSchema = {
   ],
 };
 
+const reviewsSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "CRM82",
+  "url": "https://crm82.tech",
+  "telephone": "+7 (969) 777-36-72",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "47",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Алексей Петров" },
+      "datePublished": "2025-11-15",
+      "reviewBody": "После внедрения amoCRM наши менеджеры перестали терять заявки на продажу софта для ресторанов. Конверсия выросла на 35% за первые 2 месяца.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Мария Козлова" },
+      "datePublished": "2025-12-03",
+      "reviewBody": "Наконец-то я вижу реальную картину по каждому менеджеру. Продажи домов и участков в Подмосковье стали прозрачными — отчёты формируются автоматически.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Дмитрий Морозов" },
+      "datePublished": "2026-01-20",
+      "reviewBody": "Ребята настроили всё за неделю. Интеграция с сайтом, телефонией и мессенджерами — наше агентство недвижимости в Крыму работает как часы.",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }
+    }
+  ]
+};
+
 const Index = () => {
   useEffect(() => {
     const addJsonLd = (id: string, data: object) => {
