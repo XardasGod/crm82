@@ -1,15 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { BenefitsSection } from "@/components/BenefitsSection";
-import { ProcessSection } from "@/components/ProcessSection";
-import { CasesSection } from "@/components/CasesSection";
-import { CertificateSection } from "@/components/CertificateSection";
-import { TestimonialsSection } from "@/components/TestimonialsSection";
-import { FaqSection } from "@/components/FaqSection";
-import { CtaSection } from "@/components/CtaSection";
-import { SeoTextSection } from "@/components/SeoTextSection";
-import { Footer } from "@/components/Footer";
+
+const ProcessSection = lazy(() => import("@/components/ProcessSection").then(m => ({ default: m.ProcessSection })));
+const CasesSection = lazy(() => import("@/components/CasesSection").then(m => ({ default: m.CasesSection })));
+const CertificateSection = lazy(() => import("@/components/CertificateSection").then(m => ({ default: m.CertificateSection })));
+const TestimonialsSection = lazy(() => import("@/components/TestimonialsSection").then(m => ({ default: m.TestimonialsSection })));
+const FaqSection = lazy(() => import("@/components/FaqSection").then(m => ({ default: m.FaqSection })));
+const CtaSection = lazy(() => import("@/components/CtaSection").then(m => ({ default: m.CtaSection })));
+const SeoTextSection = lazy(() => import("@/components/SeoTextSection").then(m => ({ default: m.SeoTextSection })));
+const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
