@@ -156,9 +156,7 @@ const ArticlePage = () => {
                   <h2 className="text-xl md:text-2xl font-bold text-foreground font-display mb-4 scroll-mt-24">
                     {section.heading}
                   </h2>
-                  <div className="text-muted-foreground leading-relaxed whitespace-pre-line text-[15px]">
-                    {renderContent(section.content)}
-                  </div>
+                  {renderSectionContent(section.content)}
                 </div>
               </InView>
             ))}
