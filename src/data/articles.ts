@@ -737,7 +737,6 @@ export const articles: Article[] = [
     ],
     relatedCases: ["konsalting", "strakhovaniye", "imperialexpert"],
     relatedArticles: ["integratsiya-amocrm-whatsapp", "integratsiya-amocrm-telegram", "integratsiya-amocrm-wazzup"]
-  }
   },
   {
     slug: "amocrm-vs-bitrix24",
