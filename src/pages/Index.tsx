@@ -172,14 +172,16 @@ const Index = () => {
       <Header />
       <HeroSection />
       <BenefitsSection />
-      <ProcessSection />
-      <CasesSection />
-      <CertificateSection />
-      <TestimonialsSection />
-      <FaqSection />
-      <CtaSection />
-      <SeoTextSection />
-      <Footer />
+      <Suspense fallback={<div className="min-h-[200px]" />}>
+        <ProcessSection />
+        <CasesSection />
+        <CertificateSection />
+        <TestimonialsSection />
+        <FaqSection />
+        <CtaSection />
+        <SeoTextSection />
+        <Footer />
+      </Suspense>
     </main>
   );
 };
