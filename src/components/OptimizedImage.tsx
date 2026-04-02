@@ -1,3 +1,5 @@
+import { forwardRef } from "react";
+
 interface OptimizedImageProps {
   src: string;
   webpSrc?: string;
@@ -9,7 +11,7 @@ interface OptimizedImageProps {
   fetchPriority?: "high" | "low" | "auto";
 }
 
-export const OptimizedImage = ({
+export const OptimizedImage = forwardRef<HTMLPictureElement, OptimizedImageProps>(({
   src,
   webpSrc,
   alt,
@@ -18,9 +20,9 @@ export const OptimizedImage = ({
   height,
   loading = "lazy",
   fetchPriority,
-}: OptimizedImageProps) => {
+}, ref) => {
   return (
-    <picture>
+    <picture ref={ref}>
       {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
       <img
         src={src}
@@ -34,4 +36,5 @@ export const OptimizedImage = ({
       />
     </picture>
   );
-};
+});
+OptimizedImage.displayName = "OptimizedImage";
