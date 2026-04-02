@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { useInView } from "@/hooks/useInView";
 import { cn } from "@/lib/utils";
 
@@ -7,12 +8,12 @@ interface InViewProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-export const InView = ({
+export const InView = forwardRef<HTMLDivElement, InViewProps>(({
   animation = "anim-hidden",
   className,
   children,
   ...props
-}: InViewProps) => {
+}, _ref) => {
   const { ref, inView } = useInView();
 
   return (
@@ -24,4 +25,5 @@ export const InView = ({
       {children}
     </div>
   );
-};
+});
+InView.displayName = "InView";
