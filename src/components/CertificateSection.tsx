@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { X } from "lucide-react";
 import certificateAmo from "@/assets/certificate-amocrm.jpg";
 import certificateAmoWebp from "@/assets/certificate-amocrm.jpg?format=webp";
