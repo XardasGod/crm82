@@ -42,7 +42,7 @@ export const CertificateSection = forwardRef<HTMLElement>((_props, ref) => {
 
   return (
     <>
-      <section className="py-24 bg-background" id="certificate">
+      <section ref={ref} className="py-24 bg-background" id="certificate">
         <div className="container mx-auto px-4">
           <InView animation="anim-hidden-up" className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4 font-display">
