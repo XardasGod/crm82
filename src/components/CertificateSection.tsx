@@ -110,4 +110,5 @@ export const CertificateSection = forwardRef<HTMLElement>((_props, ref) => {
       )}
     </>
   );
-};
+});
+CertificateSection.displayName = "CertificateSection";

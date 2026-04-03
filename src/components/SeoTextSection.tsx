@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { ChevronDown } from "lucide-react";
 
-export const SeoTextSection = () => {
+export const SeoTextSection = forwardRef<HTMLElement>((_props, ref) => {
   const [expanded, setExpanded] = useState(false);
 
   return (

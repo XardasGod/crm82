@@ -10,7 +10,7 @@ const steps = [
 
 export const ProcessSection = forwardRef<HTMLElement>((_props, ref) => {
   return (
-    <section className="py-24 bg-muted/50" id="process">
+    <section ref={ref} className="py-24 bg-muted/50" id="process">
       <div className="container mx-auto px-4">
         <InView animation="anim-hidden-up" className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4 font-display">

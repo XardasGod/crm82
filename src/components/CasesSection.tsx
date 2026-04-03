@@ -88,4 +88,5 @@ export const CasesSection = forwardRef<HTMLElement>((_props, ref) => {
       </div>
     </section>
   );
-};
+});
+CasesSection.displayName = "CasesSection";

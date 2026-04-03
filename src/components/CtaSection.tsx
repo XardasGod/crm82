@@ -1,7 +1,8 @@
+import { forwardRef } from "react";
 import { Button } from "@/components/ui/button";
 import { InView } from "./InView";
 
-export const CtaSection = () => {
+export const CtaSection = forwardRef<HTMLElement>((_props, ref) => {
   const scrollToForm = () => {
     const form = document.getElementById("lead-form");
     if (form) {

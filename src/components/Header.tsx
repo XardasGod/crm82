@@ -29,7 +29,7 @@ const serviceLinks = [
   { href: "/blog", label: "Блог" },
 ];
 
-export const Header = () => {
+export const Header = forwardRef<HTMLElement>((_props, ref) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
