@@ -37,7 +37,7 @@ const certificates: Certificate[] = [
   },
 ];
 
-export const CertificateSection = () => {
+export const CertificateSection = forwardRef<HTMLElement>((_props, ref) => {
   const [selected, setSelected] = useState<Certificate | null>(null);
 
   return (
