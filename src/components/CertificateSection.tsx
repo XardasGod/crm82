@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import { X } from "lucide-react";
 import certificateAmo from "@/assets/certificate-amocrm.jpg";
 import certificateAmoWebp from "@/assets/certificate-amocrm.jpg?format=webp";
@@ -37,12 +37,12 @@ const certificates: Certificate[] = [
   },
 ];
 
-export const CertificateSection = () => {
+export const CertificateSection = forwardRef<HTMLElement>((_props, ref) => {
   const [selected, setSelected] = useState<Certificate | null>(null);
 
   return (
     <>
-      <section className="py-24 bg-background" id="certificate">
+      <section ref={ref} className="py-24 bg-background" id="certificate">
         <div className="container mx-auto px-4">
           <InView animation="anim-hidden-up" className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4 font-display">
@@ -110,4 +110,5 @@ export const CertificateSection = () => {
       )}
     </>
   );
-};
+});
+CertificateSection.displayName = "CertificateSection";

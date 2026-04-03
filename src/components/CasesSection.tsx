@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, forwardRef } from "react";
 import { ArrowRight, TrendingUp, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { caseStudies } from "@/data/cases";
@@ -7,7 +7,7 @@ import { InView } from "./InView";
 
 const VISIBLE_COUNT = 6;
 
-export const CasesSection = () => {
+export const CasesSection = forwardRef<HTMLElement>((_props, ref) => {
   const [showAll, setShowAll] = useState(false);
   const visibleCases = useMemo(
     () => (showAll ? caseStudies : caseStudies.slice(0, VISIBLE_COUNT)),
@@ -16,7 +16,7 @@ export const CasesSection = () => {
   const hasMore = caseStudies.length > VISIBLE_COUNT;
 
   return (
-    <section className="py-24 bg-muted/30" id="cases">
+    <section ref={ref} className="py-24 bg-muted/30" id="cases">
       <div className="container mx-auto px-4">
         <InView animation="anim-hidden-up" className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4 font-display">
@@ -88,4 +88,5 @@ export const CasesSection = () => {
       </div>
     </section>
   );
-};
+});
+CasesSection.displayName = "CasesSection";

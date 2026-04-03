@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, forwardRef } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,7 +29,7 @@ const serviceLinks = [
   { href: "/blog", label: "Блог" },
 ];
 
-export const Header = () => {
+export const Header = forwardRef<HTMLElement>((_props, ref) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -171,4 +171,5 @@ export const Header = () => {
        )}
     </header>
   );
-};
+});
+Header.displayName = "Header";

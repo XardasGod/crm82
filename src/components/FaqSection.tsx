@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -29,9 +30,9 @@ const faqs = [
   },
 ];
 
-export const FaqSection = () => {
+export const FaqSection = forwardRef<HTMLElement>((_props, ref) => {
   return (
-    <section className="py-24 bg-muted/50" id="faq">
+    <section ref={ref} className="py-24 bg-muted/50" id="faq">
       <div className="container mx-auto px-4 max-w-3xl">
         <InView animation="anim-hidden-up" className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-4 font-display">
@@ -60,4 +61,5 @@ export const FaqSection = () => {
       </div>
     </section>
   );
-};
+});
+FaqSection.displayName = "FaqSection";

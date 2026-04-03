@@ -1,8 +1,9 @@
+import { forwardRef } from "react";
 import { Send, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { InView } from "./InView";
 
-export const Footer = () => {
+export const Footer = forwardRef<HTMLElement>((_props, ref) => {
   return (
     <InView as="footer" animation="anim-hidden-up" className="bg-foreground/[0.03] border-t border-border py-10 pb-24 md:pb-10">
       <div className="container mx-auto px-4">
@@ -73,4 +74,5 @@ export const Footer = () => {
       </div>
     </InView>
   );
-};
+});
+Footer.displayName = "Footer";

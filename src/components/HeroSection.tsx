@@ -1,9 +1,10 @@
+import { forwardRef } from "react";
 import heroCrm from "@/assets/hero-crm.jpg";
 import heroCrmWebp from "@/assets/hero-crm.jpg?format=webp";
 import { LeadForm } from "./LeadForm";
 import { OptimizedImage } from "./OptimizedImage";
 
-export const HeroSection = () => {
+export const HeroSection = forwardRef<HTMLElement>((_props, ref) => {
   return (
     <section className="hero-gradient relative overflow-hidden min-h-screen flex items-center">
       {/* Subtle grid overlay */}
@@ -61,4 +62,5 @@ export const HeroSection = () => {
       </div>
     </section>
   );
-};
+});
+HeroSection.displayName = "HeroSection";
