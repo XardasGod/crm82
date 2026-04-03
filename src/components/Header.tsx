@@ -171,4 +171,5 @@ export const Header = forwardRef<HTMLElement>((_props, ref) => {
        )}
     </header>
   );
-};
+});
+Header.displayName = "Header";

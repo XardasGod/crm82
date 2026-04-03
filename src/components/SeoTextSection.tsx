@@ -51,4 +51,5 @@ export const SeoTextSection = forwardRef<HTMLElement>((_props, ref) => {
       </div>
     </section>
   );
-};
+});
+SeoTextSection.displayName = "SeoTextSection";

@@ -97,4 +97,5 @@ export const TestimonialsSection = forwardRef<HTMLElement>((_props, ref) => {
       </div>
     </section>
   );
-};
+});
+TestimonialsSection.displayName = "TestimonialsSection";

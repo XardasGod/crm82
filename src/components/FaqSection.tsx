@@ -61,4 +61,5 @@ export const FaqSection = forwardRef<HTMLElement>((_props, ref) => {
       </div>
     </section>
   );
-};
+});
+FaqSection.displayName = "FaqSection";

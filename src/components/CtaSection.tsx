@@ -37,4 +37,5 @@ export const CtaSection = forwardRef<HTMLElement>((_props, ref) => {
       </div>
     </section>
   );
-};
+});
+CtaSection.displayName = "CtaSection";

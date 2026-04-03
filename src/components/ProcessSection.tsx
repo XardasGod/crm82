@@ -42,4 +42,5 @@ export const ProcessSection = forwardRef<HTMLElement>((_props, ref) => {
       </div>
     </section>
   );
-};
+});
+ProcessSection.displayName = "ProcessSection";

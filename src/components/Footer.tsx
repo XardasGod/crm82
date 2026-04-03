@@ -74,4 +74,5 @@ export const Footer = forwardRef<HTMLElement>((_props, ref) => {
       </div>
     </InView>
   );
-};
+});
+Footer.displayName = "Footer";
