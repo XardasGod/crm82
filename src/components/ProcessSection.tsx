@@ -8,7 +8,7 @@ const steps = [
   { number: "04", title: "Поддержка", description: "Сопровождаем 30 дней после запуска и оптимизируем процессы" },
 ];
 
-export const ProcessSection = () => {
+export const ProcessSection = forwardRef<HTMLElement>((_props, ref) => {
   return (
     <section className="py-24 bg-muted/50" id="process">
       <div className="container mx-auto px-4">
