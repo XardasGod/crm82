@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { Star, Building2 } from "lucide-react";
 import { InView } from "./InView";
 
