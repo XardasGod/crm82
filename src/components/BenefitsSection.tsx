@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { TrendingUp, Zap, Users, BarChart3, PhoneCall, Settings } from "lucide-react";
 import { InView } from "./InView";
 
