@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { InView } from "./InView";
 
 const steps = [
