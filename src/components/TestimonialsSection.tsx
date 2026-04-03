@@ -38,7 +38,7 @@ const clients = [
   { name: "ООО «Город Дорог»", desc: "Автошкола в Москве" },
 ];
 
-export const TestimonialsSection = () => {
+export const TestimonialsSection = forwardRef<HTMLElement>((_props, ref) => {
   return (
     <section className="py-24 bg-background" id="reviews">
       <div className="container mx-auto px-4">
