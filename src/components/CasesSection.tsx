@@ -7,7 +7,7 @@ import { InView } from "./InView";
 
 const VISIBLE_COUNT = 6;
 
-export const CasesSection = () => {
+export const CasesSection = forwardRef<HTMLElement>((_props, ref) => {
   const [showAll, setShowAll] = useState(false);
   const visibleCases = useMemo(
     () => (showAll ? caseStudies : caseStudies.slice(0, VISIBLE_COUNT)),
