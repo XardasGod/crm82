@@ -35,7 +35,7 @@ const benefits = [
   },
 ];
 
-export const BenefitsSection = () => {
+export const BenefitsSection = forwardRef<HTMLElement>((_props, ref) => {
   return (
     <section className="py-24 bg-background" id="benefits">
       <div className="container mx-auto px-4">
